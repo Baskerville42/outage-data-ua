@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2025-11-06T17:37:53.102Z",
+  "lastUpdated": "2025-11-06T18:45:48.491Z",
   "fact": {
     "data": {
       "1762380000": {
@@ -51,8 +51,8 @@
           "18": "yes",
           "19": "yes",
           "20": "yes",
-          "21": "no",
-          "22": "no",
+          "21": "first",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "06.11.2025 19:15",
+    "update": "06.11.2025 20:27",
     "today": 1762380000
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "06.11.2025 19:15"
+    "updateFact": "06.11.2025 20:27"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/kyiv-region.html",
-    "at": "2025-11-06T18:27:32.716Z",
-    "attempt": 43
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-06T18:45:48.491Z",
+    "attempt": 44
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "51dfc3667688e4ec2374703daf4ffd14d810b988fff33c22993fa820e55b76e6"
+    "contentHash": "a7fe7ffc245b9f3c869a63108175936b831db3698efe415ab257e7a6eb9dd242"
   }
 }
