@@ -402,6 +402,13 @@
       }
       thead.appendChild(hr);
 
+      // Today-specific icon mapping (nfirst/nsecond only for #today)
+      function stateIconSrcToday(state) {
+        if (state === 'mfirst' || state === 'first') return 'icons/nfirst.svg';
+        if (state === 'msecond' || state === 'second') return 'icons/nsecond.svg';
+        return stateIconSrc(state);
+      }
+
       // Helper to render a single row by day epoch key
       function renderRow(label, dayEpoch) {
         const tr = document.createElement('tr');
@@ -419,7 +426,7 @@
           const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
           const desc = raw ? (preset.time_type?.[raw] || raw) : '';
           if (desc) td.title = label + ' ' + timeLabel + ' — ' + desc;
-          const iconSrc = raw ? stateIconSrc(raw) : null;
+          const iconSrc = raw ? stateIconSrcToday(raw) : null;
           if (iconSrc) {
             const img = document.createElement('img');
             img.className = 'cell-icon';
