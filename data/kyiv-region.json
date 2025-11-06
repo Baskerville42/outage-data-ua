@@ -2,7 +2,7 @@
   "regionId": "kyiv-region",
   "regionName": null,
   "regionType": null,
-  "lastUpdated": "2025-11-06T09:37:57.170Z",
+  "lastUpdated": "2025-11-06T09:50:48.624Z",
   "data": {
     "1762380000": {
       "GPV1.1": {
@@ -638,8 +638,8 @@
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-11-06T09:37:57.170Z",
-    "attempt": 9
+    "at": "2025-11-06T09:50:48.623Z",
+    "attempt": 10
   },
   "meta": {
     "schemaVersion": "1.0.0",
