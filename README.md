@@ -74,7 +74,8 @@ REGION_SOURCES_JSON='{
 
 Варіант A — Playwright (рекомендовано, ідентична поведінка до CI):
 ```bash
-# одноразово встановити браузерні бінарах і залежності
+# одноразово встановити npm-пакет Playwright та браузерні бінарники з залежностями
+npm i --no-save playwright
 npx playwright install --with-deps chromium
 
 # завантажити всі регіони (використовує REGION_SOURCES_JSON з .env або змінних середовища)

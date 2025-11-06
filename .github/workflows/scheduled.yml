@@ -64,6 +64,9 @@ jobs:
           if ! command -v node >/dev/null 2>&1; then
             echo "[INFO] Node.js not found in PATH, installing via setup-node is recommended earlier in the job" >&2
           fi
+          echo "[INFO] Installing Playwright npm package"
+          npm i --no-save playwright
+          echo "[INFO] Installing Playwright Chromium runtime"
           npx --yes playwright install --with-deps chromium
 
           # If REGION is set — pass it to the script; otherwise fetch all
