@@ -2,7 +2,7 @@
   "regionId": "dnipro",
   "regionName": null,
   "regionType": null,
-  "lastUpdated": "2025-11-06T09:50:48.585Z",
+  "lastUpdated": "2025-11-06T10:25:44.907Z",
   "data": {
     "1762380000": {
       "GPV1.1": {
@@ -634,12 +634,12 @@
     }
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/dnipro.html",
-    "at": "2025-11-06T10:07:24.908Z",
-    "attempt": 11
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-06T10:25:44.906Z",
+    "attempt": 12
   },
   "meta": {
     "schemaVersion": "1.0.0",
