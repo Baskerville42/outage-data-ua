@@ -634,12 +634,12 @@
     }
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2025-11-06T08:48:27.151Z",
-    "attempt": 4
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in outputs/kyiv.html",
+    "at": "2025-11-06T08:52:07.551Z",
+    "attempt": 5
   },
   "meta": {
     "schemaVersion": "1.0.0",
