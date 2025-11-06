@@ -8,10 +8,12 @@
 
 ## Що всередині
 - Скрипти Bash/Node.js для:
-    - отримання HTML сторінок з максимально «браузероподібними» заголовками (`scripts/fetch_regions.sh`)
+    - отримання HTML сторінок:
+      - через Playwright (headless Chromium) — `scripts/fetch_regions_playwright.mjs` (основний спосіб у CI)
+      - через `curl` з «браузероподібними» заголовками — `scripts/fetch_regions.sh` (швидкий локальний варіант)
     - парсингу значення `DisconSchedule.fact` зі сторінки і нормалізації у JSON (`scripts/parse_regions.sh`, `scripts/parse_fact.js`)
 - Конвеєр GitHub Actions, що кожні 15 хвилин:
-    1) завантажує сторінки для кожного регіону
+    1) за допомогою Playwright завантажує сторінки для кожного регіону
     2) парсить дані та оновлює `data/<region>.json`
     3) комітить і пушить зміни у `main` (якщо файли змінилися)
 
@@ -68,21 +70,34 @@ REGION_SOURCES_JSON='{
 ---
 
 ## Локальний запуск
-Передумови: `jq`, `curl`, `Node.js 18+`.
+Передумови: `Node.js 18+`, `jq`. Для варіанта з `curl` — ще й `curl`.
 
-1) Завантажити HTML:
+Варіант A — Playwright (рекомендовано, ідентична поведінка до CI):
+```bash
+# одноразово встановити браузерні бінарах і залежності
+npx playwright install --with-deps chromium
+
+# завантажити всі регіони (використовує REGION_SOURCES_JSON з .env або змінних середовища)
+node scripts/fetch_regions_playwright.mjs
+
+# або лише один регіон
+REGION=kyiv node scripts/fetch_regions_playwright.mjs
+# або через аргумент командного рядка
+node scripts/fetch_regions_playwright.mjs kyiv
+```
+HTML зʼявиться у `outputs/<region>.html`.
+
+Варіант B — curl (швидко перевірити локально; може впиратися у WAF):
 ```bash
 scripts/fetch_regions.sh           # усі регіони
 scripts/fetch_regions.sh kyiv      # лише один регіон
-# або
 REGION=kyiv scripts/fetch_regions.sh
 ```
-Файли зʼявляться у `outputs/<region>.html`.
 
-2) Розпарсити у JSON:
+Далі — парсинг у JSON:
 ```bash
-scripts/parse_regions.sh           # усі наявні outputs/*.html
-REGION=kyiv scripts/parse_regions.sh  # лише один регіон
+scripts/parse_regions.sh               # усі наявні outputs/*.html
+REGION=kyiv scripts/parse_regions.sh   # лише один регіон
 ```
 Результат — `data/<region>.json`.
 
@@ -98,8 +113,9 @@ REGION=kyiv scripts/parse_regions.sh  # лише один регіон
 ---
 
 ## Обмеження та антибот
-- Ми імітуємо запит браузера (HTTP/2, `User-Agent`, `Accept-*`, TLS), але складні захисти (Incapsula/JS‑челенджі) можуть блокувати доступ.
-- Якщо замість сторінки приходить WAF‑HTML, парсер виставляє код помилки (напр., 422) і зберігає наявні дані. Розглядається фолбек на безголовий браузер у майбутніх версіях.
+- У CI тепер використовується безголовий браузер (Playwright, Chromium), який виконує JS і встановлює cookies — це допомагає коректно проходити антибот‑перевірки та отримувати «справжній» HTML.
+- Локально ви можете спробувати `scripts/fetch_regions.sh` (посилені заголовки, cookie‑jar, реферер). Якщо сторінка все одно повертає WAF‑HTML — використайте Playwright‑скрипт (див. нижче).
+- Якщо замість сторінки приходить WAF‑HTML, парсер виставляє код помилки (напр., 422) і зберігає наявні дані.
 
 ---
 

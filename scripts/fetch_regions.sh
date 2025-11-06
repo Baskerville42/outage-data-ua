@@ -72,18 +72,60 @@ for r in $REGIONS; do
   tmpfile="${outfile}.tmp"
   echo "[INFO] Fetching region='$r' url=$url"
 
+  UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'
+  CJ='outputs/cookies.txt'
+
+  # Optional warm-up request to set initial cookies on the root domain
+  domain=$(echo "$url" | sed -E 's#https?://([^/]+)/.*#\1#')
+  if [ -n "$domain" ]; then
+    curl --http2 --compressed --tlsv1.2 \
+      -A "$UA" \
+      -e 'https://www.google.com/' \
+      -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+      -H 'Accept-Language: uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7' \
+      -H 'Sec-CH-UA: "Google Chrome";v="128", "Chromium";v="128", ";Not A Brand";v="24"' \
+      -H 'Sec-CH-UA-Mobile: ?0' \
+      -H 'Sec-CH-UA-Platform: "Windows"' \
+      -H 'Sec-Fetch-Dest: document' \
+      -H 'Sec-Fetch-Mode: navigate' \
+      -H 'Sec-Fetch-Site: none' \
+      -H 'Sec-Fetch-User: ?1' \
+      -H 'Upgrade-Insecure-Requests: 1' \
+      -b "$CJ" -c "$CJ" \
+      --silent --show-error --fail --location --max-time 60 \
+      -o /dev/null "https://$domain" || true
+  fi
+
   if curl --http2 --compressed --tlsv1.2 \
     --ciphers 'ECDHE+AESGCM:ECDHE+CHACHA20:HIGH:!aNULL:!MD5:!RC4' \
-    -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36' \
+    -A "$UA" \
     -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
     -H 'Accept-Encoding: gzip, deflate, br, zstd' \
-    -H 'Accept-Language: en-US,en;q=0.9' \
+    -H 'Accept-Language: uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7' \
+    -H 'Cache-Control: no-cache' \
+    -H 'Pragma: no-cache' \
+    -H 'Sec-CH-UA: "Google Chrome";v="128", "Chromium";v="128", ";Not A Brand";v="24"' \
+    -H 'Sec-CH-UA-Mobile: ?0' \
+    -H 'Sec-CH-UA-Platform: "Windows"' \
+    -H 'Sec-Fetch-Dest: document' \
+    -H 'Sec-Fetch-Mode: navigate' \
+    -H 'Sec-Fetch-Site: none' \
+    -H 'Sec-Fetch-User: ?1' \
+    -H 'Upgrade-Insecure-Requests: 1' \
+    -e 'https://www.google.com/' \
     --location \
     --silent --show-error --fail \
+    --retry 3 --retry-connrefused --retry-delay 2 \
     --max-time 90 \
+    -b "$CJ" -c "$CJ" \
+    -D "${outfile}.headers" \
     -o "$tmpfile" \
     "$url"; then
     if [ -s "$tmpfile" ]; then
+      # Quick WAF detection heuristics
+      if grep -Eiq '(incapsula|imperva|_Incapsula_|cf-chl-|attention required|access denied)' "$tmpfile"; then
+        echo "[WARN] Likely WAF/anti-bot page detected for '$r' — content may be unusable"
+      fi
       mv -f "$tmpfile" "$outfile"
       echo "[OK] Saved $outfile ($(wc -c < "$outfile") bytes)"
       ok=$((ok+1))

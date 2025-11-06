@@ -40,10 +40,15 @@ jobs:
             sudo apt-get install -y jq
           fi
 
-      - name: Fetch HTML for each region (skip failures, continue)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch HTML for each region (with Playwright fallback)
         shell: bash
         run: |
-          set -u
+          set -euo pipefail
           echo "Started at $(date -u +"%Y-%m-%dT%H:%M:%SZ") (UTC)"
 
           # Basic validation
@@ -55,58 +60,22 @@ jobs:
 
           mkdir -p outputs
 
-          # Determine regions to process
+          # Setup Node and Playwright (Chromium)
+          if ! command -v node >/dev/null 2>&1; then
+            echo "[INFO] Node.js not found in PATH, installing via setup-node is recommended earlier in the job" >&2
+          fi
+          npx --yes playwright install --with-deps chromium
+
+          # If REGION is set — pass it to the script; otherwise fetch all
           if [ -n "${REGION:-}" ]; then
-            REGIONS="$REGION"
+            echo "[INFO] Running Playwright fetcher for region='$REGION'"
+            node scripts/fetch_regions_playwright.mjs "$REGION" || true
           else
-            REGIONS=$(echo "$REGION_SOURCES_JSON" | jq -r 'keys[]')
+            echo "[INFO] Running Playwright fetcher for all regions"
+            node scripts/fetch_regions_playwright.mjs || true
           fi
 
-          total=0
-          ok=0
-
-          for r in $REGIONS; do
-            total=$((total+1))
-            url=$(echo "$REGION_SOURCES_JSON" | jq -r --arg r "$r" '.[$r] // empty')
-            if [ -z "$url" ] || [ "$url" = "null" ]; then
-              echo "[WARN] No URL configured for region '$r' — skipping"
-              continue
-            fi
-
-            outfile="outputs/${r}.html"
-            tmpfile="${outfile}.tmp"
-            echo "[INFO] Fetching region='$r' url=$url"
-
-            # Use provided curl options to mimic a real browser and bypass anti-bot checks
-            if curl --http2 --compressed --tlsv1.2 \
-              --ciphers 'ECDHE+AESGCM:ECDHE+CHACHA20:HIGH:!aNULL:!MD5:!RC4' \
-              -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36' \
-              -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
-              -H 'Accept-Encoding: gzip, deflate, br, zstd' \
-              -H 'Accept-Language: en-US,en;q=0.9' \
-              --location \
-              --silent --show-error --fail \
-              --max-time 90 \
-              -o "$tmpfile" \
-              "$url"; then
-              if [ -s "$tmpfile" ]; then
-                mv -f "$tmpfile" "$outfile"
-                echo "[OK] Saved $outfile ($(wc -c < "$outfile") bytes)"
-                ok=$((ok+1))
-              else
-                echo "[WARN] Empty response for region '$r' — skipping"
-                rm -f "$tmpfile"
-              fi
-            else
-              code=$?
-              echo "[WARN] curl failed for region '$r' (exit $code) — skipping"
-              rm -f "$tmpfile" 2>/dev/null || true
-              continue
-            fi
-          done
-
-          echo "Done. Regions processed: $total, successful: $ok, skipped: $((total-ok))"
-          # Always succeed overall; per-region failures are allowed.
+          # Always exit 0 to not fail the pipeline on partial fetch issues
           exit 0
 
       - name: Setup Node.js
