@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2025-11-07T05:24:58.430Z",
+  "lastUpdated": "2025-11-07T05:49:30.286Z",
   "fact": {
     "data": {
       "1762466400": {
@@ -3012,12 +3012,12 @@
     "updateFact": "06.11.2025 19:12"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/kyiv.html",
-    "at": "2025-11-07T05:39:08.688Z",
-    "attempt": 80
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-07T05:49:30.286Z",
+    "attempt": 81
   },
   "meta": {
     "schemaVersion": "1.0.0",
