@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2025-11-07T08:53:10.160Z",
+  "lastUpdated": "2025-11-07T09:37:02.100Z",
   "fact": {
     "data": {
       "1762466400": {
@@ -121,8 +121,8 @@
           "10": "yes",
           "11": "no",
           "12": "no",
-          "13": "yes",
-          "14": "yes",
+          "13": "no",
+          "14": "first",
           "15": "yes",
           "16": "yes",
           "17": "yes",
@@ -254,8 +254,8 @@
           "13": "yes",
           "14": "yes",
           "15": "yes",
-          "16": "no",
-          "17": "no",
+          "16": "yes",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -304,10 +304,10 @@
           "11": "yes",
           "12": "yes",
           "13": "yes",
-          "14": "yes",
-          "15": "yes",
-          "16": "yes",
-          "17": "yes",
+          "14": "second",
+          "15": "no",
+          "16": "no",
+          "17": "no",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "07.11.2025 09:51",
+    "update": "07.11.2025 11:15",
     "today": 1762466400
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "07.11.2025 09:51"
+    "updateFact": "07.11.2025 11:15"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/kyiv-region.html",
-    "at": "2025-11-07T09:25:35.756Z",
-    "attempt": 94
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-07T09:37:02.100Z",
+    "attempt": 95
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "f666adb6d91b14d8fb37be833e1c5d33c1556bc636e66a53df918af7556606f2"
+    "contentHash": "a089cd9c4510b708722ab20a582a06bc4e94ac766132c13fa7a48f5f3968ab5f"
   }
 }
