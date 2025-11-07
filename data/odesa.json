@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2025-11-07T09:25:35.838Z",
+  "lastUpdated": "2025-11-07T09:49:42.912Z",
   "fact": {
     "data": {
       "1762466400": {
@@ -3030,12 +3030,12 @@
     "updateFact": "07.11.2025 11:09"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/odesa.html",
-    "at": "2025-11-07T09:37:02.181Z",
-    "attempt": 95
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-07T09:49:42.911Z",
+    "attempt": 96
   },
   "meta": {
     "schemaVersion": "1.0.0",

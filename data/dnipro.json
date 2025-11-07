@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2025-11-07T08:53:10.113Z",
+  "lastUpdated": "2025-11-07T09:49:42.802Z",
   "fact": {
     "data": {
       "1762466400": {
@@ -147,7 +147,7 @@
           "10": "second",
           "11": "no",
           "12": "no",
-          "13": "yes",
+          "13": "no",
           "14": "yes",
           "15": "yes",
           "16": "yes",
@@ -254,8 +254,8 @@
           "13": "yes",
           "14": "yes",
           "15": "yes",
-          "16": "no",
-          "17": "first",
+          "16": "yes",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -304,10 +304,10 @@
           "11": "yes",
           "12": "yes",
           "13": "yes",
-          "14": "yes",
-          "15": "yes",
-          "16": "yes",
-          "17": "yes",
+          "14": "no",
+          "15": "no",
+          "16": "no",
+          "17": "first",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "07.11.2025 10:12",
+    "update": "07.11.2025 11:21",
     "today": 1762466400
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "07.11.2025 10:12"
+    "updateFact": "07.11.2025 11:21"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in outputs/dnipro.html",
-    "at": "2025-11-07T09:37:02.057Z",
-    "attempt": 95
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-07T09:49:42.801Z",
+    "attempt": 96
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "4c0eee2f73290a1b6c90871342c9be14087c8a4ec5ba2a18ea233edccb5343f6"
+    "contentHash": "cef0156a6ff2fde79d03cc64b3df99e314c961207620676fb3a8c84f1bbf7e46"
   }
 }
