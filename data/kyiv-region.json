@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2025-11-07T23:08:12.117Z",
+  "lastUpdated": "2025-11-07T23:49:33.670Z",
   "fact": {
     "data": {
       "1762552800": {
@@ -215,18 +215,18 @@
         "GPV5.1": {
           "1": "second",
           "2": "no",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
           "8": "yes",
           "9": "yes",
           "10": "yes",
-          "11": "second",
-          "12": "no",
-          "13": "no",
-          "14": "no",
+          "11": "yes",
+          "12": "yes",
+          "13": "yes",
+          "14": "yes",
           "15": "yes",
           "16": "yes",
           "17": "yes",
@@ -241,18 +241,18 @@
         "GPV5.2": {
           "1": "second",
           "2": "no",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
           "8": "yes",
           "9": "yes",
           "10": "yes",
-          "11": "second",
-          "12": "no",
-          "13": "no",
-          "14": "no",
+          "11": "yes",
+          "12": "yes",
+          "13": "yes",
+          "14": "yes",
           "15": "yes",
           "16": "yes",
           "17": "yes",
@@ -275,10 +275,10 @@
           "8": "yes",
           "9": "yes",
           "10": "yes",
-          "11": "yes",
-          "12": "yes",
-          "13": "yes",
-          "14": "yes",
+          "11": "second",
+          "12": "no",
+          "13": "no",
+          "14": "no",
           "15": "yes",
           "16": "yes",
           "17": "yes",
@@ -301,10 +301,10 @@
           "8": "yes",
           "9": "yes",
           "10": "yes",
-          "11": "yes",
-          "12": "yes",
-          "13": "yes",
-          "14": "yes",
+          "11": "second",
+          "12": "no",
+          "13": "no",
+          "14": "no",
           "15": "yes",
           "16": "yes",
           "17": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "08.11.2025 00:36",
+    "update": "08.11.2025 01:18",
     "today": 1762552800
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "08.11.2025 00:36"
+    "updateFact": "08.11.2025 01:18"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
-    "at": "2025-11-07T23:35:18.941Z",
-    "attempt": 149
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-07T23:49:33.670Z",
+    "attempt": 150
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "85d126b4c6d26d1fd0b732f4d92683725c500ab0c06c2557c50aa806beb845b0"
+    "contentHash": "0f9a0dd36768a09a18850e5c29b877ad6112ce7b7d3c92f2e07323ebdc4f13dd"
   }
 }
