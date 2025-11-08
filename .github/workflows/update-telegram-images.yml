@@ -8,6 +8,9 @@ on:
 jobs:
   update-images:
     runs-on: ubuntu-latest
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      CHATS_JSON: ${{ vars.CHATS_JSON }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,9 +21,6 @@ jobs:
           node-version: '18'
 
       - name: Run Telegram update script
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHATS_JSON: ${{ vars.CHATS_JSON }}
         run: |
           cat > update-telegram.js <<'EOF'
           // update-telegram.js
@@ -34,7 +34,7 @@ jobs:
             process.exit(2);
           }
           if (!raw) {
-            console.error('ERROR: CHATS_JSON не заданий (збережи як GitHub Secret).');
+            console.error('ERROR: CHATS_JSON не заданий (збережи як Actions Variable).');
             process.exit(3);
           }
 
@@ -53,12 +53,30 @@ jobs:
 
           const API_BASE = `https://api.telegram.org/bot${token}`;
 
+          // Форматування дати у вигляді "YYYY-MM-DD HH:mm"
+          function getTimestamp() {
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            const yyyy = now.getFullYear();
+            const mm = pad(now.getMonth() + 1);
+            const dd = pad(now.getDate());
+            const hh = pad(now.getHours());
+            const mi = pad(now.getMinutes());
+            return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+          }
+
+          function withTimestamp(caption) {
+            const ts = getTimestamp();
+            return caption ? `${caption}\nОновлено: ${ts}` : `Оновлено: ${ts}`;
+          }
+
           async function sendPhoto(chat) {
             const url = `${API_BASE}/sendPhoto`;
+            const caption = withTimestamp(chat.caption);
             const body = {
               chat_id: chat.chat_id,
               photo: chat.image_url,
-              caption: chat.caption || ''
+              caption
             };
             try {
               const res = await fetch(url, {
@@ -82,13 +100,14 @@ jobs:
 
           async function editPhoto(chat) {
             const url = `${API_BASE}/editMessageMedia`;
+            const caption = withTimestamp(chat.caption);
             const payload = {
               chat_id: chat.chat_id,
               message_id: Number(chat.message_id),
               media: {
                 type: "photo",
                 media: chat.image_url,
-                caption: chat.caption || ''
+                caption
               }
             };
             try {
@@ -99,6 +118,11 @@ jobs:
               });
               const json = await res.json();
               if (!json.ok) {
+                // Обробка "message is not modified" як не-критичної ситуації
+                if (json.error_code === 400 && typeof json.description === 'string' && json.description.includes('message is not modified')) {
+                  console.log(`NOT_MODIFIED for ${chat.chat_id}/${chat.message_id} — content same, considered OK.`);
+                  return { ok: true, chat, not_modified: true };
+                }
                 console.error(`editMessageMedia ERROR for ${chat.chat_id}/${chat.message_id}:`, JSON.stringify(json));
                 return { ok: false, chat, json };
               }
@@ -120,7 +144,7 @@ jobs:
               }
 
               if (!c.message_id) {
-                // відправляємо нове фото і логами показуємо message_id
+                // відправляємо нове фото і логом показуємо message_id
                 const r = await sendPhoto(c);
                 results.push(r);
               } else {
@@ -133,13 +157,14 @@ jobs:
               await new Promise(r => setTimeout(r, 600));
             }
 
-            const failed = results.filter(r => !r.ok);
-            if (failed.length) {
-              console.error(`Completed with ${failed.length} failures out of ${results.length}.`);
-              // залишаємо non-zero exit щоб Action маркувався як failed — можеш змінити поведінку
+            // Фільтруємо реальні помилки (ок=false і не "invalid-config")
+            const failures = results.filter(r => !r.ok && r.reason !== 'invalid-config');
+            if (failures.length) {
+              console.error(`Completed with ${failures.length} failures out of ${results.length}.`);
+              // повертаємо невдалий статус, щоб Action показав failure
               process.exit(10);
             } else {
-              console.log('All chats processed successfully.');
+              console.log('All chats processed (success / not-modified / skipped invalid-config).');
             }
           })();
           EOF
