@@ -1,6 +1,9 @@
 // scripts/update-telegram-images.mjs
 // Node 18+ (global fetch available)
 
+import fs from 'node:fs';
+import path from 'node:path';
+
 const token = process.env.BOT_TOKEN;
 const raw = process.env.CHATS_JSON;
 
@@ -25,6 +28,49 @@ if (!Array.isArray(chats) || chats.length === 0) {
   console.error('ERROR: CHATS_JSON має бути масивом з конфігурацією чатів.');
   process.exit(5);
 }
+
+const REPO_ROOT = process.cwd();
+const MAP_FILE = path.join(REPO_ROOT, 'telegram-message-map.json');
+
+// Завантаження мапи chat_id -> { message_id }
+function loadMessageMap() {
+  try {
+    if (!fs.existsSync(MAP_FILE)) return {};
+    const txt = fs.readFileSync(MAP_FILE, 'utf8').trim();
+    if (!txt) return {};
+    const arr = JSON.parse(txt);
+    if (!Array.isArray(arr)) return {};
+    const map = {};
+    for (const item of arr) {
+      if (item && typeof item === 'object') {
+        const [k] = Object.keys(item);
+        if (k) map[k] = item[k];
+      }
+    }
+    return map;
+  } catch (e) {
+    console.error('WARN: Не вдалося прочитати telegram-message-map.json, починаємо з порожньої мапи:', e.message);
+    return {};
+  }
+}
+
+function saveMessageMap(map) {
+  try {
+    // повертаємо той самий формат: масив об'єктів { "chat_id": { message_id } }
+    const keys = Object.keys(map).sort((a, b) => a.localeCompare(b));
+    const arr = keys.map(k => ({ [k]: { message_id: map[k].message_id } }));
+    const json = JSON.stringify(arr, null, 2) + '\n';
+    fs.writeFileSync(MAP_FILE, json, 'utf8');
+    return true;
+  } catch (e) {
+    console.error('ERROR: Не вдалося записати telegram-message-map.json:', e.message);
+    return false;
+  }
+}
+
+
+const messageMap = loadMessageMap();
+let mapDirty = false;
 
 const API_BASE = `https://api.telegram.org/bot${token}`;
 
@@ -114,13 +160,13 @@ async function sendPhoto(chat) {
   }
 }
 
-async function editPhoto(chat) {
+async function editPhoto(chat, messageId) {
   const url = `${API_BASE}/editMessageMedia`;
   const caption = withTimestamp(chat.caption);
   const photoUrl = cacheBustedUrl(chat.image_url);
   const payload = {
     chat_id: chat.chat_id,
-    message_id: Number(chat.message_id),
+    message_id: Number(messageId),
     media: {
       type: 'photo',
       media: photoUrl,
@@ -137,18 +183,24 @@ async function editPhoto(chat) {
     if (!json.ok) {
       // Обробка "message is not modified" як не-критичної ситуації
       if (json.error_code === 400 && typeof json.description === 'string' && json.description.includes('message is not modified')) {
-        console.log(`NOT_MODIFIED for ${chat.chat_id}/${chat.message_id} — content same, considered OK.`);
-        await pinMessage(chat.chat_id, chat.message_id);
+        console.log(`NOT_MODIFIED for ${chat.chat_id}/${messageId} — content same, considered OK.`);
+        await pinMessage(chat.chat_id, messageId);
         return { ok: true, chat, not_modified: true };
       }
-      console.error(`editMessageMedia ERROR for ${chat.chat_id}/${chat.message_id}:`, JSON.stringify(json));
+      // Якщо 400 — наприклад, повідомлення видалене: створюємо нове
+      if (json.error_code === 400) {
+        console.warn(`EDIT 400 for ${chat.chat_id}/${messageId}: ${json.description}. Will send new message.`);
+        const sent = await sendPhoto(chat);
+        return { ...sent, replaced: true };
+      }
+      console.error(`editMessageMedia ERROR for ${chat.chat_id}/${messageId}:`, JSON.stringify(json));
       return { ok: false, chat, json };
     }
-    console.log(`EDITED chat_id=${chat.chat_id} message_id=${chat.message_id} OK`);
-    await pinMessage(chat.chat_id, chat.message_id);
+    console.log(`EDITED chat_id=${chat.chat_id} message_id=${messageId} OK`);
+    await pinMessage(chat.chat_id, messageId);
     return { ok: true, chat, result: json.result };
   } catch (err) {
-    console.error(`Network error editMessageMedia for ${chat.chat_id}/${chat.message_id}:`, err.message);
+    console.error(`Network error editMessageMedia for ${chat.chat_id}/${messageId}:`, err.message);
     return { ok: false, chat, err };
   }
 }
@@ -169,6 +221,16 @@ async function pinMessage(chat_id, message_id) {
 
 (async () => {
   const results = [];
+
+  const setMessageId = (chatId, messageId) => {
+    if (!messageId) return;
+    if (!messageMap[chatId]) messageMap[chatId] = {};
+    if (messageMap[chatId].message_id !== messageId) {
+      messageMap[chatId].message_id = messageId;
+      mapDirty = true;
+    }
+  };
+
   for (const c of chats) {
     if (!c.chat_id || !c.image_url) {
       console.error('SKIP: конфігурація чату має містити chat_id і image_url:', JSON.stringify(c));
@@ -176,18 +238,35 @@ async function pinMessage(chat_id, message_id) {
       continue;
     }
 
-    if (!c.message_id) {
-      // відправляємо нове фото і логом показуємо message_id
+    const known = messageMap[c.chat_id]?.message_id;
+
+    if (!known) {
+      // В мапі немає message_id — відправляємо нове повідомлення і зберігаємо його id
       const r = await sendPhoto(c);
+      if (r.ok && r.message_id) setMessageId(c.chat_id, r.message_id);
       results.push(r);
     } else {
-      // редагуємо існуюче повідомлення
-      const r = await editPhoto(c);
+      // Пробуємо редагувати існуюче повідомлення за відомим message_id
+      const r = await editPhoto(c, known);
+      if (r.ok && r.replaced && r.message_id) {
+        // Під час редагування отримали 400 і створили нове повідомлення — оновлюємо мапу
+        setMessageId(c.chat_id, r.message_id);
+      }
       results.push(r);
     }
 
     // невелика пауза, щоб не спамити API
     await new Promise(r => setTimeout(r, 600));
+  }
+
+  // Якщо мапа змінилася — зберігаємо (коміт і пуш робить GitHub Actions у наступному кроці)
+  if (mapDirty) {
+    const ok = saveMessageMap(messageMap);
+    if (ok) {
+      console.log('Message map saved to telegram-message-map.json.');
+    }
+  } else {
+    console.log('Message map unchanged.');
   }
 
   // Фільтруємо реальні помилки (ок=false і не "invalid-config")

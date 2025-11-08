@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *'   # кожну годину (UTC)
   workflow_dispatch:      # ручний запуск
 
+permissions:
+  contents: write
+
 jobs:
   update-images:
     runs-on: ubuntu-latest
@@ -14,6 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -22,3 +29,16 @@ jobs:
 
       - name: Run Telegram update script
         run: node scripts/update-telegram-images.mjs
+
+      - name: Commit and push message map (if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- telegram-message-map.json; then
+            echo "No changes in telegram-message-map.json"
+          else
+            git add telegram-message-map.json
+            git commit -m "chore(telegram): update message_id map [skip ci]"
+            git pull --rebase
+            git push
+          fi
