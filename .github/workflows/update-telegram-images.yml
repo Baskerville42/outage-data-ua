@@ -23,6 +23,9 @@ jobs:
       - name: Run Telegram update script
         run: |
           cat > update-telegram.js <<'EOF'
+          // update-telegram.js
+          // Node 18+ (global fetch available)
+
           const token = process.env.BOT_TOKEN;
           const raw = process.env.CHATS_JSON;
 
@@ -50,10 +53,16 @@ jobs:
 
           const API_BASE = `https://api.telegram.org/bot${token}`;
 
+          // Форматування дати у вигляді "YYYY-MM-DD HH:mm"
           function getTimestamp() {
             const now = new Date();
             const pad = (n) => n.toString().padStart(2, '0');
-            return `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+            const yyyy = now.getFullYear();
+            const mm = pad(now.getMonth() + 1);
+            const dd = pad(now.getDate());
+            const hh = pad(now.getHours());
+            const mi = pad(now.getMinutes());
+            return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
           }
 
           function withTimestamp(caption) {
@@ -61,12 +70,14 @@ jobs:
             return caption ? `${caption}\nОновлено: ${ts}` : `Оновлено: ${ts}`;
           }
 
+          // Додаємо cache-busting параметр cb=timestamp до URL
           function cacheBustedUrl(url) {
             try {
+              const ts = Date.now();
               const u = new URL(url);
-              u.searchParams.set('cb', Date.now().toString());
+              u.searchParams.set('cb', ts.toString());
               return u.toString();
-            } catch {
+            } catch (e) {
               const sep = url.includes('?') ? '&' : '?';
               return `${url}${sep}cb=${Date.now()}`;
             }
@@ -76,13 +87,24 @@ jobs:
             const url = `${API_BASE}/sendPhoto`;
             const caption = withTimestamp(chat.caption);
             const photoUrl = cacheBustedUrl(chat.image_url);
-            const body = { chat_id: chat.chat_id, photo: photoUrl, caption };
+            const body = {
+              chat_id: chat.chat_id,
+              photo: photoUrl,
+              caption
+            };
             try {
-              const res = await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+              const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+              });
               const json = await res.json();
-              if (!json.ok) { console.error(`sendPhoto ERROR for ${chat.chat_id}:`, JSON.stringify(json)); return { ok: false, chat, json }; }
-              const messageId = json.result.message_id;
-              console.log(`SENT new message for chat_id=${chat.chat_id} -> message_id=${messageId}`);
+              if (!json.ok) {
+                console.error(`sendPhoto ERROR for ${chat.chat_id}:`, JSON.stringify(json));
+                return { ok: false, chat, json };
+              }
+              const messageId = json.result && json.result.message_id;
+              console.log(`SENT new message for chat_id=${chat.chat_id} title="${chat.title || ''}" -> message_id=${messageId}`);
               await pinMessage(chat.chat_id, messageId);
               return { ok: true, chat, message_id: messageId, result: json.result };
             } catch (err) {
@@ -95,13 +117,26 @@ jobs:
             const url = `${API_BASE}/editMessageMedia`;
             const caption = withTimestamp(chat.caption);
             const photoUrl = cacheBustedUrl(chat.image_url);
-            const payload = { chat_id: chat.chat_id, message_id: Number(chat.message_id), media: { type:"photo", media: photoUrl, caption } };
+            const payload = {
+              chat_id: chat.chat_id,
+              message_id: Number(chat.message_id),
+              media: {
+                type: "photo",
+                media: photoUrl,
+                caption
+              }
+            };
             try {
-              const res = await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+              const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
               const json = await res.json();
               if (!json.ok) {
-                if (json.error_code===400 && json.description.includes('message is not modified')) {
-                  console.log(`NOT_MODIFIED for ${chat.chat_id}/${chat.message_id}, considered OK.`);
+                // Обробка "message is not modified" як не-критичної ситуації
+                if (json.error_code === 400 && typeof json.description === 'string' && json.description.includes('message is not modified')) {
+                  console.log(`NOT_MODIFIED for ${chat.chat_id}/${chat.message_id} — content same, considered OK.`);
                   await pinMessage(chat.chat_id, chat.message_id);
                   return { ok: true, chat, not_modified: true };
                 }
@@ -134,14 +169,35 @@ jobs:
           (async () => {
             const results = [];
             for (const c of chats) {
-              if (!c.chat_id || !c.image_url) { console.error('SKIP invalid-config:', JSON.stringify(c)); results.push({ ok:false, chat:c, reason:'invalid-config'}); continue; }
-              if (!c.message_id) { results.push(await sendPhoto(c)); } 
-              else { results.push(await editPhoto(c)); }
+              if (!c.chat_id || !c.image_url) {
+                console.error('SKIP: конфігурація чату має містити chat_id і image_url:', JSON.stringify(c));
+                results.push({ ok: false, chat: c, reason: 'invalid-config' });
+                continue;
+              }
+
+              if (!c.message_id) {
+                // відправляємо нове фото і логом показуємо message_id
+                const r = await sendPhoto(c);
+                results.push(r);
+              } else {
+                // редагуємо існуюче повідомлення
+                const r = await editPhoto(c);
+                results.push(r);
+              }
+
+              // невелика пауза, щоб не спамити API
               await new Promise(r => setTimeout(r, 600));
             }
-            const failures = results.filter(r => !r.ok && r.reason!=='invalid-config');
-            if (failures.length) { console.error(`Completed with ${failures.length} failures out of ${results.length}.`); process.exit(10); }
-            console.log('All chats processed (success / not-modified / skipped invalid-config).');
+
+            // Фільтруємо реальні помилки (ок=false і не "invalid-config")
+            const failures = results.filter(r => !r.ok && r.reason !== 'invalid-config');
+            if (failures.length) {
+              console.error(`Completed with ${failures.length} failures out of ${results.length}.`);
+              // повертаємо невдалий статус, щоб Action показав failure
+              process.exit(10);
+            } else {
+              console.log('All chats processed (success / not-modified / skipped invalid-config).');
+            }
           })();
           EOF
 
