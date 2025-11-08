@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2025-11-08T19:37:37.181Z",
+  "lastUpdated": "2025-11-08T20:06:47.010Z",
   "fact": {
     "data": {
       "1762552800": {
@@ -52,7 +52,7 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
+          "22": "first",
           "23": "yes",
           "24": "yes"
         },
@@ -157,8 +157,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV4.1": {
           "1": "yes",
@@ -495,8 +495,8 @@
           "18": "no",
           "19": "no",
           "20": "no",
-          "21": "yes",
-          "22": "yes",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -523,7 +523,7 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "first",
+          "23": "yes",
           "24": "yes"
         },
         "GPV5.1": {
@@ -601,8 +601,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "first",
+          "24": "yes"
         },
         "GPV6.2": {
           "1": "no",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "08.11.2025 19:51",
+    "update": "08.11.2025 22:01",
     "today": 1762552800
   },
   "preset": {
@@ -3027,18 +3027,18 @@
         }
       }
     },
-    "updateFact": "08.11.2025 19:51"
+    "updateFact": "08.11.2025 22:01"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2025-11-08T19:49:29.888Z",
-    "attempt": 222
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-08T20:06:47.010Z",
+    "attempt": 223
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "74523e7692ee7f9de28f2b2b3e8e4495c897f8b1a6de4da159fb1f01547d7a44"
+    "contentHash": "a8d85426d4a2e9edb84e119ea570d53fab72bf2c610c007c23bad0b3d62e31be"
   }
 }
