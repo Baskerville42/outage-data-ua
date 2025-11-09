@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2025-11-09T11:36:32.818Z",
+  "lastUpdated": "2025-11-09T12:28:33.184Z",
   "fact": {
     "data": {
       "1762639200": {
@@ -20,10 +20,10 @@
           "13": "no",
           "14": "no",
           "15": "no",
-          "16": "first",
-          "17": "yes",
-          "18": "yes",
-          "19": "yes",
+          "16": "no",
+          "17": "no",
+          "18": "no",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -206,9 +206,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
+          "20": "no",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -280,7 +280,7 @@
           "13": "yes",
           "14": "yes",
           "15": "yes",
-          "16": "yes",
+          "16": "first",
           "17": "yes",
           "18": "yes",
           "19": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "09.11.2025 13:21",
+    "update": "09.11.2025 14:12",
     "today": 1762639200
   },
   "preset": {
@@ -3027,18 +3027,18 @@
         }
       }
     },
-    "updateFact": "09.11.2025 13:21"
+    "updateFact": "09.11.2025 14:12"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2025-11-09T12:09:37.960Z",
-    "attempt": 278
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-09T12:28:33.184Z",
+    "attempt": 279
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "b6c7a82b3bb192b512f13f92a8bf0e7561057d5c2e3747d8ca34f3ffbe6ffcb5"
+    "contentHash": "6076655e0096b3ea9e4d5b5236928b2a70b634967c4816b3bb39714a25a77edd"
   }
 }
