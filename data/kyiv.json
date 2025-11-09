@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2025-11-09T10:25:24.102Z",
+  "lastUpdated": "2025-11-09T10:51:38.673Z",
   "fact": {
     "data": {
       "1762639200": {
@@ -17,10 +17,10 @@
           "10": "yes",
           "11": "yes",
           "12": "second",
-          "13": "no",
-          "14": "no",
-          "15": "no",
-          "16": "first",
+          "13": "yes",
+          "14": "yes",
+          "15": "yes",
+          "16": "yes",
           "17": "yes",
           "18": "yes",
           "19": "yes",
@@ -72,15 +72,15 @@
           "13": "no",
           "14": "no",
           "15": "no",
-          "16": "no",
-          "17": "no",
-          "18": "no",
-          "19": "no",
+          "16": "first",
+          "17": "yes",
+          "18": "yes",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV2.2": {
           "1": "yes",
@@ -98,10 +98,10 @@
           "13": "no",
           "14": "no",
           "15": "no",
-          "16": "no",
-          "17": "no",
-          "18": "no",
-          "19": "no",
+          "16": "first",
+          "17": "yes",
+          "18": "yes",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -150,10 +150,10 @@
           "13": "yes",
           "14": "yes",
           "15": "yes",
-          "16": "no",
-          "17": "no",
-          "18": "no",
-          "19": "no",
+          "16": "yes",
+          "17": "yes",
+          "18": "yes",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -180,9 +180,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "no",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -206,9 +206,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "no",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -224,11 +224,11 @@
           "9": "yes",
           "10": "first",
           "11": "yes",
-          "12": "second",
-          "13": "no",
-          "14": "no",
-          "15": "no",
-          "16": "first",
+          "12": "yes",
+          "13": "yes",
+          "14": "yes",
+          "15": "yes",
+          "16": "yes",
           "17": "yes",
           "18": "yes",
           "19": "second",
@@ -283,11 +283,11 @@
           "16": "yes",
           "17": "yes",
           "18": "yes",
-          "19": "second",
-          "20": "no",
-          "21": "no",
-          "22": "no",
-          "23": "first",
+          "19": "yes",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
+          "23": "yes",
           "24": "yes"
         },
         "GPV6.2": {
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "09.11.2025 10:12",
+    "update": "09.11.2025 12:30",
     "today": 1762639200
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "09.11.2025 10:12"
+    "updateFact": "09.11.2025 12:30"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv.html",
-    "at": "2025-11-09T10:37:22.304Z",
-    "attempt": 273
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-09T10:51:38.673Z",
+    "attempt": 274
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "1ba0e06b59ffec5063d9eccd5d2b17147c7bc3552229203da09b283bf298bbe5"
+    "contentHash": "4b90e0d5b26069ef88feca9291c5ef6dff921e18947e466afc39c8e1d19be09f"
   }
 }
