@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2025-11-09T06:52:20.877Z",
+  "lastUpdated": "2025-11-09T07:35:13.713Z",
   "fact": {
     "data": {
       "1762639200": {
@@ -72,10 +72,10 @@
           "13": "no",
           "14": "no",
           "15": "no",
-          "16": "no",
-          "17": "no",
-          "18": "no",
-          "19": "no",
+          "16": "first",
+          "17": "yes",
+          "18": "yes",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -118,9 +118,9 @@
           "7": "no",
           "8": "no",
           "9": "no",
-          "10": "no",
-          "11": "no",
-          "12": "no",
+          "10": "yes",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -128,9 +128,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
+          "20": "no",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -180,9 +180,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "no",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -206,9 +206,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "no",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -251,10 +251,10 @@
           "10": "no",
           "11": "no",
           "12": "no",
-          "13": "no",
-          "14": "no",
-          "15": "no",
-          "16": "first",
+          "13": "yes",
+          "14": "yes",
+          "15": "yes",
+          "16": "yes",
           "17": "yes",
           "18": "yes",
           "19": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "08.11.2025 22:01",
+    "update": "09.11.2025 09:21",
     "today": 1762639200
   },
   "preset": {
@@ -3027,18 +3027,18 @@
         }
       }
     },
-    "updateFact": "08.11.2025 22:01"
+    "updateFact": "09.11.2025 09:21"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2025-11-09T07:26:30.350Z",
-    "attempt": 259
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-09T07:35:13.713Z",
+    "attempt": 260
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "c972f2a1b48648fa88e8af03a31bc601efb8dd92ec2efe1edf8fa8a9cc710d09"
+    "contentHash": "7d3333f74c0b1fc3d5f64c9f3ede10ba736d910e7d3daa7fd5e83fc1ab42d133"
   }
 }

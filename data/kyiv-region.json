@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2025-11-09T07:06:55.287Z",
+  "lastUpdated": "2025-11-09T07:35:13.633Z",
   "fact": {
     "data": {
       "1762639200": {
@@ -97,10 +97,10 @@
           "12": "no",
           "13": "no",
           "14": "no",
-          "15": "no",
-          "16": "no",
-          "17": "no",
-          "18": "no",
+          "15": "first",
+          "16": "yes",
+          "17": "yes",
+          "18": "yes",
           "19": "yes",
           "20": "yes",
           "21": "yes",
@@ -118,8 +118,8 @@
           "7": "no",
           "8": "first",
           "9": "yes",
-          "10": "no",
-          "11": "no",
+          "10": "yes",
+          "11": "yes",
           "12": "yes",
           "13": "yes",
           "14": "yes",
@@ -153,10 +153,10 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "first",
+          "19": "yes",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -250,10 +250,10 @@
           "9": "no",
           "10": "no",
           "11": "no",
-          "12": "no",
-          "13": "no",
-          "14": "no",
-          "15": "first",
+          "12": "yes",
+          "13": "yes",
+          "14": "yes",
+          "15": "yes",
           "16": "yes",
           "17": "yes",
           "18": "yes",
@@ -312,7 +312,7 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
+          "22": "first",
           "23": "yes",
           "24": "yes"
         }
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "08.11.2025 22:01",
+    "update": "09.11.2025 09:03",
     "today": 1762639200
   },
   "preset": {
@@ -3009,18 +3009,18 @@
         }
       }
     },
-    "updateFact": "08.11.2025 22:01"
+    "updateFact": "09.11.2025 09:03"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
-    "at": "2025-11-09T07:26:30.289Z",
-    "attempt": 259
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-09T07:35:13.633Z",
+    "attempt": 260
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "1caeb155e2ab92b013880870cadb1f6efeaf52aef9efce61a180e39710c39ed1"
+    "contentHash": "ca115d90b4c3e053441e70a7cdc2cb8281a6413bccd08714842e0112beb536a8"
   }
 }
