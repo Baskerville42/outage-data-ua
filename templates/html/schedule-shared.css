@@ -67,6 +67,20 @@ thead th:last-child, tbody td:last-child { border-right: 1px solid var(--grid-st
 tbody tr:last-child td, tbody tr:last-child th { border-bottom: 1px solid var(--grid-strong); }
 thead tr:first-child th { border-top: 1px solid var(--grid-strong); }
 thead th:first-child { border-top-left-radius: 10px; padding: 0 10px; }
+/* Diagonal corner split for groups template */
+.corner-split {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  background: var(--head);
+  /* draw diagonal from top-left to bottom-right */
+  background-image: linear-gradient(27.5deg, transparent 49.5%, var(--grid-strong) 50%, transparent 50.5%);
+  background-repeat: no-repeat;
+}
+.corner-split .corner-top,
+.corner-split .corner-bottom { position: absolute; display: block; }
+.corner-split .corner-top { top: 6px; right: 10px; font-size: 12px; font-weight: 600; text-align: right; }
+.corner-split .corner-bottom { left: 10px; bottom: 6px; font-size: 12px; font-weight: 600; }
 thead th:last-child { border-top-right-radius: 10px; }
 tbody tr:last-child th { border-bottom-left-radius: 10px; }
 tbody tr:last-child td:last-child { border-bottom-right-radius: 10px; }

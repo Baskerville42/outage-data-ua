@@ -12,6 +12,7 @@
 ```json
 {
   "regionId": "kyiv",
+  "regionAffiliation": "м. Київ",
   "lastUpdated": "2025-11-06T11:41:56.430Z",
   "fact": { "updateFact": "06.11.2025 09:09" },
   "preset": { "updateFact": "04.11.2025 18:00" },

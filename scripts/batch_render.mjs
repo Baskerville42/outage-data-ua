@@ -38,6 +38,7 @@ const imagesDir = path.join(projectRoot, 'images');
 const templateFull = path.join(projectRoot, 'templates', 'html', 'full-template.html');
 const templateEmergency = path.join(projectRoot, 'templates', 'html', 'emergency-template.html');
 const templateWeek = path.join(projectRoot, 'templates', 'html', 'week-template.html');
+const templateGroups = path.join(projectRoot, 'templates', 'html', 'groups-template.html');
 const templateSummary = path.join(projectRoot, 'templates', 'html', 'summary-item.html');
 const rendererScript = path.join(projectRoot, 'scripts', 'render_png.mjs');
 
@@ -62,7 +63,11 @@ async function fileExists(p) {
 async function runRenderer({ htmlTemplate, jsonPath, gpvKey, outPath }) {
   await mkdir(path.dirname(outPath), { recursive: true });
   return new Promise((resolve) => {
-    const childArgs = [rendererScript, '--html', htmlTemplate, '--json', jsonPath, '--gpv', gpvKey, '--out', outPath];
+    const childArgs = [rendererScript, '--html', htmlTemplate, '--json', jsonPath];
+    if (gpvKey) {
+      childArgs.push('--gpv', gpvKey);
+    }
+    childArgs.push('--out', outPath);
     if (theme === 'dark') { childArgs.push('--theme', 'dark'); }
     if (Number.isFinite(scale) && scale > 0) {
       childArgs.push('--scale', String(scale));
@@ -83,7 +88,7 @@ async function runRenderer({ htmlTemplate, jsonPath, gpvKey, outPath }) {
 (async () => {
   // Verify templates and renderer exist
   let missing = false;
-  for (const [name, p] of [['full', templateFull], ['emergency', templateEmergency], ['week', templateWeek], ['summary', templateSummary]]) {
+  for (const [name, p] of [['full', templateFull], ['emergency', templateEmergency], ['week', templateWeek], ['groups', templateGroups], ['summary', templateSummary]]) {
     if (!(await fileExists(p))) {
       console.error(`[ERROR] HTML template not found (${name}): ${p}`);
       missing = true;
@@ -175,6 +180,16 @@ async function runRenderer({ htmlTemplate, jsonPath, gpvKey, outPath }) {
           const { code } = await runRenderer({ htmlTemplate: templateSummary, jsonPath: jf, gpvKey: gpv, outPath });
           if (code === 0) ok++; else failed++;
         }
+      }
+
+      // 5) Groups matrix (all GPV for today) — one per region -> gpv-all-today.png
+      {
+        const outDir = path.join(imagesDir, regionId);
+        const outPath = path.join(outDir, 'gpv-all-today.png');
+        total++;
+        console.log(`[INFO] Rendering GROUPS/TODAY region='${regionId}' -> ${path.relative(projectRoot, outPath)}`);
+        const { code } = await runRenderer({ htmlTemplate: templateGroups, jsonPath: jf, outPath });
+        if (code === 0) ok++; else failed++;
       }
     } catch (e) {
       console.warn(`[WARN] Failed to process ${jf}: ${e?.message || e}`);

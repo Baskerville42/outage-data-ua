@@ -1,6 +1,6 @@
-/* Shared JS logic for schedule templates (full, emergency, week)
+/* Shared JS logic for schedule templates (full, emergency, week, groups)
  * Exposes global: window.Schedule.scheduleInit(options)
- * Options: { mode: 'full' | 'emergency' | 'week' | 'auto' }
+ * Options: { mode: 'full' | 'emergency' | 'week' | 'groups' | 'summary' | 'auto' }
  * Behavior keeps parity with previous inline scripts in all templates.
  */
 (function(){
@@ -190,7 +190,9 @@
   function injectLastUpdatedIfPresent(data) {
     const el = document.getElementById('lastUpdated');
     if (!el) return;
-    const label = formatLastUpdated(data);
+    // Requirement: show date/time from fact.update if present
+    const preferFact = (data?.fact?.update || '').trim();
+    const label = preferFact || formatLastUpdated(data);
     if (label) el.textContent = 'Дата та час останнього оновлення інформації на графіку: ' + label;
   }
 
@@ -411,6 +413,89 @@
     return { tzKeys };
   }
 
+  // Build matrix with rows = GPV groups available for today (fact.data[fact.today]) and columns = time slots
+  function buildGroups(preset, fact) {
+    const table = document.getElementById('matrix');
+    if (!table) return;
+    table.innerHTML = '';
+
+    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a,b)=>a-b);
+    const times = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
+
+    // Determine today's epoch and the set of groups present
+    const todayEpoch = (fact && fact.today != null) ? String(fact.today) : null;
+    const dayObj = (todayEpoch && fact && fact.data) ? fact.data[todayEpoch] : null;
+    const gpvKeys = dayObj ? Object.keys(dayObj).filter(k => /^GPV\d+\.\d+$/.test(k)).sort((a,b) => {
+      const pa = a.match(/\d+|\.|/g)?.join('') || '';
+      const pb = b.match(/\d+|\.|/g)?.join('') || '';
+      return pa.localeCompare(pb, 'en', { numeric: true });
+    }) : [];
+
+    const thead = document.createElement('thead');
+    const hr = document.createElement('tr');
+    const corner = document.createElement('th');
+    corner.className = 'corner-split';
+    corner.innerHTML = '<span class="corner-top">Час</span><span class="corner-bottom">Черга</span>';
+    hr.appendChild(corner);
+    for (const t of times) {
+      const th = document.createElement('th');
+      const div = document.createElement('div');
+      div.className = 'vlabel';
+      div.textContent = t;
+      th.appendChild(div);
+      hr.appendChild(th);
+    }
+    thead.appendChild(hr);
+
+    const tbody = document.createElement('tbody');
+
+    if (!gpvKeys.length) {
+      const tr = document.createElement('tr');
+      const th = document.createElement('th');
+      th.textContent = 'Помилка: відсутні дані на сьогодні';
+      th.colSpan = 1 + tzKeys.length;
+      tr.appendChild(th);
+      tbody.appendChild(tr);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      return;
+    }
+
+    const names = preset?.sch_names || {};
+
+    for (const gpvKey of gpvKeys) {
+      const tr = document.createElement('tr');
+      const th = document.createElement('th');
+      th.textContent = names[gpvKey] || gpvKey.replace(/^GPV/, 'Черга ');
+      tr.appendChild(th);
+
+      tzKeys.forEach(hk => {
+        const td = document.createElement('td');
+        const raw = dayObj?.[gpvKey]?.[String(hk)];
+        if (raw) td.classList.add('state-' + raw);
+        const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
+        const desc = raw ? (preset.time_type?.[raw] || raw) : '';
+        if (desc) td.title = (names[gpvKey] || gpvKey) + ' ' + timeLabel + ' — ' + desc;
+        const iconSrc = raw ? stateIconSrc(raw) : null;
+        if (iconSrc) {
+          const img = document.createElement('img');
+          img.className = 'cell-icon';
+          img.src = iconSrc;
+          img.width = 20; img.height = 20; img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.decoding = 'async';
+          td.appendChild(img);
+        }
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+    }
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    return { tzKeys, times };
+  }
+
   function extractGroupNumber(gpvKey, names) {
     // Return string like "1.2" from GPV1.2 or from the sch_names label
     if (gpvKey) {
@@ -596,6 +681,56 @@
     }
   }
 
+  function extractDayMonthFromFactUpdate(data) {
+    const upd = (data?.fact?.update || '').trim();
+    if (!upd) return '';
+    const m = upd.match(/^(\d{1,2})\.(\d{1,2})/);
+    if (!m) return '';
+    const dd = String(m[1]).padStart(2, '0');
+    const mm = String(m[2]).padStart(2, '0');
+    return `(${dd}.${mm})`;
+  }
+
+  // ===== Region affiliation injection helpers =====
+  function getRegionAffiliation(data) {
+    const aff = (data && typeof data.regionAffiliation === 'string') ? data.regionAffiliation.trim() : '';
+    return aff;
+  }
+
+  function h1TextNode(el) {
+    if (!el) return null;
+    // Prefer the first text node
+    for (const n of el.childNodes) {
+      if (n.nodeType === Node.TEXT_NODE) return n;
+    }
+    return el.firstChild || null;
+  }
+
+  function insertAffilBeforeColon(el, affil) {
+    const tn = h1TextNode(el);
+    if (!tn) return;
+    const txt = tn.nodeValue || '';
+    const marker = `(${affil})`;
+    if (!affil || !txt || txt.includes(marker)) return;
+    const idx = txt.indexOf(':');
+    if (idx === -1) {
+      // no colon — append at the end with a space
+      tn.nodeValue = `${txt} ${marker}`.trim();
+    } else {
+      tn.nodeValue = `${txt.slice(0, idx).trim()} ${marker}${txt.slice(idx)}`;
+    }
+  }
+
+  function appendAffilAtEnd(el, affil) {
+    const tn = h1TextNode(el);
+    if (!tn) return;
+    const txt = tn.nodeValue || '';
+    const marker = `(${affil})`;
+    if (!affil || !txt || txt.includes(marker)) return;
+    // Ensure a space before
+    tn.nodeValue = `${txt.trim()} ${marker}`;
+  }
+
   async function scheduleInit(options) {
     const mode = (options && options.mode) || 'auto';
     initThemeFromQuery();
@@ -613,9 +748,60 @@
     // lastUpdated/meta only if such elements exist (full template)
     injectLastUpdatedIfPresent(data);
 
-    // For summary mode, do not auto-inject the default badge (we have a custom left badge)
-    const isSummary = (mode === 'summary');
-    if (!isSummary) {
+    // For groups mode: extend titles with (DD.MM) from fact.update
+    if (mode === 'groups') {
+      try {
+        const suffix = extractDayMonthFromFactUpdate(data); // like (08.11)
+        if (suffix) {
+          // Update document.title: replace '(сьогодні)' -> '(сьогодні (DD.MM))' or append
+          const cur = document.title || '';
+          if (/\(сьогодні\s*\(\d{2}\.\d{2}\)\)/i.test(cur)) {
+            // already has
+          } else if (/\(сьогодні\)/i.test(cur)) {
+            document.title = cur.replace(/\(сьогодні\)/i, `(сьогодні ${suffix})`);
+          } else if (!/\(\d{2}\.\d{2}\)/.test(cur)) {
+            document.title = `${cur} ${suffix}`.trim();
+          }
+          // Update H1 text similarly
+          const h1 = document.querySelector('.container > h1');
+          if (h1 && h1.firstChild) {
+            const text = h1.firstChild.nodeValue || '';
+            if (/на сьогодні\s*\(\d{2}\.\d{2}\)/i.test(text)) {
+              // already has date
+            } else if (/на сьогодні(?!\s*\()/.test(text)) {
+              h1.firstChild.nodeValue = text.replace(/на сьогодні/i, (m)=>`${m} ${suffix}`);
+            }
+          }
+        }
+      } catch (_) {}
+    }
+
+    // Inject region affiliation into H1 per template requirements
+    try {
+      const aff = getRegionAffiliation(data);
+      if (aff) {
+        const h1 = document.querySelector('.container > h1');
+        if (h1) {
+          if (mode === 'groups') {
+            // groups-template.html — after "всіх групах" (append at the end)
+            appendAffilAtEnd(h1, aff);
+          } else if (mode === 'emergency') {
+            // emergency-template.html — before ':'
+            insertAffilBeforeColon(h1, aff);
+          } else if (mode === 'full') {
+            // full-template.html — first H1 "Графік відключень:" before ':'
+            insertAffilBeforeColon(h1, aff);
+          } else if (mode === 'week') {
+            // week-template.html — H1 "Графік відключень на тиждень:" before ':'
+            insertAffilBeforeColon(h1, aff);
+          }
+        }
+      }
+    } catch (_) {}
+
+    // For summary/groups modes, do not auto-inject the default badge (we show all groups or custom badge)
+    const suppressBadge = (mode === 'summary' || mode === 'groups');
+    if (!suppressBadge) {
       // badge is shown in all templates where an H1 exists
       injectGroupBadgeIfPresent(data, gpvKey);
     }
@@ -642,6 +828,12 @@
       buildWeek(data.preset, gpvKey, idx);
       // also inject meta hash if element exists
       injectMetaIfPresent(data);
+    }
+
+    if ((mode === 'groups' || mode === 'auto') && hasMatrix) {
+      buildGroups(data.preset, data.fact);
+      injectMetaIfPresent(data);
+      return;
     }
 
     if (mode === 'summary' || (mode === 'auto' && document.querySelector('.summary-card'))) {
