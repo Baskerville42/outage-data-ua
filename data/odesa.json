@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2025-11-10T14:51:54.235Z",
+  "lastUpdated": "2025-11-10T15:26:27.966Z",
   "fact": {
     "data": {
       "1762725600": {
@@ -76,7 +76,7 @@
           "17": "yes",
           "18": "yes",
           "19": "yes",
-          "20": "second",
+          "20": "no",
           "21": "no",
           "22": "no",
           "23": "no",
@@ -102,7 +102,7 @@
           "17": "yes",
           "18": "yes",
           "19": "yes",
-          "20": "second",
+          "20": "no",
           "21": "no",
           "22": "no",
           "23": "no",
@@ -204,8 +204,8 @@
           "15": "no",
           "16": "no",
           "17": "no",
-          "18": "no",
-          "19": "no",
+          "18": "first",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -232,9 +232,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "first",
-          "21": "yes",
-          "22": "yes",
+          "20": "no",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -284,9 +284,9 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "first",
-          "21": "yes",
-          "22": "yes",
+          "20": "no",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "10.11.2025 11:48",
+    "update": "10.11.2025 17:24",
     "today": 1762725600
   },
   "preset": {
@@ -3027,19 +3027,19 @@
         }
       }
     },
-    "updateFact": "10.11.2025 11:48"
+    "updateFact": "10.11.2025 17:24"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2025-11-10T15:07:36.808Z",
-    "attempt": 374
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2025-11-10T15:26:27.966Z",
+    "attempt": 375
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "2239480fe1fa59a633d037141238c59dd1be9cd81d198a95b26410174e9bdcc7"
+    "contentHash": "a69041541794eab7acb02401caeecc921a909407bca2a5f6f066e2b9d5947c0c"
   },
   "regionAffiliation": "Одеса та обл."
 }
