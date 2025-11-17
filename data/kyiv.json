@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2025-11-17T21:07:38.937Z",
+  "lastUpdated": "2025-11-17T21:37:30.417Z",
   "fact": {
     "data": {
       "1763330400": {
@@ -376,8 +376,8 @@
           "3": "yes",
           "4": "yes",
           "5": "yes",
-          "6": "second",
-          "7": "no",
+          "6": "yes",
+          "7": "yes",
           "8": "no",
           "9": "no",
           "10": "first",
@@ -449,8 +449,8 @@
           "24": "first"
         },
         "GPV3.2": {
-          "1": "no",
-          "2": "no",
+          "1": "yes",
+          "2": "yes",
           "3": "yes",
           "4": "yes",
           "5": "yes",
@@ -503,7 +503,7 @@
         "GPV4.2": {
           "1": "yes",
           "2": "yes",
-          "3": "first",
+          "3": "yes",
           "4": "yes",
           "5": "yes",
           "6": "yes",
@@ -581,10 +581,10 @@
         "GPV6.1": {
           "1": "yes",
           "2": "yes",
-          "3": "no",
-          "4": "no",
-          "5": "no",
-          "6": "no",
+          "3": "yes",
+          "4": "yes",
+          "5": "yes",
+          "6": "yes",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "17.11.2025 20:45",
+    "update": "17.11.2025 23:15",
     "today": 1763330400
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "17.11.2025 20:45"
+    "updateFact": "17.11.2025 23:15"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-11-17T21:07:38.936Z",
-    "attempt": 990
+    "at": "2025-11-17T21:37:30.417Z",
+    "attempt": 991
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "7af6e66cf21b1bd20b99619b081e82a2fa23dc4e48671e96d4b9b972db520eb4"
+    "contentHash": "3adad3085d33098a4b39ca7d5d0159726f3445d82ed8ade1b21d0d8e7accf2a6"
   },
   "regionAffiliation": "м. Київ"
 }
