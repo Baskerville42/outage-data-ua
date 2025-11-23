@@ -24,7 +24,8 @@
 
   <script src="schedule-shared.js"></script>
   <script>
-    Schedule.scheduleInit({ mode: 'groups' });
+    const qs = new URLSearchParams(window.location.search);
+    Schedule.scheduleInit({ mode: 'groups', day: qs.get('day') || 'today' });
   </script>
 </body>
 </html>

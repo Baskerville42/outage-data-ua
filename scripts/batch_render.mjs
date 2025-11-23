@@ -191,6 +191,23 @@ async function runRenderer({ htmlTemplate, jsonPath, gpvKey, outPath }) {
         const { code } = await runRenderer({ htmlTemplate: templateGroups, jsonPath: jf, outPath });
         if (code === 0) ok++; else failed++;
       }
+
+      // 6) Groups matrix (all GPV for tomorrow) — one per region -> gpv-all-tomorrow.png
+      {
+        const outDir = path.join(imagesDir, regionId);
+        const outPath = path.join(outDir, 'gpv-all-tomorrow.png');
+        total++;
+        console.log(`[INFO] Rendering GROUPS/TOMORROW region='${regionId}' -> ${path.relative(projectRoot, outPath)}`);
+        // Pass extra arg --day tomorrow (handled by updated render_png.mjs)
+        const childArgs = [rendererScript, '--html', templateGroups, '--json', jf, '--out', outPath, '--day', 'tomorrow'];
+        if (theme === 'dark') childArgs.push('--theme', 'dark');
+        if (Number.isFinite(scale) && scale > 0) childArgs.push('--scale', String(scale));
+        else if (args.max === true || String(args.quality || '').toLowerCase() === 'max') childArgs.push('--max');
+
+        const child = spawn(process.execPath, childArgs, { stdio: 'inherit' });
+        const code = await new Promise(resolve => child.on('exit', resolve));
+        if (code === 0) ok++; else failed++;
+      }
     } catch (e) {
       console.warn(`[WARN] Failed to process ${jf}: ${e?.message || e}`);
     }

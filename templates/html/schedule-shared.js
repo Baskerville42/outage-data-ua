@@ -3,14 +3,14 @@
  * Options: { mode: 'full' | 'emergency' | 'week' | 'groups' | 'summary' | 'auto' }
  * Behavior keeps parity with previous inline scripts in all templates.
  */
-(function(){
+(function () {
   'use strict';
 
   function initThemeFromQuery() {
     try {
       const qs = new URLSearchParams(location.search);
       if (qs.get('theme') === 'dark') document.body.classList.add('theme-dark');
-    } catch (_) {}
+    } catch (_) { }
   }
 
   function pickGpvKey(data) {
@@ -18,7 +18,7 @@
       const qs = new URLSearchParams(location.search);
       const fromUrl = qs.get('gpv');
       if (fromUrl && data?.preset?.data && data.preset.data[fromUrl]) return fromUrl;
-    } catch (e) {}
+    } catch (e) { }
     if (window.__GPV_KEY__ && data?.preset?.data && data.preset.data[window.__GPV_KEY__]) return window.__GPV_KEY__;
     const keys = Object.keys(data?.preset?.data || {});
     const firstGpv = keys.find(k => /^GPV\d+\.\d+$/.test(k));
@@ -69,7 +69,7 @@
   }
 
   function buildStartsMinutesFromPreset(preset) {
-    const tzKeys = Object.keys(preset?.time_zone || {}).map(Number).sort((a,b)=>a-b);
+    const tzKeys = Object.keys(preset?.time_zone || {}).map(Number).sort((a, b) => a - b);
     const labels = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
     const starts = labels.map(parseTimeLabelStartMinutes);
     return { tzKeys, starts };
@@ -151,7 +151,7 @@
     try {
       const qs = new URLSearchParams(location.search);
       regionId = qs.get('region') || regionId;
-    } catch (e) {}
+    } catch (e) { }
     const url = `../data/${regionId}.json`;
     try {
       const res = await fetch(url);
@@ -229,7 +229,7 @@
           badge.textContent = label;
         }
       }
-    } catch (_) {}
+    } catch (_) { }
   }
 
   function computeTodayWeekdayIdx(data) {
@@ -242,7 +242,7 @@
         const map = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 };
         todayIdx = map[w] || null;
       }
-    } catch (_) {}
+    } catch (_) { }
     return todayIdx;
   }
 
@@ -251,10 +251,10 @@
     if (!table) return;
     table.innerHTML = '';
 
-    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a,b)=>a-b);
+    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
     const times = tzKeys.map(k => preset.time_zone[String(k)][0]);
 
-    const dayKeys = Object.keys(preset.days).map(Number).sort((a,b)=>a-b);
+    const dayKeys = Object.keys(preset.days).map(Number).sort((a, b) => a - b);
 
     const thead = document.createElement('thead');
     const hr = document.createElement('tr');
@@ -331,7 +331,7 @@
     if (!table) return;
     table.innerHTML = '';
 
-    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a,b)=>a-b);
+    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
 
     const thead = document.createElement('thead');
     const hr = document.createElement('tr');
@@ -397,10 +397,10 @@
     try {
       const keys = Object.keys(fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
       if (keys.length) {
-        const greater = keys.filter(k => todayEpoch != null ? k > todayEpoch : true).sort((a,b)=>a-b);
+        const greater = keys.filter(k => todayEpoch != null ? k > todayEpoch : true).sort((a, b) => a - b);
         tomorrowEpoch = greater[0] ?? keys.find(k => k !== todayEpoch) ?? null;
       }
-    } catch (_) {}
+    } catch (_) { }
 
     if (tomorrowEpoch != null && tomorrowEpoch !== todayEpoch) {
       const label = formatUkDate(tomorrowEpoch) || 'Завтра';
@@ -414,19 +414,19 @@
     return { tzKeys };
   }
 
-  // Build matrix with rows = GPV groups available for today (fact.data[fact.today]) and columns = time slots
-  function buildGroups(preset, fact) {
+  // Build matrix with rows = GPV groups available for target epoch (default today) and columns = time slots
+  function buildGroups(preset, fact, targetEpoch) {
     const table = document.getElementById('matrix');
     if (!table) return;
     table.innerHTML = '';
 
-    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a,b)=>a-b);
+    const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
     const times = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
 
-    // Determine today's epoch and the set of groups present
-    const todayEpoch = (fact && fact.today != null) ? String(fact.today) : null;
-    const dayObj = (todayEpoch && fact && fact.data) ? fact.data[todayEpoch] : null;
-    const gpvKeys = dayObj ? Object.keys(dayObj).filter(k => /^GPV\d+\.\d+$/.test(k)).sort((a,b) => {
+    // Determine target epoch and the set of groups present
+    const epochStr = (targetEpoch != null) ? String(targetEpoch) : ((fact && fact.today != null) ? String(fact.today) : null);
+    const dayObj = (epochStr && fact && fact.data) ? fact.data[epochStr] : null;
+    const gpvKeys = dayObj ? Object.keys(dayObj).filter(k => /^GPV\d+\.\d+$/.test(k)).sort((a, b) => {
       const pa = a.match(/\d+|\.|/g)?.join('') || '';
       const pb = b.match(/\d+|\.|/g)?.join('') || '';
       return pa.localeCompare(pb, 'en', { numeric: true });
@@ -453,7 +453,7 @@
     if (!gpvKeys.length) {
       const tr = document.createElement('tr');
       const th = document.createElement('th');
-      th.textContent = 'Помилка: відсутні дані на сьогодні';
+      th.textContent = 'Помилка: відсутні дані на ' + (targetEpoch ? 'обрану дату' : 'сьогодні');
       th.colSpan = 1 + tzKeys.length;
       tr.appendChild(th);
       tbody.appendChild(tr);
@@ -547,7 +547,7 @@
           }
         }
       }
-    } catch (_) {}
+    } catch (_) { }
 
     // Build today OFF intervals (strict OFF = state 'no', plus half-hour first/second)
     const todayEpoch = (fact && fact.today != null) ? Number(fact.today) : null;
@@ -560,10 +560,10 @@
         const d = new Date(todayEpoch * 1000);
         const longDate = new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long' }).format(d);
         if (longDate) dateEl.textContent = `${longDate},`;
-      } catch (_) {}
+      } catch (_) { }
     }
 
-    const tzKeys = Object.keys(preset.time_zone || {}).map(Number).sort((a,b)=>a-b);
+    const tzKeys = Object.keys(preset.time_zone || {}).map(Number).sort((a, b) => a - b);
     const labels = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
 
     // Parse time label to start minutes (00:00 = 0)
@@ -760,6 +760,7 @@
 
   async function scheduleInit(options) {
     const mode = (options && options.mode) || 'auto';
+    const dayOption = (options && options.day) || 'today'; // 'today' or 'tomorrow'
     initThemeFromQuery();
 
     let data;
@@ -779,10 +780,24 @@
     if (mode === 'groups') {
       try {
         const todayEpoch = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
-        let longDate = '';
-        if (Number.isFinite(todayEpoch)) {
+        let targetEpoch = todayEpoch;
+
+        if (dayOption === 'tomorrow') {
+          // Find next available day after today
           try {
-            const d = new Date(todayEpoch * 1000);
+            const keys = Object.keys(data?.fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
+            if (keys.length) {
+              const greater = keys.filter(k => todayEpoch != null ? k > todayEpoch : true).sort((a, b) => a - b);
+              const nextDay = greater[0] ?? keys.find(k => k !== todayEpoch) ?? null;
+              if (nextDay != null) targetEpoch = nextDay;
+            }
+          } catch (_) { }
+        }
+
+        let longDate = '';
+        if (Number.isFinite(targetEpoch)) {
+          try {
+            const d = new Date(targetEpoch * 1000);
             longDate = new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long' }).format(d);
           } catch (_) { longDate = ''; }
         }
@@ -790,7 +805,7 @@
           // Update document.title: replace '(сьогодні ...)' or '(сьогодні)' with '(D місяця)'
           const cur = document.title || '';
           let next = cur.replace(/\(сьогодні\s*\(\d{2}\.\d{2}\)\)/i, `(${longDate})`)
-                        .replace(/\(сьогодні\)/i, `(${longDate})`);
+            .replace(/\(сьогодні\)/i, `(${longDate})`);
           if (next !== cur) {
             document.title = next;
           } else if (!/\([^)]*\)/.test(cur)) {
@@ -803,13 +818,16 @@
           if (h1 && h1.firstChild) {
             const text = h1.firstChild.nodeValue || '';
             let updated = text.replace(/на сьогодні\s*\(\d{2}\.\d{2}\)/i, `на ${longDate}`)
-                              .replace(/на сьогодні/i, `на ${longDate}`);
+              .replace(/на сьогодні/i, `на ${longDate}`);
+            // If we are showing tomorrow, we might want to replace "на сьогодні" with "на завтра" or just the date.
+            // The regex above handles "на сьогодні" -> "на D місяця".
+            // If the text was "Графік відключень на сьогодні ...", it becomes "Графік відключень на D місяця ...".
             if (updated !== text) {
               h1.firstChild.nodeValue = updated;
             }
           }
         }
-      } catch (_) {}
+      } catch (_) { }
     }
 
     // Inject region affiliation into H1 per template requirements
@@ -833,7 +851,7 @@
           }
         }
       }
-    } catch (_) {}
+    } catch (_) { }
 
     // For summary/groups modes, do not auto-inject the default badge (we show all groups or custom badge)
     const suppressBadge = (mode === 'summary' || mode === 'groups');
@@ -867,7 +885,29 @@
     }
 
     if ((mode === 'groups' || mode === 'auto') && hasMatrix) {
-      buildGroups(data.preset, data.fact);
+      // Pass the determined targetEpoch (if we are in groups mode and calculated it)
+      // If mode is auto, we default to today (which is what targetEpoch is init to if not 'tomorrow')
+      // But we need to make sure we calculated targetEpoch above.
+      // The block above runs `if (mode === 'groups')`.
+      // Let's recalculate targetEpoch if needed or scope it better.
+      // For safety, let's just re-derive if not set, or move the logic up.
+      // Actually, let's just duplicate the simple logic here or assume 'today' if not 'groups' mode.
+
+      let effectiveEpoch = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
+      if (mode === 'groups' && dayOption === 'tomorrow') {
+        // Re-find next available day
+        try {
+          const keys = Object.keys(data?.fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
+          const t = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
+          if (keys.length) {
+            const greater = keys.filter(k => t != null ? k > t : true).sort((a, b) => a - b);
+            const nextDay = greater[0] ?? keys.find(k => k !== t) ?? null;
+            if (nextDay != null) effectiveEpoch = nextDay;
+          }
+        } catch (_) { }
+      }
+
+      buildGroups(data.preset, data.fact, effectiveEpoch);
       injectMetaIfPresent(data);
       return;
     }

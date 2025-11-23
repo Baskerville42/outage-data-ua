@@ -47,6 +47,7 @@ const htmlPath = path.resolve(args.html || 'templates/html/full-template.html');
 const jsonPath = path.resolve(args.json || 'data/kyiv-region.json');
 const outPath = path.resolve(args.out || 'images/kyiv-region/gpv-1-2.png');
 const gpvKey = args.gpv || null; // e.g., GPV1.2
+const dayArg = args.day || null; // e.g., 'tomorrow'
 const theme = (args.theme === 'dark') ? 'dark' : 'light';
 // Determine desired device scale factor (DPR). If --scale provided, use it. If --max or --quality max provided, use 4.
 let deviceScaleFactor = Number(args.scale || NaN);
@@ -138,7 +139,7 @@ async function startStaticServer(rootDir) {
   }, { data: scheduleData, gpv: gpvKey });
 
   const relHtml = path.relative(projectRoot, htmlPath).split(path.sep).join('/');
-  const urlToOpen = `${baseURL}/${relHtml}${theme === 'dark' ? '?theme=dark' : ''}`;
+  const urlToOpen = `${baseURL}/${relHtml}?theme=${theme}${dayArg ? `&day=${dayArg}` : ''}`;
   try {
     await page.goto(urlToOpen, { waitUntil: 'networkidle', timeout: Math.max(timeoutMs, 10000) });
 
