@@ -227,26 +227,50 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: images-*
-          path: images-temp/
-          merge-multiple: true
+          path: images/
 
-      - name: Move images to correct location
+      - name: Verify and fix image structure
         shell: bash
         run: |
           set -euo pipefail
-          echo "[INFO] Moving images from artifacts to images/ directory"
+          echo "[INFO] Verifying image structure"
           
-          # Create images directory if it doesn't exist
-          mkdir -p images
+          # Each artifact creates a folder like images/images-kyiv/
+          # We need to move contents from images/images-{region}/ to images/{region}/
           
-          # Move all region folders from temp to images/
-          if [ -d "images-temp" ]; then
-            mv images-temp/* images/ 2>/dev/null || true
-            rm -rf images-temp
-          fi
+          for artifact_dir in images/images-*; do
+            if [ -d "$artifact_dir" ]; then
+              # Extract region name from artifact directory name
+              # images/images-kyiv -> kyiv
+              region=$(basename "$artifact_dir" | sed 's/^images-//')
+              
+              echo "[INFO] Processing region: $region"
+              echo "[INFO] Artifact dir: $artifact_dir"
+              
+              # Move the region folder from artifact to images/
+              # The artifact contains: images/images-kyiv/{region}/...
+              # We need to move it to: images/{region}/...
+              if [ -d "$artifact_dir/$region" ]; then
+                mv "$artifact_dir/$region" "images/$region-temp"
+                rm -rf "$artifact_dir"
+                mv "images/$region-temp" "images/$region"
+                echo "[INFO] Moved $region images to images/$region/"
+              else
+                echo "[WARN] Expected structure not found in $artifact_dir"
+                ls -la "$artifact_dir" || true
+              fi
+            fi
+          done
           
-          echo "[INFO] Image structure:"
+          echo "[INFO] Final image structure:"
           ls -la images/ || true
+          echo "[INFO] Contents of each region folder:"
+          for region_dir in images/*/; do
+            if [ -d "$region_dir" ]; then
+              echo "[INFO] $region_dir:"
+              ls -la "$region_dir" | head -10 || true
+            fi
+          done
 
       - name: Commit and push all changes
         shell: bash
