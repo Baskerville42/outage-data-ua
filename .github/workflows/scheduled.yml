@@ -159,7 +159,15 @@ jobs:
           
           echo "[INFO] No data changes and no forced region. Skipping render."
 
+      - name: Cache pngquant
+        id: pngquant-cache
+        uses: actions/cache@v4
+        with:
+          path: /usr/bin/pngquant
+          key: ${{ runner.os }}-pngquant
+
       - name: Install pngquant
+        if: steps.pngquant-cache.outputs.cache-hit != 'true'
         run: sudo apt-get update && sudo apt-get install -y pngquant
 
       - name: Compress images with pngquant
