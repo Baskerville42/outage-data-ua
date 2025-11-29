@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2025-11-29T16:41:59.378Z",
+  "lastUpdated": "2025-11-29T16:50:32.879Z",
   "fact": {
     "data": {
       "1764367200": {
@@ -50,7 +50,7 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "no",
+          "20": "yes",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "29.11.2025 17:48",
+    "update": "29.11.2025 18:39",
     "today": 1764367200
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "29.11.2025 17:48"
+    "updateFact": "29.11.2025 18:39"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-11-29T16:41:59.378Z",
-    "attempt": 2143
+    "at": "2025-11-29T16:50:32.879Z",
+    "attempt": 2144
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "1260643342b4f4742b78975cb8563da2ad05238ea70a63d587cb6fc4e310a6b1"
+    "contentHash": "38d7f901ba462754bb63eb7e0267816654f00d539cc1d8ef52abc219c3f2cf20"
   },
   "regionAffiliation": "Дніпро та обл."
 }
