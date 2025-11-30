@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2025-11-30T17:14:21.765Z",
+  "lastUpdated": "2025-11-30T17:25:36.653Z",
   "fact": {
     "data": {
       "1764453600": {
@@ -26,7 +26,7 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -52,7 +52,7 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -78,9 +78,9 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
-          "23": "no",
-          "24": "no"
+          "22": "yes",
+          "23": "yes",
+          "24": "yes"
         },
         "GPV2.2": {
           "1": "yes",
@@ -233,8 +233,8 @@
           "18": "second",
           "19": "no",
           "20": "yes",
-          "21": "no",
-          "22": "first",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -259,8 +259,8 @@
           "18": "second",
           "19": "first",
           "20": "yes",
-          "21": "no",
-          "22": "first",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -284,9 +284,9 @@
           "17": "yes",
           "18": "second",
           "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "first",
+          "20": "first",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "30.11.2025 19:03",
+    "update": "30.11.2025 19:21",
     "today": 1764453600
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "30.11.2025 19:03"
+    "updateFact": "30.11.2025 19:21"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-11-30T17:14:21.765Z",
-    "attempt": 2286
+    "at": "2025-11-30T17:25:36.653Z",
+    "attempt": 2287
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "0a587817de234b4a70ba9b4437e0c3841a2e54017d1f0543e06a704c82ce0dab"
+    "contentHash": "67dc92cc23bc8c9af8fcce245f02e4dfb3046249a52bd3f8b48bce83cf92a3c0"
   },
   "regionAffiliation": "Дніпро та обл."
 }
