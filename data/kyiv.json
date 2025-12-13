@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2025-12-13T02:22:30.972Z",
+  "lastUpdated": "2025-12-13T02:56:45.971Z",
   "fact": {
     "data": {
       "1765576800": {
@@ -35,9 +35,9 @@
           "2": "yes",
           "3": "yes",
           "4": "second",
-          "5": "no",
-          "6": "no",
-          "7": "no",
+          "5": "yes",
+          "6": "yes",
+          "7": "yes",
           "8": "yes",
           "9": "yes",
           "10": "yes",
@@ -88,12 +88,12 @@
           "3": "yes",
           "4": "second",
           "5": "no",
-          "6": "no",
-          "7": "no",
-          "8": "no",
-          "9": "no",
-          "10": "no",
-          "11": "first",
+          "6": "yes",
+          "7": "yes",
+          "8": "yes",
+          "9": "yes",
+          "10": "yes",
+          "11": "yes",
           "12": "yes",
           "13": "yes",
           "14": "yes",
@@ -142,10 +142,10 @@
           "5": "yes",
           "6": "yes",
           "7": "yes",
-          "8": "no",
-          "9": "no",
-          "10": "no",
-          "11": "first",
+          "8": "yes",
+          "9": "yes",
+          "10": "yes",
+          "11": "yes",
           "12": "yes",
           "13": "yes",
           "14": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "13.12.2025 03:03",
+    "update": "13.12.2025 04:30",
     "today": 1765576800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "13.12.2025 03:03"
+    "updateFact": "13.12.2025 04:30"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-12-13T02:22:30.971Z",
-    "attempt": 3811
+    "at": "2025-12-13T02:56:45.971Z",
+    "attempt": 3812
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "6af12abd0760111db4faaa54ba30f653c4d45d2b9069638a6207d033d8fb4f34"
+    "contentHash": "48e26df15d6ffb71177823b76df0cc53892a14dbfa0bee1e636afd7f463ea146"
   },
   "regionAffiliation": "м. Київ"
 }
