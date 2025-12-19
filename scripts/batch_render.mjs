@@ -213,34 +213,34 @@ async function runParallel(tasks, concurrency) {
       }
 
       // 5) Groups matrix (today)
-      tasks.push({
-        name: `GROUPS/TODAY ${regionId}`,
-        run: async () => {
-          const outDir = path.join(imagesDir, regionId);
-          const outPath = path.join(outDir, 'gpv-all-today.png');
-          await mkdir(path.dirname(outPath), { recursive: true });
-          await renderPage({
-            browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
-            theme, deviceScaleFactor, projectRoot
-          });
-          console.log(`[INFO] Rendered GROUPS/TODAY ${regionId}`);
-        }
-      });
+      // tasks.push({
+      //   name: `GROUPS/TODAY ${regionId}`,
+      //   run: async () => {
+      //     const outDir = path.join(imagesDir, regionId);
+      //     const outPath = path.join(outDir, 'gpv-all-today.png');
+      //     await mkdir(path.dirname(outPath), { recursive: true });
+      //     await renderPage({
+      //       browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
+      //       theme, deviceScaleFactor, projectRoot
+      //     });
+      //     console.log(`[INFO] Rendered GROUPS/TODAY ${regionId}`);
+      //   }
+      // });
 
       // 6) Groups matrix (tomorrow)
-      tasks.push({
-        name: `GROUPS/TOMORROW ${regionId}`,
-        run: async () => {
-          const outDir = path.join(imagesDir, regionId);
-          const outPath = path.join(outDir, 'gpv-all-tomorrow.png');
-          await mkdir(path.dirname(outPath), { recursive: true });
-          await renderPage({
-            browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
-            dayArg: 'tomorrow', theme, deviceScaleFactor, projectRoot
-          });
-          console.log(`[INFO] Rendered GROUPS/TOMORROW ${regionId}`);
-        }
-      });
+      // tasks.push({
+      //   name: `GROUPS/TOMORROW ${regionId}`,
+      //   run: async () => {
+      //     const outDir = path.join(imagesDir, regionId);
+      //     const outPath = path.join(outDir, 'gpv-all-tomorrow.png');
+      //     await mkdir(path.dirname(outPath), { recursive: true });
+      //     await renderPage({
+      //       browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
+      //       dayArg: 'tomorrow', theme, deviceScaleFactor, projectRoot
+      //     });
+      //     console.log(`[INFO] Rendered GROUPS/TOMORROW ${regionId}`);
+      //   }
+      // });
 
     } catch (e) {
       console.warn(`[WARN] Failed to prepare tasks for ${jf}: ${e?.message || e}`);
