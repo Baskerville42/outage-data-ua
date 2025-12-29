@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2025-12-29T18:56:14.089Z",
+  "lastUpdated": "2025-12-29T19:03:55.478Z",
   "fact": {
     "data": {
       "1766959200": {
@@ -286,7 +286,7 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -535,8 +535,8 @@
           "6": "no",
           "7": "yes",
           "8": "yes",
-          "9": "yes",
-          "10": "yes",
+          "9": "no",
+          "10": "first",
           "11": "yes",
           "12": "yes",
           "13": "yes",
@@ -555,14 +555,14 @@
         "GPV5.2": {
           "1": "yes",
           "2": "yes",
-          "3": "second",
-          "4": "no",
-          "5": "no",
-          "6": "no",
+          "3": "yes",
+          "4": "yes",
+          "5": "yes",
+          "6": "yes",
           "7": "yes",
           "8": "yes",
-          "9": "yes",
-          "10": "yes",
+          "9": "no",
+          "10": "first",
           "11": "yes",
           "12": "yes",
           "13": "yes",
@@ -587,8 +587,8 @@
           "6": "no",
           "7": "yes",
           "8": "yes",
-          "9": "no",
-          "10": "first",
+          "9": "yes",
+          "10": "yes",
           "11": "yes",
           "12": "yes",
           "13": "yes",
@@ -607,14 +607,14 @@
         "GPV6.2": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
-          "5": "yes",
-          "6": "yes",
+          "3": "second",
+          "4": "no",
+          "5": "no",
+          "6": "no",
           "7": "yes",
           "8": "yes",
-          "9": "no",
-          "10": "first",
+          "9": "yes",
+          "10": "yes",
           "11": "yes",
           "12": "yes",
           "13": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "29.12.2025 18:57",
+    "update": "29.12.2025 20:57",
     "today": 1766959200
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "29.12.2025 18:57"
+    "updateFact": "29.12.2025 20:57"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-12-29T18:56:14.089Z",
-    "attempt": 5839
+    "at": "2025-12-29T19:03:55.477Z",
+    "attempt": 5840
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "d870695f87023d1529c55e43af6be4681dbbdfec15a401345bf953073f76ddd2"
+    "contentHash": "38ea63a4f81062d8e913fefb86baa7e29ae79eca1b91f16508cdb0ad3cc3b822"
   },
   "regionAffiliation": "Київська обл."
 }
