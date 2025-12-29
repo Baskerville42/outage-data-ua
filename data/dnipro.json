@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2025-12-29T05:34:42.832Z",
+  "lastUpdated": "2025-12-29T05:47:51.442Z",
   "fact": {
     "data": {
       "1766959200": {
@@ -221,8 +221,8 @@
           "6": "no",
           "7": "no",
           "8": "no",
-          "9": "no",
-          "10": "no",
+          "9": "yes",
+          "10": "yes",
           "11": "no",
           "12": "yes",
           "13": "yes",
@@ -231,10 +231,10 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "yes",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
+          "19": "no",
+          "20": "no",
+          "21": "no",
+          "22": "first",
           "23": "yes",
           "24": "yes"
         },
@@ -257,8 +257,8 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "yes",
-          "20": "yes",
+          "19": "no",
+          "20": "no",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -283,8 +283,8 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "no",
-          "20": "no",
+          "19": "yes",
+          "20": "yes",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -309,10 +309,10 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "no",
-          "20": "no",
-          "21": "no",
-          "22": "first",
+          "19": "yes",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         }
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "29.12.2025 06:54",
+    "update": "29.12.2025 07:42",
     "today": 1766959200
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "29.12.2025 06:54"
+    "updateFact": "29.12.2025 07:42"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2025-12-29T05:34:42.832Z",
-    "attempt": 5771
+    "at": "2025-12-29T05:47:51.442Z",
+    "attempt": 5772
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "ad8e05caa701fdca3f79476c54d84cbb6a8f4ef9d99eab4333da8afcf37a8bc1"
+    "contentHash": "ea05ece2ab7fe4c37bcadfc4e7ed3ae0f91ddaafc8bf85ae8f80a2e3b4faf2b2"
   },
   "regionAffiliation": "Дніпро та обл."
 }
