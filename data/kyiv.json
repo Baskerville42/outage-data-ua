@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-01-01T22:33:44.643Z",
+  "lastUpdated": "2026-01-01T22:43:06.524Z",
   "fact": {
     "data": {
       "1767304800": {
@@ -37,7 +37,7 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "second",
+          "7": "yes",
           "8": "no",
           "9": "no",
           "10": "no",
@@ -157,8 +157,8 @@
           "20": "yes",
           "21": "second",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV4.1": {
           "1": "no",
@@ -183,14 +183,14 @@
           "20": "yes",
           "21": "second",
           "22": "no",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV4.2": {
           "1": "no",
-          "2": "no",
-          "3": "no",
-          "4": "first",
+          "2": "yes",
+          "3": "yes",
+          "4": "yes",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -294,10 +294,10 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "no",
-          "5": "no",
-          "6": "no",
-          "7": "no",
+          "4": "yes",
+          "5": "yes",
+          "6": "yes",
+          "7": "yes",
           "8": "yes",
           "9": "yes",
           "10": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "01.01.2026 21:39",
+    "update": "02.01.2026 00:33",
     "today": 1767304800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "01.01.2026 21:39"
+    "updateFact": "02.01.2026 00:33"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-01T22:33:44.643Z",
-    "attempt": 6221
+    "at": "2026-01-01T22:43:06.524Z",
+    "attempt": 6222
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "110e4adf6a35570924fb92fb28dfb4693bef7b7366ff830ea094a3c6bb5bf5b9"
+    "contentHash": "2b8429fdde48fe031921f3cb3a0511484b5100c12c972d3fffb4a0f1f216a126"
   },
   "regionAffiliation": "м. Київ"
 }
