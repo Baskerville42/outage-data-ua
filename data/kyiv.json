@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-01-01T19:40:15.525Z",
+  "lastUpdated": "2026-01-01T19:46:55.645Z",
   "fact": {
     "data": {
       "1767218400": {
@@ -27,8 +27,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV1.2": {
           "1": "no",
@@ -105,8 +105,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV3.1": {
           "1": "yes",
@@ -132,7 +132,7 @@
           "21": "yes",
           "22": "yes",
           "23": "yes",
-          "24": "second"
+          "24": "yes"
         },
         "GPV3.2": {
           "1": "yes",
@@ -158,7 +158,7 @@
           "21": "yes",
           "22": "yes",
           "23": "yes",
-          "24": "second"
+          "24": "yes"
         },
         "GPV4.1": {
           "1": "yes",
@@ -184,7 +184,7 @@
           "21": "yes",
           "22": "yes",
           "23": "yes",
-          "24": "second"
+          "24": "yes"
         },
         "GPV4.2": {
           "1": "yes",
@@ -210,7 +210,7 @@
           "21": "yes",
           "22": "yes",
           "23": "yes",
-          "24": "second"
+          "24": "yes"
         },
         "GPV5.1": {
           "1": "yes",
@@ -345,7 +345,7 @@
           "24": "yes"
         },
         "GPV1.2": {
-          "1": "yes",
+          "1": "first",
           "2": "yes",
           "3": "yes",
           "4": "yes",
@@ -371,7 +371,7 @@
           "24": "yes"
         },
         "GPV2.1": {
-          "1": "yes",
+          "1": "first",
           "2": "yes",
           "3": "yes",
           "4": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "01.01.2026 20:33",
+    "update": "01.01.2026 21:39",
     "today": 1767218400
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "01.01.2026 20:33"
+    "updateFact": "01.01.2026 21:39"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-01T19:40:15.525Z",
-    "attempt": 6202
+    "at": "2026-01-01T19:46:55.645Z",
+    "attempt": 6203
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "120d737ae53e399d2ef5fc05abec97cbdb3a9f6062ff9150c3bd2064305e5cdd"
+    "contentHash": "60f5ee77b12327fc279b267347107d4ba3d6b486ff0f3e16fec6d106b30fdfa1"
   },
   "regionAffiliation": "м. Київ"
 }
