@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-01-07T21:47:07.070Z",
+  "lastUpdated": "2026-01-07T21:54:00.974Z",
   "fact": {
     "data": {
       "1767736800": {
@@ -340,7 +340,7 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -397,10 +397,10 @@
           "24": "yes"
         },
         "GPV2.2": {
-          "1": "no",
-          "2": "no",
-          "3": "no",
-          "4": "first",
+          "1": "yes",
+          "2": "yes",
+          "3": "yes",
+          "4": "yes",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -418,7 +418,7 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "yes",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -429,7 +429,7 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "yes",
+          "7": "no",
           "8": "yes",
           "9": "yes",
           "10": "yes",
@@ -452,9 +452,9 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "second",
-          "5": "no",
-          "6": "no",
+          "4": "yes",
+          "5": "yes",
+          "6": "yes",
           "7": "no",
           "8": "yes",
           "9": "yes",
@@ -507,7 +507,7 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "no",
+          "7": "yes",
           "8": "yes",
           "9": "yes",
           "10": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "07.01.2026 21:51",
+    "update": "07.01.2026 23:45",
     "today": 1767736800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "07.01.2026 21:51"
+    "updateFact": "07.01.2026 23:45"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-07T21:47:07.069Z",
-    "attempt": 6916
+    "at": "2026-01-07T21:54:00.974Z",
+    "attempt": 6917
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "25686395f4cf2abc934cb90a77778c14ba18da359f336b2d9aeba67c610105b5"
+    "contentHash": "e80e690a4a40e8de32187d0bced2926c0fba5bee9e838c871bb5035377e4df91"
   },
   "regionAffiliation": "Київська обл."
 }
