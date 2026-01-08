@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-01-08T05:57:53.390Z",
+  "lastUpdated": "2026-01-08T06:12:33.533Z",
   "fact": {
     "data": {
       "1767823200": {
@@ -219,9 +219,9 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "no",
-          "8": "no",
-          "9": "no",
+          "7": "yes",
+          "8": "yes",
+          "9": "second",
           "10": "no",
           "11": "yes",
           "12": "yes",
@@ -247,7 +247,7 @@
           "6": "yes",
           "7": "yes",
           "8": "yes",
-          "9": "no",
+          "9": "second",
           "10": "no",
           "11": "yes",
           "12": "yes",
@@ -271,9 +271,9 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "no",
-          "8": "no",
-          "9": "no",
+          "7": "yes",
+          "8": "yes",
+          "9": "second",
           "10": "no",
           "11": "yes",
           "12": "yes",
@@ -297,9 +297,9 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "no",
-          "8": "no",
-          "9": "no",
+          "7": "yes",
+          "8": "yes",
+          "9": "second",
           "10": "no",
           "11": "yes",
           "12": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "07.01.2026 21:45",
+    "update": "08.01.2026 08:03",
     "today": 1767823200
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "07.01.2026 21:45"
+    "updateFact": "08.01.2026 08:03"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-08T05:57:53.390Z",
-    "attempt": 6947
+    "at": "2026-01-08T06:12:33.533Z",
+    "attempt": 6948
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "54a3fa422c095ef62b5be20db3a05d9360adead88819bbf948377238912a9334"
+    "contentHash": "54c7c3741add575440b8d87c06c45e3eeb4660da5a9a2b9e15566f40bb5771bd"
   },
   "regionAffiliation": "м. Київ"
 }
