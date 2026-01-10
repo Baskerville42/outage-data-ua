@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-01-10T09:31:22.251Z",
+  "lastUpdated": "2026-01-10T09:39:56.272Z",
   "fact": {
     "data": {
       "1767996000": {
@@ -16,7 +16,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -42,7 +42,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -68,7 +68,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -94,7 +94,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -172,7 +172,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -198,7 +198,7 @@
           "9": "yes",
           "10": "yes",
           "11": "yes",
-          "12": "yes",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "10.01.2026 08:45",
+    "update": "10.01.2026 11:36",
     "today": 1767996000
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "10.01.2026 08:45"
+    "updateFact": "10.01.2026 11:36"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-10T09:31:22.250Z",
-    "attempt": 7187
+    "at": "2026-01-10T09:39:56.272Z",
+    "attempt": 7188
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "b33ff4f714a405bfc37e45191cc149fbf180cb696f73656a1090394e3f0eb3d7"
+    "contentHash": "91e0d02099492ae669f41e5780932b1762f7128538ca39f59ecec4ee0b501cdc"
   },
   "regionAffiliation": "Київська обл."
 }
