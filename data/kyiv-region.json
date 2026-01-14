@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-01-14T23:45:04.007Z",
+  "lastUpdated": "2026-01-14T23:51:51.850Z",
   "fact": {
     "data": {
       "1768428000": {
@@ -86,10 +86,10 @@
           "1": "no",
           "2": "no",
           "3": "no",
-          "4": "first",
-          "5": "yes",
-          "6": "yes",
-          "7": "yes",
+          "4": "no",
+          "5": "no",
+          "6": "no",
+          "7": "no",
           "8": "yes",
           "9": "yes",
           "10": "yes",
@@ -215,8 +215,8 @@
         "GPV5.1": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -235,8 +235,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV5.2": {
           "1": "yes",
@@ -261,8 +261,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV6.1": {
           "1": "no",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "14.01.2026 23:33",
+    "update": "15.01.2026 01:45",
     "today": 1768428000
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "14.01.2026 23:33"
+    "updateFact": "15.01.2026 01:45"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-14T23:45:04.007Z",
-    "attempt": 7722
+    "at": "2026-01-14T23:51:51.850Z",
+    "attempt": 7723
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "0d7f6040abbc6577bcc2045decadd945847a85abffd846c1b572cef7dd62088a"
+    "contentHash": "f1b3bb433a487dd5b753c865b8c8b65f824c67999ff1d65acda4fd63b77621ff"
   },
   "regionAffiliation": "Київська обл."
 }
