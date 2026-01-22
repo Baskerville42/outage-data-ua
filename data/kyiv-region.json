@@ -1,14 +1,14 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-01-21T23:56:47.037Z",
+  "lastUpdated": "2026-01-22T00:23:17.913Z",
   "fact": {
     "data": {
       "1769032800": {
         "GPV1.1": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -33,8 +33,8 @@
         "GPV1.2": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -59,8 +59,8 @@
         "GPV2.1": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -85,8 +85,8 @@
         "GPV2.2": {
           "1": "yes",
           "2": "yes",
-          "3": "yes",
-          "4": "yes",
+          "3": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -112,9 +112,9 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "yes",
-          "5": "yes",
-          "6": "yes",
+          "4": "second",
+          "5": "no",
+          "6": "no",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -138,9 +138,9 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "yes",
-          "5": "yes",
-          "6": "yes",
+          "4": "second",
+          "5": "no",
+          "6": "no",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -164,9 +164,9 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "yes",
-          "5": "yes",
-          "6": "yes",
+          "4": "second",
+          "5": "no",
+          "6": "no",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -190,9 +190,9 @@
           "1": "yes",
           "2": "yes",
           "3": "yes",
-          "4": "yes",
-          "5": "yes",
-          "6": "yes",
+          "4": "second",
+          "5": "no",
+          "6": "no",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "20.01.2026 23:42",
+    "update": "22.01.2026 02:09",
     "today": 1769032800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "20.01.2026 23:42"
+    "updateFact": "22.01.2026 02:09"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-01-21T23:56:47.037Z",
-    "attempt": 8485
+    "at": "2026-01-22T00:23:17.913Z",
+    "attempt": 8486
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "9445a63b9377b2a08fe32d1c6efe9e19813e909261125235a0c98bc1b30adc19"
+    "contentHash": "4bc7b3a67bf2eccf72ec29cfc39731980dba1527e4b05f9437dd4568dee3b39a"
   },
   "regionAffiliation": "Київська обл."
 }
