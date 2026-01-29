@@ -23,6 +23,7 @@ export function contentTypeFor(filePath) {
 }
 
 export async function startStaticServer(rootDir) {
+    const safeRoot = path.resolve(rootDir);
     const server = http.createServer(async (req, res) => {
         try {
             const parsed = url.parse(req.url);
@@ -30,7 +31,13 @@ export async function startStaticServer(rootDir) {
             if (filePath === '/') {
                 filePath = '/README.md';
             }
-            const abs = path.join(rootDir, filePath);
+            // Resolve the requested path safely within the root directory
+            const abs = path.resolve(safeRoot, '.' + filePath);
+            if (!abs.startsWith(safeRoot + path.sep) && abs !== safeRoot) {
+                res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+                res.end('Forbidden');
+                return;
+            }
             const data = await readFile(abs);
             res.writeHead(200, { 'Content-Type': contentTypeFor(abs) });
             res.end(data);
