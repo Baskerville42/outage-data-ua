@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-02-04T13:39:50.757Z",
+  "lastUpdated": "2026-02-04T14:05:53.529Z",
   "fact": {
     "data": {
       "1770156000": {
@@ -27,8 +27,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV1.2": {
           "1": "yes",
@@ -53,8 +53,8 @@
           "20": "no",
           "21": "first",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV2.1": {
           "1": "yes",
@@ -231,9 +231,9 @@
           "16": "no",
           "17": "no",
           "18": "yes",
-          "19": "yes",
-          "20": "yes",
-          "21": "second",
+          "19": "second",
+          "20": "no",
+          "21": "no",
           "22": "no",
           "23": "no",
           "24": "no"
@@ -257,9 +257,9 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "no",
-          "20": "no",
-          "21": "no",
+          "19": "first",
+          "20": "yes",
+          "21": "second",
           "22": "no",
           "23": "no",
           "24": "no"
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "04.02.2026 15:21",
+    "update": "04.02.2026 15:45",
     "today": 1770156000
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "04.02.2026 15:21"
+    "updateFact": "04.02.2026 15:45"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-04T13:39:50.757Z",
-    "attempt": 9720
+    "at": "2026-02-04T14:05:53.529Z",
+    "attempt": 9721
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "4f981fc6a1dad52c6d3007a8ee8752b6ccbe197afe99a4fcdd0dc3fa8dd08716"
+    "contentHash": "06a3fe3ecd3b7eefb387c13f3a452eba624ea767fd75c1615831d0185f3628b4"
   },
   "regionAffiliation": "Київська обл."
 }
