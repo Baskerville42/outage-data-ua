@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-02-04T11:01:01.676Z",
+  "lastUpdated": "2026-02-04T11:19:43.739Z",
   "fact": {
     "data": {
       "1770156000": {
@@ -19,7 +19,7 @@
           "12": "yes",
           "13": "yes",
           "14": "yes",
-          "15": "no",
+          "15": "yes",
           "16": "no",
           "17": "no",
           "18": "no",
@@ -45,7 +45,7 @@
           "12": "yes",
           "13": "yes",
           "14": "yes",
-          "15": "no",
+          "15": "yes",
           "16": "no",
           "17": "no",
           "18": "no",
@@ -53,8 +53,8 @@
           "20": "no",
           "21": "no",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "second",
+          "24": "no"
         },
         "GPV2.1": {
           "1": "yes",
@@ -79,8 +79,8 @@
           "20": "no",
           "21": "no",
           "22": "yes",
-          "23": "second",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV2.2": {
           "1": "yes",
@@ -123,7 +123,7 @@
           "12": "yes",
           "13": "yes",
           "14": "yes",
-          "15": "no",
+          "15": "yes",
           "16": "no",
           "17": "no",
           "18": "no",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "04.02.2026 11:25",
+    "update": "04.02.2026 13:13",
     "today": 1770156000
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "04.02.2026 11:25"
+    "updateFact": "04.02.2026 13:13"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-04T11:01:01.675Z",
-    "attempt": 9712
+    "at": "2026-02-04T11:19:43.739Z",
+    "attempt": 9713
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "342ed70ebd66bb00ad7bec3ebc1585caa2eee4f37a823d29657f6a1df49db857"
+    "contentHash": "866e5d95bcc1ccff3a6e63aab4e46d1c44deec13eb4bb611eccc6dde1ad19295"
   },
   "regionAffiliation": "Одеса та обл."
 }
