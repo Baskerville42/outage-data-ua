@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-02-13T11:49:18.641Z",
+  "lastUpdated": "2026-02-13T11:59:48.426Z",
   "fact": {
     "data": {
       "1770933600": {
@@ -45,7 +45,7 @@
           "12": "no",
           "13": "no",
           "14": "no",
-          "15": "first",
+          "15": "yes",
           "16": "yes",
           "17": "yes",
           "18": "yes",
@@ -175,8 +175,8 @@
           "12": "no",
           "13": "no",
           "14": "no",
-          "15": "no",
-          "16": "no",
+          "15": "first",
+          "16": "yes",
           "17": "no",
           "18": "no",
           "19": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "13.02.2026 12:09",
+    "update": "13.02.2026 13:57",
     "today": 1770933600
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "13.02.2026 12:09"
+    "updateFact": "13.02.2026 13:57"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-13T11:49:18.641Z",
-    "attempt": 10324
+    "at": "2026-02-13T11:59:48.426Z",
+    "attempt": 10325
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "8ad401d2131f67dda66fc7fbe7f3f874184b753ef6a2c772873803425c162d67"
+    "contentHash": "caf6dca3be45257c4d6ac882c7351c4ce1867cbcca4e0291d10c56c1a3b73307"
   },
   "regionAffiliation": "Київська обл."
 }
