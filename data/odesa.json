@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-02-16T07:01:35.933Z",
+  "lastUpdated": "2026-02-16T07:31:24.034Z",
   "fact": {
     "data": {
       "1771192800": {
@@ -275,9 +275,9 @@
           "8": "no",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "no",
-          "13": "no",
+          "11": "yes",
+          "12": "yes",
+          "13": "yes",
           "14": "yes",
           "15": "yes",
           "16": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "16.02.2026 07:16",
+    "update": "16.02.2026 09:20",
     "today": 1771192800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "16.02.2026 07:16"
+    "updateFact": "16.02.2026 09:20"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-16T07:01:35.933Z",
-    "attempt": 10556
+    "at": "2026-02-16T07:31:24.034Z",
+    "attempt": 10557
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "e5d41ec66c9f0b448a390457fcac7bfa3b29d5548c882a0c64d45ae447923480"
+    "contentHash": "f9068d26d00d26d03bc64ca950a8d16ba52de8558eadb59e6a916b05785062cf"
   },
   "regionAffiliation": "Одеса та обл."
 }
