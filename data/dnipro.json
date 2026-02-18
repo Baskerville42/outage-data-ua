@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-02-18T17:39:13.582Z",
+  "lastUpdated": "2026-02-18T18:00:34.315Z",
   "fact": {
     "data": {
       "1771365600": {
@@ -130,8 +130,8 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "yes",
-          "23": "yes",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV3.2": {
@@ -156,8 +156,8 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "yes",
-          "23": "yes",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV4.1": {
@@ -235,8 +235,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "first",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV5.2": {
           "1": "no",
@@ -261,8 +261,8 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "first",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV6.1": {
           "1": "no",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "18.02.2026 14:40",
+    "update": "18.02.2026 19:52",
     "today": 1771365600
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "18.02.2026 14:40"
+    "updateFact": "18.02.2026 19:52"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-18T17:39:13.582Z",
-    "attempt": 10716
+    "at": "2026-02-18T18:00:34.315Z",
+    "attempt": 10717
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "6b03a7d92c759d24f1700287fd19b39e2fc4289eaa6b929fae30ea45b4f5f242"
+    "contentHash": "84ca52d488925ca56ef83ddce4b0b086ad2f6051a465740711bde6fdc543f3ec"
   },
   "regionAffiliation": "Дніпро та обл."
 }
