@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-02-21T13:22:58.017Z",
+  "lastUpdated": "2026-02-21T13:41:25.147Z",
   "fact": {
     "data": {
       "1771624800": {
@@ -47,7 +47,7 @@
           "14": "second",
           "15": "yes",
           "16": "yes",
-          "17": "no",
+          "17": "yes",
           "18": "no",
           "19": "no",
           "20": "no",
@@ -229,7 +229,7 @@
           "14": "first",
           "15": "yes",
           "16": "yes",
-          "17": "no",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -255,7 +255,7 @@
           "14": "first",
           "15": "yes",
           "16": "yes",
-          "17": "no",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -281,7 +281,7 @@
           "14": "first",
           "15": "yes",
           "16": "yes",
-          "17": "no",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -307,7 +307,7 @@
           "14": "first",
           "15": "yes",
           "16": "yes",
-          "17": "no",
+          "17": "yes",
           "18": "yes",
           "19": "yes",
           "20": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "21.02.2026 14:05",
+    "update": "21.02.2026 15:29",
     "today": 1771624800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "21.02.2026 14:05"
+    "updateFact": "21.02.2026 15:29"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-21T13:22:58.017Z",
-    "attempt": 10919
+    "at": "2026-02-21T13:41:25.147Z",
+    "attempt": 10920
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "b9fbcbdd889282788e043932ed9b14e1aa9ba5bd6d517b258b36a70ad50fb765"
+    "contentHash": "68be98448b6bb3bb45a3846ad6d5a8736915296aa9b6c353ae13e4f9f8470a28"
   },
   "regionAffiliation": "Дніпро та обл."
 }
