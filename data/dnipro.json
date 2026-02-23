@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-02-23T01:24:02.153Z",
+  "lastUpdated": "2026-02-23T02:12:43.640Z",
   "fact": {
     "data": {
       "1771797600": {
@@ -3016,8 +3016,8 @@
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-23T01:24:02.153Z",
-    "attempt": 11068
+    "at": "2026-02-23T02:12:43.640Z",
+    "attempt": 11069
   },
   "meta": {
     "schemaVersion": "1.0.0",
