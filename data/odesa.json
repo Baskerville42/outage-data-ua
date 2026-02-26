@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-02-26T20:55:47.212Z",
+  "lastUpdated": "2026-02-26T21:10:32.598Z",
   "fact": {
     "data": {
       "1772056800": {
@@ -236,7 +236,7 @@
           "21": "no",
           "22": "no",
           "23": "no",
-          "24": "no"
+          "24": "yes"
         },
         "GPV5.2": {
           "1": "yes",
@@ -531,14 +531,14 @@
           "2": "yes",
           "3": "yes",
           "4": "yes",
-          "5": "yes",
-          "6": "yes",
-          "7": "yes",
-          "8": "yes",
-          "9": "no",
-          "10": "no",
-          "11": "no",
-          "12": "first",
+          "5": "second",
+          "6": "no",
+          "7": "no",
+          "8": "no",
+          "9": "yes",
+          "10": "yes",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -557,14 +557,14 @@
           "2": "yes",
           "3": "yes",
           "4": "yes",
-          "5": "second",
-          "6": "no",
-          "7": "no",
-          "8": "no",
-          "9": "yes",
-          "10": "yes",
-          "11": "yes",
-          "12": "yes",
+          "5": "yes",
+          "6": "yes",
+          "7": "yes",
+          "8": "yes",
+          "9": "no",
+          "10": "no",
+          "11": "no",
+          "12": "first",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "26.02.2026 21:44",
+    "update": "26.02.2026 23:06",
     "today": 1772056800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "26.02.2026 21:44"
+    "updateFact": "26.02.2026 23:06"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-02-26T20:55:47.211Z",
-    "attempt": 11296
+    "at": "2026-02-26T21:10:32.598Z",
+    "attempt": 11297
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "00c451b4fa871b31508a4794ff0699f873de3d9063055de9e8212865bd1fbd97"
+    "contentHash": "70ee7f0c9aa7867791c50fd613bebebd2779de9d65bfc172d3d50fd3b154ee5e"
   },
   "regionAffiliation": "Одеса та обл."
 }
