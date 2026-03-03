@@ -1,9 +1,9 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-03-03T21:59:18.155Z",
+  "lastUpdated": "2026-03-03T22:13:11.898Z",
   "fact": {
     "data": {
-      "1772488800": {
+      "1772575200": {
         "GPV1.1": {
           "1": "yes",
           "2": "yes",
@@ -317,7 +317,7 @@
           "24": "yes"
         }
       },
-      "1772575200": {
+      "1772661600": {
         "GPV1.1": {
           "1": "yes",
           "2": "yes",
@@ -632,8 +632,8 @@
         }
       }
     },
-    "update": "26.02.2026 09:31",
-    "today": 1772488800
+    "update": "27.02.2026 00:42",
+    "today": 1772575200
   },
   "preset": {
     "days": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "26.02.2026 09:31"
+    "updateFact": "27.02.2026 00:42"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-03-03T21:59:18.155Z",
-    "attempt": 11719
+    "at": "2026-03-03T22:13:11.898Z",
+    "attempt": 11720
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "d815e5ce9402165442826df5ed54ba54fdf69e9a9c893c9cdd6ed1d1f5134a1c"
+    "contentHash": "1fcd8fdeb83cf0690f294f0fce4c79b6dbc353a5cf21a166bf70a4287d7effe2"
   },
   "regionAffiliation": "Одеса та обл."
 }
