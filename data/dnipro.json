@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-03-11T11:49:22.641Z",
+  "lastUpdated": "2026-03-11T12:00:18.680Z",
   "fact": {
     "data": {
       "1773180000": {
@@ -21,14 +21,14 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "no",
-          "18": "no",
+          "17": "yes",
+          "18": "yes",
           "19": "no",
-          "20": "yes",
+          "20": "no",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "second",
+          "24": "no"
         },
         "GPV1.2": {
           "1": "yes",
@@ -47,14 +47,14 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "no",
-          "18": "no",
+          "17": "yes",
+          "18": "yes",
           "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "second",
+          "24": "no"
         },
         "GPV2.1": {
           "1": "yes",
@@ -234,8 +234,8 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV5.2": {
@@ -260,8 +260,8 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV6.1": {
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "10.03.2026 21:11",
+    "update": "11.03.2026 13:51",
     "today": 1773180000
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "10.03.2026 21:11"
+    "updateFact": "11.03.2026 13:51"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-03-11T11:49:22.641Z",
-    "attempt": 12304
+    "at": "2026-03-11T12:00:18.680Z",
+    "attempt": 12305
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "34c16368e4f9f813eb9cd29aa1b6dc25ea330843b21231468d7b24d84b6599e8"
+    "contentHash": "a1a3e51698d5fbb9a4f1ed323498195ff52297fbb0ec9cb2eff4afdfaf2d7ff0"
   },
   "regionAffiliation": "Дніпро та обл."
 }
