@@ -3012,12 +3012,12 @@
     "updateFact": "10.03.2026 21:10"
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-03-11T04:31:01.635Z",
-    "attempt": 12282
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
+    "at": "2026-03-11T05:09:34.714Z",
+    "attempt": 12283
   },
   "meta": {
     "schemaVersion": "1.0.0",
