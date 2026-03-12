@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-03-12T17:17:20.885Z",
+  "lastUpdated": "2026-03-12T17:59:25.133Z",
   "fact": {
     "data": {
       "1773266400": {
@@ -336,9 +336,9 @@
           "15": "yes",
           "16": "yes",
           "17": "yes",
-          "18": "yes",
-          "19": "yes",
-          "20": "yes",
+          "18": "no",
+          "19": "no",
+          "20": "no",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -362,9 +362,9 @@
           "15": "yes",
           "16": "yes",
           "17": "yes",
-          "18": "yes",
-          "19": "yes",
-          "20": "yes",
+          "18": "no",
+          "19": "no",
+          "20": "no",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -443,8 +443,8 @@
           "18": "yes",
           "19": "yes",
           "20": "yes",
-          "21": "yes",
-          "22": "yes",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -469,8 +469,8 @@
           "18": "yes",
           "19": "yes",
           "20": "yes",
-          "21": "yes",
-          "22": "yes",
+          "21": "no",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "12.03.2026 16:00",
+    "update": "12.03.2026 19:40",
     "today": 1773266400
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "12.03.2026 16:00"
+    "updateFact": "12.03.2026 19:40"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/dnipro.html",
-    "at": "2026-03-12T17:38:17.685Z",
-    "attempt": 12388
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-03-12T17:59:25.133Z",
+    "attempt": 12389
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "bd482fe45843f4d49ac74d48072f5c803c6376a25d19c32eadd1ffe312339940"
+    "contentHash": "027cfdd6dd6e3947bef722b597bd03462a0852f0764cde7c6c71a029dcc52e97"
   },
   "regionAffiliation": "Дніпро та обл."
 }
