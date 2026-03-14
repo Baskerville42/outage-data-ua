@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-03-14T14:18:04.668Z",
+  "lastUpdated": "2026-03-14T15:26:37.255Z",
   "fact": {
     "data": {
       "1773439200": {
@@ -74,8 +74,8 @@
           "15": "yes",
           "16": "yes",
           "17": "yes",
-          "18": "no",
-          "19": "no",
+          "18": "yes",
+          "19": "yes",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -206,9 +206,9 @@
           "17": "yes",
           "18": "yes",
           "19": "yes",
-          "20": "no",
-          "21": "no",
-          "22": "no",
+          "20": "yes",
+          "21": "yes",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "13.03.2026 19:04",
+    "update": "14.03.2026 16:32",
     "today": 1773439200
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "13.03.2026 19:04"
+    "updateFact": "14.03.2026 16:32"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2026-03-14T15:16:19.422Z",
-    "attempt": 12533
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-03-14T15:26:37.255Z",
+    "attempt": 12534
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "8c04b2cbafe9fb175a3b19d1dd6a06274f1126220a55b2d3da12157935174a1b"
+    "contentHash": "24a6d34fff8fe6faeab5ddb3e252a7964bbc3ff4fa3619ff24984693a2f08381"
   },
   "regionAffiliation": "Одеса та обл."
 }
