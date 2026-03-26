@@ -1,9 +1,9 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-03-26T21:58:16.624Z",
+  "lastUpdated": "2026-03-26T22:10:12.612Z",
   "fact": {
     "data": {
-      "1774476000": {
+      "1774562400": {
         "GPV1.1": {
           "1": "yes",
           "2": "yes",
@@ -1565,7 +1565,7 @@
           "24": "yes"
         }
       },
-      "1774562400": {
+      "1774648800": {
         "GPV1.1": {
           "1": "yes",
           "2": "yes",
@@ -3128,8 +3128,8 @@
         }
       }
     },
-    "update": "21.03.2026 11:11",
-    "today": 1774476000
+    "update": "22.03.2026 08:39",
+    "today": 1774562400
   },
   "preset": {
     "days": {
@@ -15489,19 +15489,19 @@
         }
       }
     },
-    "updateFact": "21.03.2026 11:11"
+    "updateFact": "22.03.2026 08:39"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-03-26T21:58:16.623Z",
-    "attempt": 13373
+    "at": "2026-03-26T22:10:12.611Z",
+    "attempt": 13374
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "58395569c46eee1e7fc6d8b6f71e69d5fb056a2592b6a39f34899fd4749802d0"
+    "contentHash": "74ec665b27520d32416ef829e917097644603d251e9d3b3041bd2fa652ed7da8"
   },
   "regionAffiliation": "м. Київ"
 }
