@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-04-06T11:28:00.893Z",
+  "lastUpdated": "2026-04-06T11:48:47.605Z",
   "fact": {
     "data": {
       "1775422800": {
@@ -50,10 +50,10 @@
           "17": "yes",
           "18": "yes",
           "19": "yes",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "20": "second",
+          "21": "no",
+          "22": "no",
+          "23": "no",
           "24": "yes"
         },
         "GPV2.1": {
@@ -175,8 +175,8 @@
           "12": "yes",
           "13": "yes",
           "14": "yes",
-          "15": "yes",
-          "16": "yes",
+          "15": "second",
+          "16": "no",
           "17": "yes",
           "18": "yes",
           "19": "yes",
@@ -210,7 +210,7 @@
           "21": "yes",
           "22": "yes",
           "23": "yes",
-          "24": "yes"
+          "24": "no"
         },
         "GPV5.1": {
           "1": "yes",
@@ -281,10 +281,10 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "yes",
-          "18": "yes",
-          "19": "yes",
-          "20": "yes",
+          "17": "no",
+          "18": "no",
+          "19": "no",
+          "20": "first",
           "21": "yes",
           "22": "yes",
           "23": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "02.04.2026 19:47",
+    "update": "06.04.2026 14:35",
     "today": 1775422800
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "02.04.2026 19:47"
+    "updateFact": "06.04.2026 14:35"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-04-06T11:28:00.893Z",
-    "attempt": 14037
+    "at": "2026-04-06T11:48:47.605Z",
+    "attempt": 14038
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "2e280c8b96a80b23986bbc972eb37e15df75896cf96fb7f7c4f604aa1467bfb3"
+    "contentHash": "780e583bf739bd73c4910f85897a1b3d59fcd57c61872d61af13e85fcdd7b695"
   },
   "regionAffiliation": "Київська обл."
 }
