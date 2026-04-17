@@ -1,9 +1,9 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-04-17T21:03:09.958Z",
+  "lastUpdated": "2026-04-17T21:23:21.579Z",
   "fact": {
     "data": [],
-    "update": "10.04.2026 22:13",
+    "update": "28.01.2026 21:36",
     "today": 1776459600
   },
   "preset": {
@@ -12364,19 +12364,19 @@
         }
       }
     },
-    "updateFact": "10.04.2026 22:13"
+    "updateFact": "28.01.2026 21:36"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-04-17T21:03:09.958Z",
-    "attempt": 14633
+    "at": "2026-04-17T21:23:21.579Z",
+    "attempt": 14634
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "be26e3aae7e72e488757b7009d0a629969ca745fe90c80b91df176aef0c4af6f"
+    "contentHash": "9c0803e2ea709ca5a87cdf60f413e793392984291b061f9324f107c766b66b7c"
   },
   "regionAffiliation": "м. Київ"
 }
