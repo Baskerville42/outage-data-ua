@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-06-03T22:13:35.283Z",
+  "lastUpdated": "2026-06-04T01:33:02.669Z",
   "fact": {
     "data": [],
     "update": "26.01.2026 09:28",
@@ -2383,12 +2383,12 @@
     "updateFact": "26.01.2026 09:28"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/dnipro.html",
-    "at": "2026-06-04T00:15:50.827Z",
-    "attempt": 16392
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-06-04T01:33:02.669Z",
+    "attempt": 16393
   },
   "meta": {
     "schemaVersion": "1.0.0",
