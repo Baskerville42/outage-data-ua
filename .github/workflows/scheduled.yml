@@ -3,11 +3,7 @@ permissions:
   contents: write
 
 on:
-  schedule:
-    # Runs every 5 minutes at :00, :05, :10, :15, :20, :25, :30, :35, :40, :45, :50, :55
-    # NOTE: GitHub Actions cron uses UTC time. Adjust if you need specific local times.
-    - cron: '*/5 * * * *'
-  # Allows manual trigger from the Actions tab
+  # Allows manual trigger from the Actions tab and GitHub API
   workflow_dispatch:
     inputs:
       region:
