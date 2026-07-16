@@ -1,10 +1,10 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-07-16T20:55:57.789Z",
+  "lastUpdated": "2026-07-16T21:01:18.101Z",
   "fact": {
     "data": [],
     "update": "26.01.2026 09:28",
-    "today": 1784149200
+    "today": 1784235600
   },
   "preset": {
     "days": {
@@ -2387,12 +2387,12 @@
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-07-16T20:55:57.789Z",
-    "attempt": 20815
+    "at": "2026-07-16T21:01:18.101Z",
+    "attempt": 20816
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "661be9212d87df6ae8329f638eeac10653e826a09bec2db273fa2055c6cad427"
+    "contentHash": "627b97079f94297156a73473a975d95bb5c9b682a499b0f5a139a08c7c5486d5"
   },
   "regionAffiliation": "Дніпро та обл."
 }
