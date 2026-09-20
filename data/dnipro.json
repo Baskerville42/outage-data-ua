@@ -1,10 +1,10 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-09-20T20:56:13.430Z",
+  "lastUpdated": "2026-09-20T21:06:02.340Z",
   "fact": {
     "data": [],
     "update": "24.07.2026 08:30",
-    "today": 1789851600
+    "today": 1789938000
   },
   "preset": {
     "days": {
@@ -4603,16 +4603,16 @@
     "updateFact": "24.07.2026 08:30"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/dnipro.html",
-    "at": "2026-09-20T21:01:59.230Z",
-    "attempt": 38564
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-09-20T21:06:02.340Z",
+    "attempt": 38565
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "2c15d37015fd9f72611e6116bc9be3bdd8765cdc1db051a6a1e12927a0d4595f"
+    "contentHash": "ff942f1fbd17e84fef55e8220bf4e2fd27b33b2f5bcd8b9682516e66c1c661c0"
   },
   "regionAffiliation": "Дніпро та обл."
 }

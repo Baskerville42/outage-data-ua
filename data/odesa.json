@@ -1,10 +1,10 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-09-20T20:56:13.539Z",
+  "lastUpdated": "2026-09-20T21:06:02.468Z",
   "fact": {
     "data": [],
     "update": "26.01.2026 08:59",
-    "today": 1789851600
+    "today": 1789938000
   },
   "preset": {
     "days": {
@@ -2383,16 +2383,16 @@
     "updateFact": "26.01.2026 08:59"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2026-09-20T21:01:59.312Z",
-    "attempt": 38564
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-09-20T21:06:02.468Z",
+    "attempt": 38565
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "eace045b91398a1b832c587408c4361ee72559c928ecfc616b91f07796859922"
+    "contentHash": "c1dce2224eeece373d97cd3da348b0f7e5ef53106a2c280cab29cf89bb160843"
   },
   "regionAffiliation": "Одеса та обл."
 }
