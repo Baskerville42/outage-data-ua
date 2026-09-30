@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-09-30T16:41:38.283Z",
+  "lastUpdated": "2026-09-30T17:21:34.867Z",
   "fact": {
     "data": {
       "1790715600": {
@@ -13990,12 +13990,12 @@
     "updateFact": "30.09.2026 18:52"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv.html",
-    "at": "2026-09-30T17:11:22.250Z",
-    "attempt": 41380
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-09-30T17:21:34.867Z",
+    "attempt": 41381
   },
   "meta": {
     "schemaVersion": "1.0.0",
