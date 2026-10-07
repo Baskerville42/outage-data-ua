@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-07T18:17:32.989Z",
+  "lastUpdated": "2026-10-07T18:27:48.108Z",
   "fact": {
     "data": {
       "1791320400": {
@@ -130,9 +130,9 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
-          "23": "no",
-          "24": "no"
+          "22": "yes",
+          "23": "yes",
+          "24": "yes"
         },
         "GPV3.2": {
           "1": "yes",
@@ -156,9 +156,9 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
-          "23": "no",
-          "24": "no"
+          "22": "yes",
+          "23": "yes",
+          "24": "yes"
         },
         "GPV4.1": {
           "1": "yes",
@@ -182,9 +182,9 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
-          "23": "no",
-          "24": "no"
+          "22": "yes",
+          "23": "yes",
+          "24": "yes"
         },
         "GPV4.2": {
           "1": "yes",
@@ -209,8 +209,8 @@
           "20": "yes",
           "21": "second",
           "22": "no",
-          "23": "no",
-          "24": "no"
+          "23": "yes",
+          "24": "yes"
         },
         "GPV5.1": {
           "1": "yes",
@@ -286,7 +286,7 @@
           "19": "yes",
           "20": "yes",
           "21": "yes",
-          "22": "no",
+          "22": "yes",
           "23": "no",
           "24": "no"
         },
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "07.10.2026 20:50",
+    "update": "07.10.2026 21:13",
     "today": 1791320400
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "07.10.2026 20:50"
+    "updateFact": "07.10.2026 21:13"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
-    "at": "2026-10-07T18:21:30.835Z",
-    "attempt": 43346
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-10-07T18:27:48.108Z",
+    "attempt": 43347
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "5f7df46e9b51182ae4745ebfd5ddf91bf181a23c82ffd854ebe0558cbe00ddc7"
+    "contentHash": "29c8c0d8aa10b15af767d5d7b8d0207c0544ec02f5c19ea913c02cade799fd27"
   },
   "regionAffiliation": "Київська обл."
 }
