@@ -13990,12 +13990,12 @@
     "updateFact": "09.10.2026 01:35"
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-10-09T07:21:35.487Z",
-    "attempt": 43791
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv.html",
+    "at": "2026-10-09T07:26:26.821Z",
+    "attempt": 43792
   },
   "meta": {
     "schemaVersion": "1.0.0",
