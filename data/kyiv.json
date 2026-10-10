@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-10-10T07:01:50.790Z",
+  "lastUpdated": "2026-10-10T07:05:52.984Z",
   "fact": {
     "data": {
       "1791579600": {
@@ -15,8 +15,8 @@
           "8": "yes",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -119,8 +119,8 @@
           "8": "yes",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -457,8 +457,8 @@
           "8": "yes",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -795,8 +795,8 @@
           "8": "yes",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -1133,8 +1133,8 @@
           "8": "yes",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "yes",
+          "12": "yes",
           "13": "yes",
           "14": "yes",
           "15": "yes",
@@ -1566,7 +1566,7 @@
         }
       }
     },
-    "update": "10.10.2026 06:44",
+    "update": "10.10.2026 09:59",
     "today": 1791579600
   },
   "preset": {
@@ -13987,19 +13987,19 @@
         }
       }
     },
-    "updateFact": "10.10.2026 06:44"
+    "updateFact": "10.10.2026 09:59"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-10-10T07:01:50.790Z",
-    "attempt": 44073
+    "at": "2026-10-10T07:05:52.984Z",
+    "attempt": 44074
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "e72c6305b85569f8bdcb0dbde467b9bba6339bc915f2ee7d8ad1d48ccf00f0ed"
+    "contentHash": "b28aea488d652fa150dd6e31ab4d1885275268f6ffa51ccb47f68ae0d3090821"
   },
   "regionAffiliation": "м. Київ"
 }
