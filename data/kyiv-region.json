@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-12T17:20:57.925Z",
+  "lastUpdated": "2026-10-12T17:26:04.091Z",
   "fact": {
     "data": {
       "1791752400": {
@@ -335,9 +335,9 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "second",
-          "18": "no",
-          "19": "no",
+          "17": "yes",
+          "18": "yes",
+          "19": "second",
           "20": "no",
           "21": "first",
           "22": "yes",
@@ -403,8 +403,8 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "no",
-          "8": "no",
+          "7": "yes",
+          "8": "yes",
           "9": "no",
           "10": "no",
           "11": "yes",
@@ -544,8 +544,8 @@
           "15": "yes",
           "16": "yes",
           "17": "no",
-          "18": "yes",
-          "19": "yes",
+          "18": "no",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -611,8 +611,8 @@
           "4": "yes",
           "5": "yes",
           "6": "yes",
-          "7": "yes",
-          "8": "yes",
+          "7": "no",
+          "8": "no",
           "9": "no",
           "10": "no",
           "11": "yes",
@@ -632,7 +632,7 @@
         }
       }
     },
-    "update": "12.10.2026 20:16",
+    "update": "12.10.2026 20:23",
     "today": 1791752400
   },
   "preset": {
@@ -3009,19 +3009,19 @@
         }
       }
     },
-    "updateFact": "12.10.2026 20:16"
+    "updateFact": "12.10.2026 20:23"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-10-12T17:20:57.925Z",
-    "attempt": 44771
+    "at": "2026-10-12T17:26:04.091Z",
+    "attempt": 44772
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "d28dad889dc9d762d4f3fc58e797bf72d0fea11eb36ca7740b7dccfed3a9bda2"
+    "contentHash": "0aff4e27923364b1e3914143da95a60cb6e4c62d26e7b62475def1c71a1a9300"
   },
   "regionAffiliation": "Київська обл."
 }
