@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-17T00:16:03.794Z",
+  "lastUpdated": "2026-10-17T00:26:04.945Z",
   "fact": {
     "data": {
       "1792184400": {
@@ -268,7 +268,7 @@
           "1": "yes",
           "2": "no",
           "3": "no",
-          "4": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -294,7 +294,7 @@
           "1": "yes",
           "2": "no",
           "3": "no",
-          "4": "no",
+          "4": "first",
           "5": "yes",
           "6": "yes",
           "7": "yes",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "update": "17.10.2026 02:09",
+    "update": "17.10.2026 03:18",
     "today": 1792184400
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "17.10.2026 02:09"
+    "updateFact": "17.10.2026 03:18"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
-    "at": "2026-10-17T00:21:31.739Z",
-    "attempt": 46000
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-10-17T00:26:04.945Z",
+    "attempt": 46001
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "39bac4bac4c6c7594688ddf54e0775c28f5ee743f1f1f4fda1ed51f7be75ecc5"
+    "contentHash": "950bec03b60d3dbe3a1e58ad5e338f76804e07a12a68fe820f0d54c5e9ce21b1"
   },
   "regionAffiliation": "Київська обл."
 }
