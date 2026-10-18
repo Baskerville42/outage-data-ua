@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-18T11:40:59.805Z",
+  "lastUpdated": "2026-10-18T11:51:19.305Z",
   "fact": {
     "data": {
       "1792270800": {
@@ -21,9 +21,9 @@
           "14": "no",
           "15": "no",
           "16": "no",
-          "17": "yes",
-          "18": "yes",
-          "19": "yes",
+          "17": "no",
+          "18": "no",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -49,7 +49,7 @@
           "16": "no",
           "17": "no",
           "18": "no",
-          "19": "first",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -79,8 +79,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "second",
+          "24": "no"
         },
         "GPV2.2": {
           "1": "yes",
@@ -105,8 +105,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "second",
+          "24": "no"
         },
         "GPV3.1": {
           "1": "yes",
@@ -130,8 +130,8 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "first",
-          "23": "yes",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV3.2": {
@@ -154,10 +154,10 @@
           "17": "no",
           "18": "no",
           "19": "no",
-          "20": "first",
-          "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "20": "no",
+          "21": "no",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV4.1": {
@@ -228,7 +228,7 @@
           "13": "first",
           "14": "yes",
           "15": "first",
-          "16": "yes",
+          "16": "first",
           "17": "yes",
           "18": "yes",
           "19": "yes",
@@ -236,7 +236,7 @@
           "21": "no",
           "22": "no",
           "23": "no",
-          "24": "yes"
+          "24": "no"
         },
         "GPV5.2": {
           "1": "yes",
@@ -261,7 +261,7 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV6.1": {
@@ -287,7 +287,7 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "yes",
+          "23": "first",
           "24": "yes"
         },
         "GPV6.2": {
@@ -313,12 +313,12 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         }
       }
     },
-    "update": "18.10.2026 14:31",
+    "update": "18.10.2026 14:46",
     "today": 1792270800
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "18.10.2026 14:31"
+    "updateFact": "18.10.2026 14:46"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
-    "at": "2026-10-18T11:46:34.098Z",
-    "attempt": 46424
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-10-18T11:51:19.305Z",
+    "attempt": 46425
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "7f2e5af15c5a4c55484fe047166218536c4759b911e51e5a0d4bf79318c1a607"
+    "contentHash": "3ee9d10863f69c46096346b96cceeaa78cb0cdc1008715b0f6b54dd0131537fe"
   },
   "regionAffiliation": "Київська обл."
 }
