@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-18T05:31:26.379Z",
+  "lastUpdated": "2026-10-18T05:35:56.620Z",
   "fact": {
     "data": {
       "1792270800": {
@@ -144,8 +144,8 @@
           "7": "yes",
           "8": "yes",
           "9": "yes",
-          "10": "no",
-          "11": "first",
+          "10": "yes",
+          "11": "yes",
           "12": "yes",
           "13": "yes",
           "14": "yes",
@@ -222,8 +222,8 @@
           "7": "yes",
           "8": "yes",
           "9": "yes",
-          "10": "no",
-          "11": "no",
+          "10": "yes",
+          "11": "yes",
           "12": "no",
           "13": "first",
           "14": "yes",
@@ -235,7 +235,7 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "yes",
+          "23": "no",
           "24": "yes"
         },
         "GPV5.2": {
@@ -249,7 +249,7 @@
           "8": "yes",
           "9": "yes",
           "10": "yes",
-          "11": "no",
+          "11": "yes",
           "12": "no",
           "13": "first",
           "14": "yes",
@@ -313,12 +313,12 @@
           "20": "no",
           "21": "no",
           "22": "no",
-          "23": "no",
+          "23": "yes",
           "24": "yes"
         }
       }
     },
-    "update": "18.10.2026 07:27",
+    "update": "18.10.2026 08:32",
     "today": 1792270800
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "18.10.2026 07:27"
+    "updateFact": "18.10.2026 08:32"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-10-18T05:31:26.378Z",
-    "attempt": 46349
+    "at": "2026-10-18T05:35:56.620Z",
+    "attempt": 46350
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "e24a6367bd72407b5fdbaa78ec83bb56c112d8dc835ae7b833bdc446bc91ad18"
+    "contentHash": "02ec566573703ae84eddf100778b76a8c4c3a3d0df2892899a237b0659282f24"
   },
   "regionAffiliation": "Київська обл."
 }
