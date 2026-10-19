@@ -2698,12 +2698,12 @@
     "updateFact": "18.10.2026 22:42"
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-10-19T05:31:25.168Z",
-    "attempt": 46636
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
+    "at": "2026-10-19T05:36:25.420Z",
+    "attempt": 46637
   },
   "meta": {
     "schemaVersion": "1.0.0",
