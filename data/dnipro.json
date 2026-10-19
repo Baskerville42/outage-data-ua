@@ -4603,12 +4603,12 @@
     "updateFact": "17.10.2026 09:55"
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-10-19T06:11:03.242Z",
-    "attempt": 46644
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/dnipro.html",
+    "at": "2026-10-19T06:16:31.099Z",
+    "attempt": 46645
   },
   "meta": {
     "schemaVersion": "1.0.0",
