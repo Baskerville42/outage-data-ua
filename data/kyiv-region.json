@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-10-27T06:35:50.484Z",
+  "lastUpdated": "2026-10-27T06:41:08.076Z",
   "fact": {
     "data": {
       "1793052000": {
@@ -25,7 +25,7 @@
           "18": "no",
           "19": "no",
           "20": "no",
-          "21": "first",
+          "21": "no",
           "22": "yes",
           "23": "yes",
           "24": "yes"
@@ -66,7 +66,7 @@
           "7": "no",
           "8": "no",
           "9": "no",
-          "10": "first",
+          "10": "no",
           "11": "yes",
           "12": "yes",
           "13": "yes",
@@ -91,19 +91,19 @@
           "6": "yes",
           "7": "yes",
           "8": "yes",
-          "9": "yes",
-          "10": "yes",
+          "9": "second",
+          "10": "no",
           "11": "yes",
           "12": "yes",
           "13": "yes",
-          "14": "first",
+          "14": "yes",
           "15": "yes",
           "16": "yes",
           "17": "second",
           "18": "no",
           "19": "no",
           "20": "no",
-          "21": "no",
+          "21": "first",
           "22": "yes",
           "23": "yes",
           "24": "yes"
@@ -318,7 +318,7 @@
         }
       }
     },
-    "update": "27.10.2026 06:44",
+    "update": "27.10.2026 08:35",
     "today": 1793052000
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "27.10.2026 06:44"
+    "updateFact": "27.10.2026 08:35"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-10-27T06:35:50.484Z",
-    "attempt": 48913
+    "at": "2026-10-27T06:41:08.075Z",
+    "attempt": 48914
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "8a88db0f95e58ebf8836d03ea9582c1af5cb3432186f8b7dbc6aff688c2362de"
+    "contentHash": "3dfde7657d4f32e0b2d14aa37203ed2af8b6080053c75699ae16ab82650c8467"
   },
   "regionAffiliation": "Київська обл."
 }
