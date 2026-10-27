@@ -207,17 +207,21 @@
     }
   }
 
+  function displayGroupName(name) {
+    return String(name || '').replace(/^Черга(?=\s|:|$)/u, 'Група');
+  }
+
   function injectGroupBadgeIfPresent(data, gpvKey) {
     try {
       const h1 = document.querySelector('.container > h1');
       if (h1) {
         const names = data?.preset?.sch_names || {};
-        let label = names[gpvKey] || '';
+        let label = displayGroupName(names[gpvKey] || '');
         if (label) {
-          label = label.replace(/^Черга\b\s*/, 'Черга: ');
+          label = label.replace(/^Група(?=\s|:|$)\s*:?\s*/u, 'Група: ');
         } else if (gpvKey) {
           const m = String(gpvKey).match(/^GPV(\d+)\.(\d+)$/);
-          if (m) label = `Черга: ${m[1]}.${m[2]}`;
+          if (m) label = `Група: ${m[1]}.${m[2]}`;
         }
         if (label) {
           let badge = h1.querySelector('.group-badge');
@@ -436,7 +440,7 @@
     const hr = document.createElement('tr');
     const corner = document.createElement('th');
     corner.className = 'corner-split';
-    corner.innerHTML = '<span class="corner-top">Час</span><span class="corner-bottom">Черга</span>';
+    corner.innerHTML = '<span class="corner-top">Час</span><span class="corner-bottom">Група</span>';
     hr.appendChild(corner);
     for (const t of times) {
       const th = document.createElement('th');
@@ -467,7 +471,7 @@
     for (const gpvKey of gpvKeys) {
       const tr = document.createElement('tr');
       const th = document.createElement('th');
-      th.textContent = names[gpvKey] || gpvKey.replace(/^GPV/, 'Черга ');
+      th.textContent = displayGroupName(names[gpvKey]) || gpvKey.replace(/^GPV/, 'Група ');
       tr.appendChild(th);
 
       tzKeys.forEach(hk => {
@@ -476,7 +480,7 @@
         if (raw) td.classList.add('state-' + raw);
         const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
         const desc = raw ? (preset.time_type?.[raw] || raw) : '';
-        if (desc) td.title = (names[gpvKey] || gpvKey) + ' ' + timeLabel + ' — ' + desc;
+        if (desc) td.title = (displayGroupName(names[gpvKey]) || gpvKey) + ' ' + timeLabel + ' — ' + desc;
         // For groups template, use the 'nfirst/nsecond' icons like in the Today table
         const iconSrc = raw ? stateIconSrcToday(raw) : null;
         if (iconSrc) {
