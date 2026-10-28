@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-10-28T15:26:03.827Z",
+  "lastUpdated": "2026-10-28T15:36:12.053Z",
   "fact": {
     "data": [],
     "update": "25.10.2026 23:22",
@@ -2383,12 +2383,12 @@
     "updateFact": "25.10.2026 23:22"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2026-10-28T15:31:59.725Z",
-    "attempt": 49302
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-10-28T15:36:12.053Z",
+    "attempt": 49303
   },
   "meta": {
     "schemaVersion": "1.0.0",
