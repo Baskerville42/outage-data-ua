@@ -150,6 +150,21 @@ function updateStatusOnError(existingObj, regionId, _upstream, code, message) {
 
 function isObject(x) { return x && typeof x === 'object' && !Array.isArray(x); }
 
+function logFactSummary(regionId, fact) {
+  const data = isObject(fact?.data) ? fact.data : {};
+  const dayKeys = Object.keys(data).sort((a, b) => Number(a) - Number(b));
+  const groupCounts = Object.fromEntries(dayKeys.map(day => [
+    day,
+    isObject(data[day]) ? Object.keys(data[day]).filter(key => /^GPV\d+\.\d+$/i.test(key)).length : 0,
+  ]));
+  const today = fact?.today ?? null;
+  const summary = { region: regionId, today, update: fact?.update ?? null, dayKeys, groupCounts };
+  console.log(`[INFO] Fact summary ${JSON.stringify(summary)}`);
+  if (!groupCounts[String(today)]) {
+    console.warn(`[WARN] No fact groups for today ${JSON.stringify(summary)}`);
+  }
+}
+
 function pad2(n) { return String(n).padStart(2, '0'); }
 
 function tzOffsetMinutes(utcTs, timeZone) {
@@ -346,6 +361,7 @@ function main() {
 
   const jsonText = args.pretty ? JSON.stringify(outObj, null, 2) : JSON.stringify(outObj);
   writeFileAtomic(args.output, jsonText);
+  logFactSummary(regionId, factParsed.value);
   console.log(`[OK] Parsed ${args.region} → ${args.output} (factMethod=${factParsed.method}${presetParsed ? `, presetMethod=${presetExt.error ? 'n/a' : (tryParseObject.name && 'parsed')}` : ''}, bytes=${jsonText.length})`);
 }
 

@@ -94,47 +94,16 @@ export async function renderPage({
 
         await page.goto(urlToOpen, { waitUntil: 'networkidle', timeout: Math.max(timeoutMs, 10000) });
 
-        const hasMatrix = await page.$('#matrix');
-        const hasToday = await page.$('#today');
-        const hasSummary = await page.$('.summary-card');
-
-        if (hasMatrix) {
-            const matrixReady = page.waitForSelector(
-              '#matrix tbody tr:last-child td:last-child',
-              { timeout: timeoutMs }
-            );
-
-            const matrixEmpty = page.waitForSelector(
-              '#matrix tbody tr th[colspan]',
-              { timeout: timeoutMs }
-            );
-
-            await Promise.race([matrixReady, matrixEmpty]);
-        }
-        if (hasToday) {
-            const todayReady = page.waitForSelector(
-              '#today tbody tr td:last-child',
-              { timeout: timeoutMs }
-            );
-
-            const todayEmpty = page.waitForSelector(
-              '#today tbody tr th[colspan]',
-              { timeout: timeoutMs }
-            );
-
-          await Promise.race([todayReady, todayEmpty]);
-        }
-        if (hasSummary) {
-            const waitIntervals = page.waitForSelector('.summary-intervals > div', { timeout: timeoutMs }).catch(() => null);
-            const waitOnBadge = page.waitForSelector('.status-badge.badge-on', { timeout: timeoutMs }).catch(() => null);
-            const winner = await Promise.race([waitIntervals, waitOnBadge]);
-            if (!winner) {
-                throw new Error('Summary template did not render intervals or ON badge in time');
-            }
-        }
-        if (!hasMatrix && !hasToday && !hasSummary) {
+        const targets = await page.evaluate(() =>
+            ['#matrix', '#today', '.summary-card'].filter(selector => document.querySelector(selector))
+        );
+        if (targets.length === 0) {
             throw new Error('Template did not render #matrix nor #today nor summary-card');
         }
+        // A completed empty state is valid; static markup or blank cells alone are not readiness.
+        await page.waitForFunction(selectors => selectors.every(selector =>
+            document.querySelector(selector)?.dataset.scheduleReady === 'true'
+        ), targets, { timeout: timeoutMs });
 
         const container = page.locator('.container');
         const bbox = await container.boundingBox();

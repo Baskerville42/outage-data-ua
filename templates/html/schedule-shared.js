@@ -45,6 +45,105 @@
     return stateIconSrc(state);
   }
 
+  const validFactStates = new Set(['yes', 'no', 'maybe', 'first', 'second', 'mfirst', 'msecond']);
+
+  function factTodayEpoch(fact) {
+    if (fact?.today == null || fact.today === '') return null;
+    const epoch = Number(fact.today);
+    return Number.isFinite(epoch) && Number.isFinite(new Date(epoch * 1000).getTime()) ? epoch : null;
+  }
+
+  function formatUkDate(epoch) {
+    if (epoch == null) return '';
+    try {
+      return new Intl.DateTimeFormat('uk-UA', {
+        timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long'
+      }).format(new Date(epoch * 1000));
+    } catch (_) { return ''; }
+  }
+
+  // Resolve the next Kyiv calendar midnight, including 23/25-hour DST days.
+  // Available data keys never determine which date "tomorrow" means.
+  function nextKyivDayEpoch(epoch) {
+    if (epoch == null) return null;
+    try {
+      const formatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Kyiv', year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+      });
+      const partsAt = (ms) => Object.fromEntries(formatter.formatToParts(new Date(ms))
+        .filter(p => p.type !== 'literal').map(p => [p.type, Number(p.value)]));
+      const day = partsAt(epoch * 1000);
+      const wallMidnight = Date.UTC(day.year, day.month - 1, day.day + 1);
+      let instant = wallMidnight;
+      for (let i = 0; i < 4; i++) {
+        const p = partsAt(instant);
+        const represented = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
+        const correction = wallMidnight - represented;
+        instant += correction;
+        if (correction === 0) return instant / 1000;
+      }
+    } catch (_) { }
+    return null;
+  }
+
+  function factSchedule(fact, epoch, gpvKey) {
+    const day = epoch != null && fact?.data?.[String(epoch)];
+    const schedule = day && day[gpvKey];
+    return schedule && typeof schedule === 'object' && !Array.isArray(schedule) ? schedule : null;
+  }
+
+  function factScheduleStatus(schedule, tzKeys) {
+    if (!schedule || Object.keys(schedule).length === 0 || tzKeys.length === 0) return 'missing';
+    return tzKeys.every(hk => validFactStates.has(schedule[String(hk)])) ? 'complete' : 'partial';
+  }
+
+  function appendMissingSchedule(tr, columnCount) {
+    const cell = document.createElement('th');
+    cell.colSpan = columnCount;
+    cell.className = 'schedule-missing';
+    cell.textContent = 'Дані графіка відсутні';
+    tr.appendChild(cell);
+  }
+
+  function appendFactCells(tr, preset, schedule, tzKeys, label) {
+    tzKeys.forEach(hk => {
+      const td = document.createElement('td');
+      const raw = schedule?.[String(hk)];
+      const state = validFactStates.has(raw) ? raw : 'unknown';
+      td.classList.add('state-' + state);
+      const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
+      const desc = state === 'unknown' ? 'Дані відсутні' : (preset.time_type?.[state] || state);
+      td.title = label + ' ' + timeLabel + ' — ' + desc;
+      if (state === 'unknown') {
+        td.textContent = '?';
+        td.setAttribute('aria-label', td.title);
+      }
+      const iconSrc = stateIconSrcToday(state);
+      if (iconSrc) {
+        const img = document.createElement('img');
+        img.className = 'cell-icon';
+        img.src = iconSrc;
+        img.width = 20; img.height = 20; img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.decoding = 'async';
+        td.appendChild(img);
+      }
+      tr.appendChild(td);
+    });
+  }
+
+  function injectUnknownLegendIfNeeded() {
+    const legend = document.querySelector('.legend');
+    if (!legend || !document.querySelector('td.state-unknown') || legend.querySelector('.legend-unknown')) return;
+    const item = document.createElement('div');
+    item.className = 'legend-item legend-unknown';
+    const box = document.createElement('span');
+    box.className = 'legend-box state-unknown';
+    box.textContent = '?';
+    item.appendChild(box);
+    item.appendChild(document.createTextNode(' Дані відсутні'));
+    legend.appendChild(item);
+  }
+
   // ===== Helpers for mapping update timestamps to time slot columns =====
   function parseTimeLabelStartMinutes(label) {
     if (!label) return NaN;
@@ -193,7 +292,19 @@
     // Requirement: show date/time from fact.update if present
     const preferFact = (data?.fact?.update || '').trim();
     const label = preferFact || formatLastUpdated(data);
-    if (label) el.textContent = 'Дата та час останнього оновлення інформації на графіку: ' + label;
+    const labels = [];
+    if (label) labels.push('Оновлення розкладу в джерелі: ' + label);
+    if (data?.lastUpdated) {
+      const received = new Date(data.lastUpdated);
+      if (Number.isFinite(received.getTime())) {
+        const formatted = new Intl.DateTimeFormat('uk-UA', {
+          timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+        }).format(received);
+        labels.push('Дані отримано: ' + formatted);
+      }
+    }
+    el.textContent = labels.join(' · ');
   }
 
   function injectMetaIfPresent(data) {
@@ -253,6 +364,7 @@
   function buildWeek(preset, gpvKey, todayWeekdayIdx) {
     const table = document.getElementById('matrix');
     if (!table) return;
+    delete table.dataset.scheduleReady;
     table.innerHTML = '';
 
     const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
@@ -289,6 +401,7 @@
       tbody.appendChild(tr);
       table.appendChild(thead);
       table.appendChild(tbody);
+      table.dataset.scheduleReady = 'true';
       return;
     }
 
@@ -325,6 +438,7 @@
 
     table.appendChild(thead);
     table.appendChild(tbody);
+    table.dataset.scheduleReady = 'true';
 
     // Return tzKeys for highlighting
     return { tzKeys, times };
@@ -333,6 +447,7 @@
   function buildToday(preset, fact, gpvKey) {
     const table = document.getElementById('today');
     if (!table) return;
+    delete table.dataset.scheduleReady;
     table.innerHTML = '';
 
     const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
@@ -358,61 +473,33 @@
       rowTh.textContent = label;
       tr.appendChild(rowTh);
 
-      const dayObj = fact && fact.data && (dayEpoch != null) && fact.data[String(dayEpoch)];
-      const schedule = dayObj && (dayObj[gpvKey]);
-
-      tzKeys.forEach(hk => {
-        const td = document.createElement('td');
-        const raw = schedule?.[String(hk)];
-        if (raw) td.classList.add('state-' + raw);
-        const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
-        const desc = raw ? (preset.time_type?.[raw] || raw) : '';
-        if (desc) td.title = label + ' ' + timeLabel + ' — ' + desc;
-        const iconSrc = raw ? stateIconSrcToday(raw) : null;
-        if (iconSrc) {
-          const img = document.createElement('img');
-          img.className = 'cell-icon';
-          img.src = iconSrc;
-          img.width = 20; img.height = 20; img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.decoding = 'async';
-          td.appendChild(img);
-        }
-        tr.appendChild(td);
-      });
+      const schedule = factSchedule(fact, dayEpoch, gpvKey);
+      const status = factScheduleStatus(schedule, tzKeys);
+      tr.dataset.scheduleStatus = status;
+      if (status === 'missing') {
+        appendMissingSchedule(tr, tzKeys.length);
+      } else {
+        appendFactCells(tr, preset, schedule, tzKeys, label);
+      }
       return tr;
     }
 
     const tbody = document.createElement('tbody');
 
-    // Format epoch seconds (00:00 of a day) to 'D місяця' in Ukrainian, Europe/Kyiv timezone
-    function formatUkDate(epochSec) {
-      try {
-        const d = new Date(Number(epochSec) * 1000);
-        return new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long' }).format(d);
-      } catch (_) { return ''; }
-    }
+    const todayEpoch = factTodayEpoch(fact);
+    const todayLabel = formatUkDate(todayEpoch) || 'Сьогодні';
+    tbody.appendChild(renderRow(todayLabel, todayEpoch));
 
-    const todayEpoch = (fact && fact.today != null) ? Number(fact.today) : null;
-    if (todayEpoch != null) {
-      const todayLabel = formatUkDate(todayEpoch) || 'Сьогодні';
-      tbody.appendChild(renderRow(todayLabel, todayEpoch));
-    }
-
-    let tomorrowEpoch = null;
-    try {
-      const keys = Object.keys(fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
-      if (keys.length) {
-        const greater = keys.filter(k => todayEpoch != null ? k > todayEpoch : true).sort((a, b) => a - b);
-        tomorrowEpoch = greater[0] ?? keys.find(k => k !== todayEpoch) ?? null;
-      }
-    } catch (_) { }
-
-    if (tomorrowEpoch != null && tomorrowEpoch !== todayEpoch) {
+    const tomorrowEpoch = nextKyivDayEpoch(todayEpoch);
+    if (tomorrowEpoch != null && Object.prototype.hasOwnProperty.call(fact?.data || {}, String(tomorrowEpoch))) {
       const label = formatUkDate(tomorrowEpoch) || 'Завтра';
       tbody.appendChild(renderRow(label, tomorrowEpoch));
     }
 
     table.appendChild(thead);
     table.appendChild(tbody);
+    injectUnknownLegendIfNeeded();
+    table.dataset.scheduleReady = 'true';
 
     // Return tzKeys for highlighting
     return { tzKeys };
@@ -422,15 +509,20 @@
   function buildGroups(preset, fact, targetEpoch) {
     const table = document.getElementById('matrix');
     if (!table) return;
+    delete table.dataset.scheduleReady;
     table.innerHTML = '';
 
     const tzKeys = Object.keys(preset.time_zone).map(Number).sort((a, b) => a - b);
     const times = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
 
     // Determine target epoch and the set of groups present
-    const epochStr = (targetEpoch != null) ? String(targetEpoch) : ((fact && fact.today != null) ? String(fact.today) : null);
+    const epochStr = targetEpoch != null ? String(targetEpoch) : null;
     const dayObj = (epochStr && fact && fact.data) ? fact.data[epochStr] : null;
-    const gpvKeys = dayObj ? Object.keys(dayObj).filter(k => /^GPV\d+\.\d+$/.test(k)).sort((a, b) => {
+    const dayGroups = Object.keys(dayObj || {}).filter(k => /^GPV\d+\.\d+$/.test(k));
+    // A partially published day must not hide groups whose factual schedule is missing.
+    const gpvKeys = dayGroups.length ? [...new Set([
+      ...Object.keys(preset.data || {}).filter(k => /^GPV\d+\.\d+$/.test(k)), ...dayGroups
+    ])].sort((a, b) => {
       const pa = a.match(/\d+|\.|/g)?.join('') || '';
       const pb = b.match(/\d+|\.|/g)?.join('') || '';
       return pa.localeCompare(pb, 'en', { numeric: true });
@@ -457,12 +549,16 @@
     if (!gpvKeys.length) {
       const tr = document.createElement('tr');
       const th = document.createElement('th');
-      th.textContent = 'Помилка: відсутні дані на ' + (targetEpoch ? 'обрану дату' : 'сьогодні');
+      const date = formatUkDate(targetEpoch);
+      th.textContent = 'Дані графіка відсутні' + (date ? ' на ' + date : '');
       th.colSpan = 1 + tzKeys.length;
+      th.className = 'schedule-missing';
+      tr.dataset.scheduleStatus = 'missing';
       tr.appendChild(th);
       tbody.appendChild(tr);
       table.appendChild(thead);
       table.appendChild(tbody);
+      table.dataset.scheduleReady = 'true';
       return;
     }
 
@@ -474,30 +570,22 @@
       th.textContent = displayGroupName(names[gpvKey]) || gpvKey.replace(/^GPV/, 'Група ');
       tr.appendChild(th);
 
-      tzKeys.forEach(hk => {
-        const td = document.createElement('td');
-        const raw = dayObj?.[gpvKey]?.[String(hk)];
-        if (raw) td.classList.add('state-' + raw);
-        const timeLabel = preset.time_zone[String(hk)]?.[0] || '';
-        const desc = raw ? (preset.time_type?.[raw] || raw) : '';
-        if (desc) td.title = (displayGroupName(names[gpvKey]) || gpvKey) + ' ' + timeLabel + ' — ' + desc;
-        // For groups template, use the 'nfirst/nsecond' icons like in the Today table
-        const iconSrc = raw ? stateIconSrcToday(raw) : null;
-        if (iconSrc) {
-          const img = document.createElement('img');
-          img.className = 'cell-icon';
-          img.src = iconSrc;
-          img.width = 20; img.height = 20; img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.decoding = 'async';
-          td.appendChild(img);
-        }
-        tr.appendChild(td);
-      });
+      const schedule = factSchedule(fact, targetEpoch, gpvKey);
+      const status = factScheduleStatus(schedule, tzKeys);
+      tr.dataset.scheduleStatus = status;
+      if (status === 'missing') {
+        appendMissingSchedule(tr, tzKeys.length);
+      } else {
+        appendFactCells(tr, preset, schedule, tzKeys, displayGroupName(names[gpvKey]) || gpvKey);
+      }
 
       tbody.appendChild(tr);
     }
 
     table.appendChild(thead);
     table.appendChild(tbody);
+    injectUnknownLegendIfNeeded();
+    table.dataset.scheduleReady = 'true';
 
     return { tzKeys, times };
   }
@@ -554,20 +642,22 @@
     } catch (_) { }
 
     // Build today OFF intervals (strict OFF = state 'no', plus half-hour first/second)
-    const todayEpoch = (fact && fact.today != null) ? Number(fact.today) : null;
-    const dayObj = (todayEpoch != null) ? (fact && fact.data && fact.data[String(todayEpoch)]) : null;
-    const schedule = dayObj && (dayObj[gpvKey]);
+    const todayEpoch = factTodayEpoch(fact);
+    const schedule = factSchedule(fact, todayEpoch, gpvKey);
 
     // Inject date line with full Ukrainian date like "8 листопада,"
-    if (dateEl && Number.isFinite(todayEpoch)) {
-      try {
-        const d = new Date(todayEpoch * 1000);
-        const longDate = new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long' }).format(d);
-        if (longDate) dateEl.textContent = `${longDate},`;
-      } catch (_) { }
+    if (dateEl) {
+      const longDate = formatUkDate(todayEpoch);
+      dateEl.textContent = longDate ? `${longDate},` : 'Дата графіка невідома';
     }
 
     const tzKeys = Object.keys(preset.time_zone || {}).map(Number).sort((a, b) => a - b);
+    const scheduleStatus = factScheduleStatus(schedule, tzKeys);
+    const summary = document.querySelector('.summary-card');
+    if (summary) {
+      delete summary.dataset.scheduleReady;
+      summary.dataset.scheduleStatus = scheduleStatus;
+    }
     const labels = tzKeys.map(k => preset.time_zone[String(k)]?.[0] || '');
 
     // Parse time label to start minutes (00:00 = 0)
@@ -654,7 +744,16 @@
     const pad = (n) => String(n).padStart(2, '0');
     const fmt = (mins) => `${pad(Math.floor(mins / 60))}:${pad(mins % 60)}`;
 
-    if (intervals.length === 0 && allYes) {
+    if (scheduleStatus !== 'complete') {
+      note.textContent = scheduleStatus === 'missing' ? 'Дані графіка відсутні' : 'Дані графіка неповні';
+      if (statusBadge) {
+        statusBadge.textContent = '?';
+        statusBadge.className = 'badge-unknown status-badge';
+      }
+      const div = document.createElement('div');
+      div.textContent = '—';
+      list.appendChild(div);
+    } else if (intervals.length === 0 && allYes) {
       // All YES for today: ON all day
       note.textContent = 'світло буде весь день';
       if (statusBadge) {
@@ -663,7 +762,7 @@
       }
       // No intervals/placeholder needed when ON all day
     } else if (intervals.length === 0) {
-      // No OFF chunks but not all strictly yes (missing data or maybe values)
+      // A complete schedule with no strict OFF chunks (e.g. maybe values).
       note.textContent = 'Відключень за даними графіка не очікується';
       if (statusBadge) {
         statusBadge.textContent = 'OFF';
@@ -691,6 +790,7 @@
       const num = extractGroupNumber(gpvKey, preset?.sch_names || {});
       if (num) badge.textContent = num;
     }
+    if (summary) summary.dataset.scheduleReady = 'true';
   }
 
   function applyUpdateHighlights(preset, data) {
@@ -776,6 +876,8 @@
     }
 
     const gpvKey = pickGpvKey(data);
+    const todayEpoch = factTodayEpoch(data.fact);
+    const targetEpoch = dayOption === 'tomorrow' ? nextKyivDayEpoch(todayEpoch) : todayEpoch;
 
     // lastUpdated/meta only if such elements exist (full template)
     injectLastUpdatedIfPresent(data);
@@ -783,28 +885,7 @@
     // For groups mode: replace word "сьогодні" with full date (e.g., "8 листопада") and remove short (DD.MM)
     if (mode === 'groups') {
       try {
-        const todayEpoch = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
-        let targetEpoch = todayEpoch;
-
-        if (dayOption === 'tomorrow') {
-          // Find next available day after today
-          try {
-            const keys = Object.keys(data?.fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
-            if (keys.length) {
-              const greater = keys.filter(k => todayEpoch != null ? k > todayEpoch : true).sort((a, b) => a - b);
-              const nextDay = greater[0] ?? keys.find(k => k !== todayEpoch) ?? null;
-              if (nextDay != null) targetEpoch = nextDay;
-            }
-          } catch (_) { }
-        }
-
-        let longDate = '';
-        if (Number.isFinite(targetEpoch)) {
-          try {
-            const d = new Date(targetEpoch * 1000);
-            longDate = new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: 'numeric', month: 'long' }).format(d);
-          } catch (_) { longDate = ''; }
-        }
+        const longDate = formatUkDate(targetEpoch);
         if (longDate) {
           // Update document.title: replace '(сьогодні ...)' or '(сьогодні)' with '(D місяця)'
           const cur = document.title || '';
@@ -823,9 +904,6 @@
             const text = h1.firstChild.nodeValue || '';
             let updated = text.replace(/на сьогодні\s*\(\d{2}\.\d{2}\)/i, `на ${longDate}`)
               .replace(/на сьогодні/i, `на ${longDate}`);
-            // If we are showing tomorrow, we might want to replace "на сьогодні" with "на завтра" or just the date.
-            // The regex above handles "на сьогодні" -> "на D місяця".
-            // If the text was "Графік відключень на сьогодні ...", it becomes "Графік відключень на D місяця ...".
             if (updated !== text) {
               h1.firstChild.nodeValue = updated;
             }
@@ -889,29 +967,7 @@
     }
 
     if ((mode === 'groups' || mode === 'auto') && hasMatrix) {
-      // Pass the determined targetEpoch (if we are in groups mode and calculated it)
-      // If mode is auto, we default to today (which is what targetEpoch is init to if not 'tomorrow')
-      // But we need to make sure we calculated targetEpoch above.
-      // The block above runs `if (mode === 'groups')`.
-      // Let's recalculate targetEpoch if needed or scope it better.
-      // For safety, let's just re-derive if not set, or move the logic up.
-      // Actually, let's just duplicate the simple logic here or assume 'today' if not 'groups' mode.
-
-      let effectiveEpoch = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
-      if (mode === 'groups' && dayOption === 'tomorrow') {
-        // Re-find next available day
-        try {
-          const keys = Object.keys(data?.fact?.data || {}).map(Number).filter(n => !Number.isNaN(n));
-          const t = (data && data.fact && data.fact.today != null) ? Number(data.fact.today) : null;
-          if (keys.length) {
-            const greater = keys.filter(k => t != null ? k > t : true).sort((a, b) => a - b);
-            const nextDay = greater[0] ?? keys.find(k => k !== t) ?? null;
-            if (nextDay != null) effectiveEpoch = nextDay;
-          }
-        } catch (_) { }
-      }
-
-      buildGroups(data.preset, data.fact, effectiveEpoch);
+      buildGroups(data.preset, data.fact, mode === 'groups' ? targetEpoch : todayEpoch);
       injectMetaIfPresent(data);
       return;
     }

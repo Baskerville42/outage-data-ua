@@ -124,6 +124,23 @@ tbody td.state-no { background: var(--maybe-bg); }
 tbody td.state-maybe { background: var(--maybe-bg); }
 tbody td.state-mfirst, tbody td.state-first { background: linear-gradient(90deg, var(--maybe-bg) 0 50%, white 50% 100%); }
 tbody td.state-msecond, tbody td.state-second { background: linear-gradient(90deg, white 0 50%, var(--maybe-bg) 50% 100%); }
+tbody td.state-unknown,
+.legend-box.state-unknown {
+  background: repeating-linear-gradient(135deg, var(--head) 0 5px, var(--panel) 5px 10px);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 16px;
+}
+tbody th.schedule-missing {
+  position: static;
+  max-width: none;
+  padding: 0 12px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--head);
+  border-right: 1px solid var(--grid-strong);
+  white-space: normal;
+}
 
 /* Center icons inside cells and fix their size */
 tbody td { text-align: center; }
@@ -165,5 +182,6 @@ tbody td .cell-icon { width: 20px; height: 20px; display: inline-block; margin-t
 .badge-off { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10px; letter-spacing: 0.4px; color: var(--muted); border-radius: 6px; padding: 0 8px; width: auto; height: 20px; margin: 3px 0 0; }
 /* ON badge (yellow pill) */
 .badge-on { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10px; letter-spacing: 0.4px; color: #000; background: #ffd666; border: 1px solid #e3b617; border-radius: 6px; padding: 0 8px; width: auto; height: 20px; margin: 3px 0 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.02) inset; }
+.badge-unknown { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--muted); background: var(--head); border: 1px solid var(--grid-strong); border-radius: 6px; padding: 0 8px; height: 20px; margin: 3px 0 0; }
 /* Intervals column */
 .summary-intervals { line-height: 1.6; }
