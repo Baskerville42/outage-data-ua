@@ -44,6 +44,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test schedule parsing and date handling
+        run: npm test
+
       - name: Cache Playwright browsers
         id: playwright-cache
         uses: actions/cache@v4
@@ -54,6 +57,9 @@ jobs:
       - name: Ensure Playwright Chromium is installed
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx --yes playwright install --with-deps chromium
+
+      - name: Test schedule rendering in Chromium
+        run: npm run test:render
 
       - name: Fetch HTML for each region (with Playwright fallback)
         shell: bash
@@ -87,6 +93,15 @@ jobs:
           set -euo pipefail
           echo "[INFO] Parsing outputs/*.html into data/*.json via Node batch parser"
           node scripts/batch_parse.mjs
+
+      - name: Upload fetched HTML snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetch-snapshots
+          path: outputs/*.html
+          retention-days: 7
+          if-no-files-found: ignore
 
       - name: Check for data changes
         id: check-changes

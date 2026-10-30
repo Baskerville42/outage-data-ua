@@ -17,6 +17,8 @@
     "Alexander Tartmin"
   ],
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:render": "node --test tests/render/*.test.mjs",
     "fetch": "node scripts/fetch_regions_playwright.mjs",
     "parse": "node scripts/batch_parse.mjs",
     "render": "node scripts/batch_render.mjs"
