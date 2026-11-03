@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-11-03T15:36:10.563Z",
+  "lastUpdated": "2026-11-03T15:41:22.252Z",
   "fact": {
     "data": {
       "1793656800": {
@@ -2702,8 +2702,8 @@
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-03T15:36:10.563Z",
-    "attempt": 51014
+    "at": "2026-11-03T15:41:22.252Z",
+    "attempt": 51015
   },
   "meta": {
     "schemaVersion": "1.0.0",
