@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-03T10:06:15.017Z",
+  "lastUpdated": "2026-11-03T10:11:17.713Z",
   "fact": {
     "data": {
       "1793656800": {
@@ -2702,8 +2702,8 @@
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-03T10:06:15.016Z",
-    "attempt": 50949
+    "at": "2026-11-03T10:11:17.713Z",
+    "attempt": 50950
   },
   "meta": {
     "schemaVersion": "1.0.0",
