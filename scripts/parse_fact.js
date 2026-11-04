@@ -95,6 +95,58 @@ function tryParseObject(text) {
   }
 }
 
+function decodeEntities(text) {
+  const named = { nbsp: ' ', amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", laquo: '«', raquo: '»', mdash: '—', ndash: '–', hellip: '…', rsquo: '’', lsquo: '‘' };
+  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, code) => {
+    if (code[0] === '#') {
+      const n = code[1].toLowerCase() === 'x' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : m;
+    }
+    return named[code.toLowerCase()] ?? m;
+  });
+}
+
+function htmlToLines(fragment) {
+  const text = fragment
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<br\s*\/?>|<\/(p|div|li|h\d)>/gi, '\n')
+    .replace(/<[^>]+>/g, '');
+  return decodeEntities(text)
+    .split('\n')
+    .map(line => line.replace(/\s+/g, ' ').replace(/\s+([.,;:!?])/g, '$1').trim())
+    .filter(Boolean);
+}
+
+// An announcement counts as active only when it states that emergency outages are in effect,
+// not when it merely mentions them (e.g. "…щоб уникнути екстрених відключень").
+const EMERGENCY_RE = /екстрен\S*\s+(відключен|знеструмлен)/i;
+const EMERGENCY_NEGATION_RE = /уникн|запобіг|не допуст|щоб не\b|скасован|відмінен|завершен|припинен/i;
+const SCHEDULES_SUSPENDED_RE = /графік\S*[^.]{0,60}?не\s+діють/i;
+
+/**
+ * Reads the provider's "Шановні клієнти!" popup (`.m-attention__text`) and reports whether
+ * emergency outages (екстрені відключення) are announced. Returns null when the block is absent,
+ * so callers can distinguish "no announcement" from "page layout changed".
+ */
+function extractEmergency(html) {
+  const marker = html.search(/class="m-attention__text"/);
+  if (marker === -1) return null;
+  const start = html.indexOf('>', marker) + 1;
+  const end = html.indexOf('</div>', start);
+  if (start <= 0 || end === -1) return null;
+  const lines = htmlToLines(html.slice(start, end));
+  const text = lines.join('\n');
+  // Split into sentences, but not after short abbreviations such as "м.", "смт.", "обл.".
+  const sentences = lines.flatMap(line => line.split(/(?<=[.!?])(?<!(?:^|\s)[а-яіїєґ']{1,4}\.)\s+(?=[А-ЯІЇЄҐA-Z«"])/u));
+  const summary = sentences.find(s => EMERGENCY_RE.test(s) && !EMERGENCY_NEGATION_RE.test(s)) || null;
+  return {
+    active: Boolean(summary),
+    schedulesSuspended: Boolean(summary) && SCHEDULES_SUSPENDED_RE.test(text),
+    summary,
+    text: text || null,
+  };
+}
+
 function loadExisting(file) {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -334,6 +386,13 @@ function main() {
   const now = isoNow();
 
   let outObj = buildOutput(regionId, factParsed.value, presetParsed);
+  const emergency = extractEmergency(html);
+  outObj.emergency = emergency;
+  if (!emergency) {
+    console.warn(`[WARN] Announcement block .m-attention__text not found in ${args.input}; emergency=null`);
+  } else if (emergency.active) {
+    console.log(`[INFO] Emergency outages announced for ${regionId}: ${emergency.summary}`);
+  }
 
   // Merge with existing to increment attempts
   const existing = loadExisting(args.output);
@@ -354,8 +413,9 @@ function main() {
     attempt: prevAttempt + 1,
   };
 
-  // Compute content hash based on the extracted JSON text of fact + preset (if any)
-  const hashInput = factExt.jsonLike + '|' + (presetExt.error ? '' : presetExt.jsonLike);
+  // Compute content hash based on the extracted JSON text of fact + preset (if any) + announcement,
+  // so a change of the emergency status alone also counts as new content.
+  const hashInput = factExt.jsonLike + '|' + (presetExt.error ? '' : presetExt.jsonLike) + '|' + (emergency ? emergency.text || '' : '');
   const hash = sha256(hashInput);
   outObj.meta.contentHash = hash;
 
@@ -364,6 +424,8 @@ function main() {
   logFactSummary(regionId, factParsed.value);
   console.log(`[OK] Parsed ${args.region} → ${args.output} (factMethod=${factParsed.method}${presetParsed ? `, presetMethod=${presetExt.error ? 'n/a' : (tryParseObject.name && 'parsed')}` : ''}, bytes=${jsonText.length})`);
 }
+
+module.exports = { extractEmergency };
 
 if (require.main === module) {
   try {

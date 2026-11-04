@@ -41,3 +41,52 @@ test('parser preserves source facts and reports missing current-day data', async
     });
   }
 });
+
+// Announcement markup as published by the provider (trimmed from real snapshots of 04.11.2026).
+const attention = inner => `<div class="m-attention__body" style="padding-top: 37px">
+  <div class="m-attention__text">${inner}</div>
+</div>`;
+const announcements = {
+  kyiv: ['<p>За наказом НЕК Укренерго введені <strong>екстрені</strong> відключення електроенергії.&nbsp;&nbsp;<br>Графіки відключень при цьому не діють.  Будь ласка, розумно споживайте електроенергію.</p>\n<p>&nbsp;</p>',
+    { active: true, schedulesSuspended: true, summary: 'За наказом НЕК Укренерго введені екстрені відключення електроенергії.' }],
+  dnipro: ['<p>За розпорядженням НЕК Укренерго в<strong> м. Дніпро</strong> застосовуються <strong>екстрені </strong>відключення.&nbsp;&nbsp;</p>\n<p>В області діють графіки стабілізаційних відключень.</p>',
+    { active: true, schedulesSuspended: false, summary: 'За розпорядженням НЕК Укренерго в м. Дніпро застосовуються екстрені відключення.' }],
+  odesa: ['<p>За наказом <strong>НЕК Укренерго</strong> сьогодні з <strong>00:00 до 24:00</strong>&nbsp;діють <strong>стабілізаційні відключення</strong> електроенергії.</p>\n<p>Будь ласка, розумно споживайте електроенергію — це допоможе уникнути екстрених відключень.<!--EndFragment--></p>',
+    { active: false, schedulesSuspended: false, summary: null }],
+};
+
+test('parser detects announced emergency outages without false positives', async t => {
+  for (const [name, [inner, expected]] of Object.entries(announcements)) {
+    await t.test(name, async () => {
+      const dir = await mkdtemp(path.join(tmpdir(), 'outage-parser-'));
+      try {
+        const input = path.join(dir, 'source.html');
+        const output = path.join(dir, 'out.json');
+        await writeFile(input, `${attention(inner)}<script>DisconSchedule.fact = ${JSON.stringify(incident.fact)};\nDisconSchedule.preset = ${JSON.stringify(incident.preset)};</script>`);
+        const result = spawnSync(process.execPath, [path.join(root, 'scripts/parse_fact.js'), '--region', name, '--in', input, '--out', output], { encoding: 'utf8' });
+        assert.equal(result.status, 0, result.stderr);
+        const { emergency } = JSON.parse(await readFile(output, 'utf8'));
+        const { text, ...flags } = emergency;
+        assert.deepEqual(flags, expected);
+        assert.ok(!/[<&]|nbsp/.test(text), text);
+      } finally {
+        await rm(dir, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
+test('parser sets emergency to null when the announcement block is absent', async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'outage-parser-'));
+  try {
+    const input = path.join(dir, 'source.html');
+    const output = path.join(dir, 'out.json');
+    await writeFile(input, `<script>DisconSchedule.fact = ${JSON.stringify(incident.fact)};</script>`);
+    const result = spawnSync(process.execPath, [path.join(root, 'scripts/parse_fact.js'), '--region', 'kyiv', '--in', input, '--out', output], { encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(JSON.parse(await readFile(output, 'utf8')).emergency, null);
+    assert.match(result.stderr, /m-attention__text not found/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

@@ -15,7 +15,8 @@ jobs:
   # Job 1: Fetch and parse HTML for all regions
   fetch-and-parse:
     name: Fetch and parse HTML
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest is 26.04, which Playwright 1.56 cannot install Chromium on.
+    runs-on: ubuntu-24.04
     outputs:
       regions: ${{ steps.set-matrix.outputs.regions }}
       has_changes: ${{ steps.check-changes.outputs.has_changes }}
@@ -145,7 +146,8 @@ jobs:
   # Job 2: Render images for each region in parallel
   render-images:
     name: Render ${{ matrix.region }}
-    runs-on: ubuntu-latest
+    # Pinned for the same reason as fetch-and-parse (Playwright needs a supported OS).
+    runs-on: ubuntu-24.04
     needs: fetch-and-parse
     if: needs.fetch-and-parse.outputs.has_changes == 'true'
     strategy:

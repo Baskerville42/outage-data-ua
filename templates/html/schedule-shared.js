@@ -318,6 +318,39 @@
     }
   }
 
+  // Emergency outages (екстрені відключення) announced by the provider: the published schedule
+  // may not reflect reality, so show a prominent notice above the schedule.
+  function injectEmergencyNotice(data, mode) {
+    const em = data && data.emergency;
+    if (!em || em.active !== true) return;
+    const container = document.querySelector('.container');
+    if (!container || container.querySelector('.emergency-notice')) return;
+
+    const box = document.createElement('div');
+    box.className = 'emergency-notice';
+    box.setAttribute('role', 'alert');
+    const title = document.createElement('strong');
+    title.className = 'emergency-notice-title';
+    title.textContent = em.schedulesSuspended
+      ? '⚠ Екстрені відключення — графіки не діють'
+      : '⚠ Діють екстрені відключення';
+    box.appendChild(title);
+    if (em.summary && mode !== 'summary') {
+      const text = document.createElement('span');
+      text.className = 'emergency-notice-text';
+      text.textContent = em.summary;
+      box.appendChild(text);
+    }
+
+    if (mode === 'summary') {
+      const card = container.querySelector('.summary-card');
+      const anchor = card && card.querySelector('.summary-title');
+      if (anchor) { box.classList.add('emergency-notice-compact'); anchor.after(box); return; }
+    }
+    const anchor = document.getElementById('lastUpdated') || container.querySelector('h1');
+    if (anchor) anchor.after(box); else container.prepend(box);
+  }
+
   function displayGroupName(name) {
     return String(name || '').replace(/^Черга(?=\s|:|$)/u, 'Група');
   }
@@ -881,6 +914,9 @@
 
     // lastUpdated/meta only if such elements exist (full template)
     injectLastUpdatedIfPresent(data);
+
+    // The announcement describes the current situation, so it is not shown on tomorrow's view.
+    if (dayOption !== 'tomorrow') injectEmergencyNotice(data, mode);
 
     // For groups mode: replace word "сьогодні" with full date (e.g., "8 листопада") and remove short (DD.MM)
     if (mode === 'groups') {

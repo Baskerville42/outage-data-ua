@@ -13,6 +13,9 @@
   /* Warm yellow accents for highlighting today's row in weekly matrix */
   --today-border: #f2b200; /* warm amber/yellow for borders */
   --today-bg: #fff4cc;    /* light warm yellow background for day header */
+  --emergency-bg: #fdecec;
+  --emergency-border: #d92d20;
+  --emergency-text: #7a1a12;
 }
 
 /* Optional dark theme override (URL: ?theme=dark) */
@@ -29,6 +32,9 @@
   --maybe-bg: rgba(160,170,180,0.7);
   --today-border: #f2b200;
   --today-bg: #3a2a00;
+  --emergency-bg: #3b1412;
+  --emergency-border: #f04438;
+  --emergency-text: #fecdca;
 }
 html, body { height: 100%; }
 body {
@@ -141,6 +147,18 @@ tbody th.schedule-missing {
   border-right: 1px solid var(--grid-strong);
   white-space: normal;
 }
+
+/* Emergency outages notice (data.emergency.active) */
+.emergency-notice {
+  width: 835px; box-sizing: border-box; margin: 0 0 16px; padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--emergency-bg); color: var(--emergency-text);
+  border: 1px solid var(--emergency-border); border-left-width: 5px; border-radius: 10px;
+  font-size: 13px; line-height: 1.4;
+}
+.emergency-notice-title { font-size: 15px; font-weight: 700; }
+.emergency-notice-compact { width: auto; max-width: 320px; margin: 0 0 10px; padding: 6px 10px; }
+.emergency-notice-compact .emergency-notice-title { font-size: 12px; }
 
 /* Center icons inside cells and fix their size */
 tbody td { text-align: center; }

@@ -186,3 +186,30 @@ test('PNG renderer accepts explicit empty states and rejects uninitialized summa
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('emergency announcement is shown on current-day views only', async () => {
+  const summary = 'За наказом НЕК Укренерго введені екстрені відключення електроенергії.';
+  const fixture = { ...withSchedule(allYes()), emergency: { active: true, schedulesSuspended: true, summary, text: summary } };
+  for (const template of ['emergency-template.html', 'full-template.html', 'week-template.html', 'groups-template.html']) {
+    await view(template, fixture, async page => {
+      assert.equal(await page.locator('.emergency-notice').count(), 1);
+      assert.match(await page.locator('.emergency-notice-title').textContent(), /графіки не діють/);
+      assert.equal(await page.locator('.emergency-notice-text').textContent(), summary);
+    });
+  }
+  await view('summary-item.html', fixture, async page => {
+    assert.equal(await page.locator('.summary-card .emergency-notice-compact').count(), 1);
+  });
+  await view('groups-template.html', fixture, async page => {
+    assert.equal(await page.locator('.emergency-notice').count(), 0);
+  }, 'tomorrow');
+  for (const emergency of [null, undefined, { active: false, schedulesSuspended: false, summary: null, text: 'Діють стабілізаційні відключення.' }]) {
+    await view('emergency-template.html', { ...withSchedule(allYes()), emergency }, async page => {
+      assert.equal(await page.locator('.emergency-notice').count(), 0);
+    });
+  }
+  const partial = { ...fixture, emergency: { ...fixture.emergency, schedulesSuspended: false } };
+  await view('emergency-template.html', partial, async page => {
+    assert.equal(await page.locator('.emergency-notice-title').textContent(), '⚠ Діють екстрені відключення');
+  });
+});
