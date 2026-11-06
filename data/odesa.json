@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-06T13:31:15.776Z",
+  "lastUpdated": "2026-11-06T13:51:19.009Z",
   "fact": {
     "data": {
       "1793916000": {
@@ -75,11 +75,11 @@
           "16": "yes",
           "17": "yes",
           "18": "yes",
-          "19": "yes",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "19": "second",
+          "20": "no",
+          "21": "no",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV2.2": {
@@ -101,11 +101,11 @@
           "16": "yes",
           "17": "yes",
           "18": "yes",
-          "19": "yes",
-          "20": "yes",
-          "21": "yes",
-          "22": "yes",
-          "23": "yes",
+          "19": "second",
+          "20": "no",
+          "21": "no",
+          "22": "no",
+          "23": "first",
           "24": "yes"
         },
         "GPV3.1": {
@@ -183,8 +183,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV4.2": {
           "1": "yes",
@@ -209,8 +209,8 @@
           "20": "yes",
           "21": "yes",
           "22": "yes",
-          "23": "yes",
-          "24": "yes"
+          "23": "no",
+          "24": "no"
         },
         "GPV5.1": {
           "1": "yes",
@@ -229,9 +229,9 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "yes",
-          "18": "yes",
-          "19": "yes",
+          "17": "no",
+          "18": "no",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -255,9 +255,9 @@
           "14": "yes",
           "15": "yes",
           "16": "yes",
-          "17": "yes",
-          "18": "yes",
-          "19": "yes",
+          "17": "no",
+          "18": "no",
+          "19": "no",
           "20": "yes",
           "21": "yes",
           "22": "yes",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "update": "06.11.2026 14:34",
+    "update": "06.11.2026 15:42",
     "today": 1793916000
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "06.11.2026 14:34"
+    "updateFact": "06.11.2026 15:42"
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/odesa.html",
-    "at": "2026-11-06T13:46:33.285Z",
-    "attempt": 51833
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-11-06T13:51:19.008Z",
+    "attempt": 51834
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "ab7b0c92ebb395b8bc109baeaad4b1fbffddcee4a58d324fa1800f25dfbbbac9"
+    "contentHash": "b4288109cf60ab0a7a595d670cfd99fa095e35db4771d0cf2c2f6d5bb3965024"
   },
   "regionAffiliation": "Одеса та обл."
 }
