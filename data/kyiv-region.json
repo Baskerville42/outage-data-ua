@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv-region",
-  "lastUpdated": "2026-11-11T07:46:11.945Z",
+  "lastUpdated": "2026-11-11T07:51:04.321Z",
   "fact": {
     "data": {
       "1794348000": {
@@ -41,7 +41,7 @@
           "8": "no",
           "9": "yes",
           "10": "yes",
-          "11": "first",
+          "11": "yes",
           "12": "yes",
           "13": "yes",
           "14": "second",
@@ -52,7 +52,7 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "no",
+          "22": "yes",
           "23": "yes",
           "24": "yes"
         },
@@ -78,7 +78,7 @@
           "19": "no",
           "20": "no",
           "21": "no",
-          "22": "yes",
+          "22": "no",
           "23": "yes",
           "24": "yes"
         },
@@ -93,8 +93,8 @@
           "8": "no",
           "9": "no",
           "10": "no",
-          "11": "no",
-          "12": "first",
+          "11": "first",
+          "12": "yes",
           "13": "yes",
           "14": "second",
           "15": "no",
@@ -172,7 +172,7 @@
           "9": "no",
           "10": "no",
           "11": "no",
-          "12": "no",
+          "12": "first",
           "13": "no",
           "14": "no",
           "15": "yes",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "update": "11.11.2026 07:50",
+    "update": "11.11.2026 09:46",
     "today": 1794348000
   },
   "preset": {
@@ -2695,19 +2695,19 @@
         }
       }
     },
-    "updateFact": "11.11.2026 07:50"
+    "updateFact": "11.11.2026 09:46"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-11T07:46:11.945Z",
-    "attempt": 53185
+    "at": "2026-11-11T07:51:04.320Z",
+    "attempt": 53186
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "60c7ba10686fdbaaa39030dbcc57d0a1d2584d95c7b25bf5632e2cd7ef2009c1"
+    "contentHash": "cd7123061216934a5db84c5e9657cc7737271be62bf7ff00a2c9033fc463657f"
   },
   "regionAffiliation": "Київська обл."
 }
