@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-11-12T01:05:58.543Z",
+  "lastUpdated": "2026-11-12T01:11:05.973Z",
   "fact": {
     "data": {
       "1794434400": {
@@ -138,9 +138,9 @@
           "1": "yes",
           "2": "yes",
           "3": "no",
-          "4": "no",
-          "5": "no",
-          "6": "no",
+          "4": "yes",
+          "5": "yes",
+          "6": "yes",
           "7": "yes",
           "8": "yes",
           "9": "yes",
@@ -270,7 +270,7 @@
           "3": "yes",
           "4": "yes",
           "5": "yes",
-          "6": "second",
+          "6": "yes",
           "7": "no",
           "8": "no",
           "9": "no",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "update": "11.11.2026 21:53",
+    "update": "12.11.2026 03:01",
     "today": 1794434400
   },
   "preset": {
@@ -4915,19 +4915,19 @@
         }
       }
     },
-    "updateFact": "11.11.2026 21:53"
+    "updateFact": "12.11.2026 03:01"
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-12T01:05:58.543Z",
-    "attempt": 53380
+    "at": "2026-11-12T01:11:05.973Z",
+    "attempt": 53381
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "43417c8e93e86b8eee8912152e033180a69da7474f7d1ef24206c4217cf5cdeb"
+    "contentHash": "0a1321b31cf5778f314a44d761001647c5197808899407f190b8ba0a53e30e92"
   },
   "regionAffiliation": "Дніпро та обл."
 }
