@@ -80,6 +80,37 @@ function extractDisconObject(html, key) {
   return { error: `Unbalanced braces while extracting ${key} object` };
 }
 
+// Text of the «Шановні клієнти!» window (`.m-attention__text`) as plain text, one line per paragraph or line break.
+// Returns null when the page has no such block or it is empty.
+function extractAttention(html) {
+  const idx = html.indexOf('class="m-attention__text"');
+  if (idx === -1) return null;
+  const start = html.indexOf('>', idx) + 1;
+  // Find the matching </div>, counting nested divs
+  const divRe = /<\/?div\b[^>]*>/gi;
+  divRe.lastIndex = start;
+  let depth = 1;
+  let end = -1;
+  let m;
+  while ((m = divRe.exec(html))) {
+    depth += m[0][1] === '/' ? -1 : 1;
+    if (depth === 0) { end = m.index; break; }
+  }
+  if (end === -1) return null;
+  const text = html.slice(start, end)
+    .replace(/<br\s*\/?>|<\/p>/gi, '\n')
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .split('\n')
+    .map(line => line.replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .join('\n');
+  return text || null;
+}
+
 function tryParseObject(text) {
   // First, try strict JSON
   try {
@@ -248,13 +279,14 @@ function extractGroupsWithIso(data) {
   return Object.keys(out).length ? out : null;
 }
 
-function buildOutput(regionId, factObj, presetObj) {
+function buildOutput(regionId, factObj, presetObj, attentionText) {
   const now = isoNow();
   return {
     regionId,
     lastUpdated: now,
     fact: factObj,
     preset: presetObj,
+    attention: attentionText ? { text: attentionText } : null,
     lastUpdateStatus: {
       status: 'parsed',
       ok: true,
@@ -266,6 +298,7 @@ function buildOutput(regionId, factObj, presetObj) {
     meta: {
       schemaVersion: '1.0.0',
       contentHash: null,
+      attentionHash: attentionText ? sha256(attentionText) : null,
     },
   };
 }
@@ -333,7 +366,7 @@ function main() {
 
   const now = isoNow();
 
-  let outObj = buildOutput(regionId, factParsed.value, presetParsed);
+  let outObj = buildOutput(regionId, factParsed.value, presetParsed, extractAttention(html));
 
   // Merge with existing to increment attempts
   const existing = loadExisting(args.output);

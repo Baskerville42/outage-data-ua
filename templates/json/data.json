@@ -4,6 +4,7 @@
   "lastUpdated": null,
   "fact": null,
   "preset": null,
+  "attention": null,
   "lastUpdateStatus": {
     "status": "idle",
     "ok": true,
@@ -14,6 +15,7 @@
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": null
+    "contentHash": null,
+    "attentionHash": null
   }
 }
