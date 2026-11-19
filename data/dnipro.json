@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-11-19T17:02:52.565Z",
+  "lastUpdated": "2026-11-19T17:11:06.098Z",
   "fact": {
     "data": {
       "1795039200": {
@@ -4917,17 +4917,21 @@
     },
     "updateFact": "19.11.2026 07:55"
   },
+  "attention": {
+    "text": "За наказом НЕК Укренерго в м. Дніпро, Кам'янське, Самар, Павлоград, Дніпровський, Самарівський, Павлоградський, Солонянський, Царичанський р-ни діють екстрені відключення."
+  },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-19T17:02:52.565Z",
-    "attempt": 55477
+    "at": "2026-11-19T17:11:06.097Z",
+    "attempt": 55478
   },
   "meta": {
     "schemaVersion": "1.0.0",
-    "contentHash": "73691582db4468aed6fe467efd2be2ec666c758f6ea18ff25e43dcd15d3e8d5e"
+    "contentHash": "73691582db4468aed6fe467efd2be2ec666c758f6ea18ff25e43dcd15d3e8d5e",
+    "attentionHash": "51ee77cbb38f174347ef8de6e8dc6cf5b09ef9864a8d63889ef00987ea96fae9"
   },
   "regionAffiliation": "Дніпро та обл."
 }
