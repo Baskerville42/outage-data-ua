@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-20T05:41:26.002Z",
+  "lastUpdated": "2026-11-20T05:46:01.646Z",
   "fact": {
     "data": {
       "1795125600": {
@@ -2697,19 +2697,21 @@
     },
     "updateFact": "20.11.2026 07:35"
   },
-  "attention": null,
+  "attention": {
+    "text": "За наказом НЕК Укренерго сьогодні з 08:00 до 24:00 діють стабілізаційні відключення електроенергії.\nБудь ласка, розумно споживайте електроенергію — це допоможе зменшити навантаження на мережу та уникнути екстрених відключень."
+  },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-20T05:41:26.001Z",
-    "attempt": 55627
+    "at": "2026-11-20T05:46:01.645Z",
+    "attempt": 55628
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "cb3b1e390641b1942e71fc9bc62afd56c4ec7da309a36fe245e1b4ad7ef81def",
-    "attentionHash": null
+    "attentionHash": "88269ee333179b2e04e759fcda1d19d37ba79c4f798a027b3dc011a856fe9e18"
   },
   "regionAffiliation": "Одеса та обл."
 }
