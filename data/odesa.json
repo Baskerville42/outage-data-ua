@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-21T13:31:36.241Z",
+  "lastUpdated": "2026-11-21T13:36:00.632Z",
   "fact": {
     "data": {
       "1795212000": {
@@ -2697,19 +2697,21 @@
     },
     "updateFact": "21.11.2026 12:51"
   },
-  "attention": null,
+  "attention": {
+    "text": "​У частині Одеського району, зокрема в місті Одеса, зникло світло через локальну аварію в мережі. Фахівці вже працюють над відновленням електропостачання."
+  },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-21T13:31:36.240Z",
-    "attempt": 56008
+    "at": "2026-11-21T13:36:00.631Z",
+    "attempt": 56009
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "d77476cb8416b9a26a3f9c39ee04c2dda6f0cfe508e026d753bdd092c90124a1",
-    "attentionHash": null
+    "attentionHash": "b80cbb4e713b90c5f0b54c716be142f8668b22dfb3bc483bfd776faa93f4491e"
   },
   "regionAffiliation": "Одеса та обл."
 }
