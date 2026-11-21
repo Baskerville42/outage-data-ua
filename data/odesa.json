@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-21T00:41:14.131Z",
+  "lastUpdated": "2026-11-21T00:46:23.614Z",
   "fact": {
     "data": {
       "1795212000": {
@@ -2697,21 +2697,19 @@
     },
     "updateFact": "21.11.2026 01:37"
   },
-  "attention": {
-    "text": "У частині Ізмаїльського району зникло світло через локальну аварію в мережі. Фахівці вже працюють над відновленням електропостачання."
-  },
+  "attention": null,
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-21T00:41:14.131Z",
-    "attempt": 55854
+    "at": "2026-11-21T00:46:23.613Z",
+    "attempt": 55855
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "dce4ee9a104aff635c15b1039b0aa92e3038293f58b31f5231f0b8898e6e3ec9",
-    "attentionHash": "0617984d689a8ec9cc87cbd347a1359f3487630556529786786599c5eb6b95ac"
+    "attentionHash": null
   },
   "regionAffiliation": "Одеса та обл."
 }
