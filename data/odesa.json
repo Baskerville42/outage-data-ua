@@ -1,6 +1,6 @@
 {
   "regionId": "odesa",
-  "lastUpdated": "2026-11-21T08:11:22.759Z",
+  "lastUpdated": "2026-11-21T08:16:05.392Z",
   "fact": {
     "data": {
       "1795212000": {
@@ -2697,21 +2697,19 @@
     },
     "updateFact": "21.11.2026 07:11"
   },
-  "attention": {
-    "text": "За командою Укренерго введені екстрені відключення в частині Одеського району області, зокрема в Одесі."
-  },
+  "attention": null,
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-21T08:11:22.759Z",
-    "attempt": 55944
+    "at": "2026-11-21T08:16:05.392Z",
+    "attempt": 55945
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "f19797e04ad4188e141ef2d1713a1e7900621b428d72bc1a400d28bb6033a7ff",
-    "attentionHash": "334334f0a49b051d4c25d6a704dadb380a9a301f1b228839d05c5abe45a3333b"
+    "attentionHash": null
   },
   "regionAffiliation": "Одеса та обл."
 }
