@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-11-21T08:46:07.834Z",
+  "lastUpdated": "2026-11-21T08:51:09.764Z",
   "fact": {
     "data": {
       "1795212000": {
@@ -13989,19 +13989,21 @@
     },
     "updateFact": "20.11.2026 23:36"
   },
-  "attention": null,
+  "attention": {
+    "text": "За наказом НЕК Укренерго 21.11 діють стабілізаційні відключення електроенергії.\nБудь ласка, розумно споживайте електроенергію — це допоможе зменшити навантаження на мережу та уникнути екстрених відключень."
+  },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-21T08:46:07.833Z",
-    "attempt": 55952
+    "at": "2026-11-21T08:51:09.763Z",
+    "attempt": 55953
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "29b13ac8f13c8b262c123524699facab531c9812e4c9a2343655b4aa7b3620ec",
-    "attentionHash": null
+    "attentionHash": "385977efdf2f286dbc0e7193f5c573336aeeca6b62d0f68a70bfeb6ee0b02868"
   },
   "regionAffiliation": "м. Київ"
 }
