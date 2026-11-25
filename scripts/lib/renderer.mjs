@@ -2,6 +2,7 @@ import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import url from 'node:url';
+import { imageRenderInfo } from './render-state.mjs';
 
 export async function ensureExists(p) {
     try { await stat(p); } catch (e) { return false; }
@@ -68,7 +69,9 @@ export async function renderPage({
     theme,
     deviceScaleFactor,
     timeoutMs = 30000,
-    projectRoot
+    projectRoot,
+    renderedAt = new Date().toISOString(),
+    asOf = renderedAt,
 }) {
     const context = await browser.newContext({
         deviceScaleFactor,
@@ -84,10 +87,11 @@ export async function renderPage({
             throw new Error(`Failed to parse JSON: ${e?.message || e}`);
         }
 
-        await page.addInitScript(({ data, gpv }) => {
+        await page.addInitScript(({ data, gpv, png }) => {
             window.__SCHEDULE__ = data;
+            window.__PNG_RENDER__ = png;
             if (gpv) window.__GPV_KEY__ = gpv;
-        }, { data: scheduleData, gpv: gpvKey });
+        }, { data: scheduleData, gpv: gpvKey, png: imageRenderInfo(scheduleData, asOf, renderedAt) });
 
         const relHtml = path.relative(projectRoot, htmlPath).split(path.sep).join('/');
         const urlToOpen = `${baseURL}/${relHtml}?theme=${theme}${dayArg ? `&day=${dayArg}` : ''}`;

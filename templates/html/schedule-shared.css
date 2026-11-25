@@ -85,6 +85,7 @@ thead th:last-child { border-top-right-radius: 10px; }
 tbody tr:last-child th { border-bottom-left-radius: 10px; }
 tbody tr:last-child td:last-child { border-bottom-right-radius: 10px; }
 .muted { color: var(--muted); font-weight: 100; font-size: 10px; }
+.png-status { font-size: 12px; font-weight: 600; }
 .muted.small { color: var(--muted); font-weight: 100; font-size: 3px; opacity: 0.2; }
 .hash { color: var(--hash); font-weight: 100; font-size: 10px; }
 

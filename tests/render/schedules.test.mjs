@@ -4,6 +4,7 @@ import { mkdtemp, readFile, writeFile, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { imageRenderInfo } from '../../scripts/lib/render-state.mjs';
 import { startStaticServer, createBrowser, renderPage } from '../../scripts/lib/renderer.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -23,14 +24,14 @@ after(async () => {
   if (server) await new Promise(resolve => server.close(resolve));
 });
 
-async function view(template, data, check, day = 'today') {
+async function view(template, data, check, day = 'today', png = null) {
   // Date rendering must be independent of the host/browser timezone.
   const context = await browser.newContext({ locale: 'en-US', timezoneId: 'America/Los_Angeles' });
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   try {
-    await page.addInitScript(({ data, gpv }) => { window.__SCHEDULE__ = data; window.__GPV_KEY__ = gpv; }, { data, gpv });
+    await page.addInitScript(({ data, gpv, png }) => { window.__SCHEDULE__ = data; window.__GPV_KEY__ = gpv; window.__PNG_RENDER__ = png; }, { data, gpv, png });
     await page.goto(`${baseURL}/templates/html/${template}?day=${day}`);
     const selector = template === 'summary-item.html' ? '.summary-card' : template === 'groups-template.html' || template === 'week-template.html' ? '#matrix' : '#today';
     await page.waitForSelector(`${selector}[data-schedule-ready="true"]`, { timeout: 3000 });
@@ -50,6 +51,19 @@ test('incident snapshot shows missing data and separates source and received tim
     assert.match(timestamp, /Оновлення розкладу в джерелі: 28\.10\.2026 23:35/);
     assert.match(timestamp, /Дані отримано: 30\.10\.2026,? 00:01/);
   });
+});
+
+test('PNG labels its generation time and warns about stale dates or failed refreshes', async () => {
+  const data = { ...incident, lastUpdateStatus: { ok: false } };
+  const png = imageRenderInfo(data, '2026-10-31T05:17:00Z');
+  for (const template of ['emergency-template.html', 'summary-item.html']) {
+    await view(template, data, async page => {
+      const label = await page.locator('#lastUpdated').textContent();
+      assert.match(label, /Зображення оновлено: 31\.10\.2026,? 07:17/);
+      assert.doesNotMatch(label, /Дані отримано/);
+      assert.match(await page.locator('.png-status').textContent(), /поточну дату не підтверджено.*Не вдалося перевірити/);
+    }, 'today', png);
+  }
 });
 
 test('missing variants never imply uninterrupted power in emergency or summary', async t => {

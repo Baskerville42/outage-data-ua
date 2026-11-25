@@ -11,6 +11,7 @@ import { readdir, readFile, mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { startStaticServer, createBrowser, renderPage } from './lib/renderer.mjs';
+import { gpvKeys, gpvImageName } from './lib/render-state.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -36,7 +37,9 @@ const onlyRegion = args.region || null; // regionId or file stem
 const specificFiles = args.files ? args.files.split(',').map(f => f.trim()).filter(Boolean) : null;
 
 const dataDir = path.join(projectRoot, 'data');
-const imagesDir = path.join(projectRoot, 'images');
+const imagesDir = path.resolve(projectRoot, args['output-dir'] || 'images');
+const renderedAt = new Date().toISOString();
+const asOf = process.env.RENDER_AT || renderedAt;
 const templateFull = path.join(projectRoot, 'templates', 'html', 'full-template.html');
 const templateEmergency = path.join(projectRoot, 'templates', 'html', 'emergency-template.html');
 const templateWeek = path.join(projectRoot, 'templates', 'html', 'week-template.html');
@@ -45,16 +48,6 @@ const templateSummary = path.join(projectRoot, 'templates', 'html', 'summary-ite
 
 function normalizeRegionId(json, fileStem) {
   return (json && typeof json.regionId === 'string' && json.regionId.trim()) || fileStem;
-}
-
-function gpvToFileName(gpvKey) {
-  // GPV1.2 -> gpv-1-2.png
-  const m = String(gpvKey).match(/^GPV(\d+)\.(\d+)$/i);
-  if (!m) {
-    // fallback: sanitize
-    return `gpv-${String(gpvKey).replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.png`;
-  }
-  return `gpv-${m[1]}-${m[2]}.png`;
 }
 
 async function fileExists(p) {
@@ -140,20 +133,19 @@ async function runParallel(tasks, concurrency) {
         continue;
       }
 
-      const presetData = json?.preset?.data || {};
-      const gpvKeys = Object.keys(presetData).filter(k => /^GPV\d+\.\d+$/i.test(k)).sort((a, b) => {
+      const groups = gpvKeys(json).sort((a, b) => {
         const pa = a.match(/\d+|\.|/g)?.join('') || '';
         const pb = b.match(/\d+|\.|/g)?.join('') || '';
         return pa.localeCompare(pb, 'en', { numeric: true });
       });
-      if (gpvKeys.length === 0) {
+      if (groups.length === 0) {
         console.warn(`[WARN] No GPV groups in ${jf} — skipping`);
         continue;
       }
 
-      for (const gpv of gpvKeys) {
+      for (const gpv of groups) {
         const outDir = path.join(imagesDir, regionId);
-        const baseName = gpvToFileName(gpv);
+        const baseName = gpvImageName(gpv);
 
         // 1) Full template
         tasks.push({
@@ -163,7 +155,7 @@ async function runParallel(tasks, concurrency) {
             await mkdir(path.dirname(outPath), { recursive: true });
             await renderPage({
               browser, baseURL, htmlPath: templateFull, jsonPath: jf, gpvKey: gpv, outPath,
-              theme, deviceScaleFactor, projectRoot
+              theme, deviceScaleFactor, projectRoot, renderedAt, asOf
             });
             console.log(`[INFO] Rendered FULL ${regionId} ${gpv}`);
           }
@@ -177,7 +169,7 @@ async function runParallel(tasks, concurrency) {
             await mkdir(path.dirname(outPath), { recursive: true });
             await renderPage({
               browser, baseURL, htmlPath: templateEmergency, jsonPath: jf, gpvKey: gpv, outPath,
-              theme, deviceScaleFactor, projectRoot
+              theme, deviceScaleFactor, projectRoot, renderedAt, asOf
             });
             console.log(`[INFO] Rendered EMERGENCY ${regionId} ${gpv}`);
           }
@@ -191,7 +183,7 @@ async function runParallel(tasks, concurrency) {
             await mkdir(path.dirname(outPath), { recursive: true });
             await renderPage({
               browser, baseURL, htmlPath: templateWeek, jsonPath: jf, gpvKey: gpv, outPath,
-              theme, deviceScaleFactor, projectRoot
+              theme, deviceScaleFactor, projectRoot, renderedAt, asOf
             });
             console.log(`[INFO] Rendered WEEK ${regionId} ${gpv}`);
           }
@@ -205,7 +197,7 @@ async function runParallel(tasks, concurrency) {
             await mkdir(path.dirname(outPath), { recursive: true });
             await renderPage({
               browser, baseURL, htmlPath: templateSummary, jsonPath: jf, gpvKey: gpv, outPath,
-              theme, deviceScaleFactor, projectRoot
+              theme, deviceScaleFactor, projectRoot, renderedAt, asOf
             });
             console.log(`[INFO] Rendered SUMMARY ${regionId} ${gpv}`);
           }
@@ -221,7 +213,7 @@ async function runParallel(tasks, concurrency) {
           await mkdir(path.dirname(outPath), { recursive: true });
           await renderPage({
             browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
-            theme, deviceScaleFactor, projectRoot
+            theme, deviceScaleFactor, projectRoot, renderedAt, asOf
           });
           console.log(`[INFO] Rendered GROUPS/TODAY ${regionId}`);
         }
@@ -236,7 +228,7 @@ async function runParallel(tasks, concurrency) {
           await mkdir(path.dirname(outPath), { recursive: true });
           await renderPage({
             browser, baseURL, htmlPath: templateGroups, jsonPath: jf, outPath,
-            dayArg: 'tomorrow', theme, deviceScaleFactor, projectRoot
+            dayArg: 'tomorrow', theme, deviceScaleFactor, projectRoot, renderedAt, asOf
           });
           console.log(`[INFO] Rendered GROUPS/TOMORROW ${regionId}`);
         }

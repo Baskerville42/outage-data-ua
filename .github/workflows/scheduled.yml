@@ -1,6 +1,11 @@
 name: Scheduled Pipeline
 permissions:
-  contents: write
+  contents: read
+
+# A run must plan against the last published JSON and image state for its ref.
+concurrency:
+  group: outage-data-pipeline-${{ github.ref }}
+  cancel-in-progress: false
 
 on:
   # Allows manual trigger from the Actions tab and GitHub API
@@ -10,6 +15,11 @@ on:
         description: 'Optional: process only this region id (must match a key in REGION_SOURCES_JSON)'
         required: false
         type: string
+      force_render:
+        description: 'Regenerate PNGs even if their render inputs are unchanged'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   # Job 1: Fetch and parse HTML for all regions
@@ -17,17 +27,23 @@ jobs:
     name: Fetch and parse HTML
     runs-on: ubuntu-latest
     outputs:
-      regions: ${{ steps.set-matrix.outputs.regions }}
+      regions: ${{ steps.plan-render.outputs.regions }}
+      render_at: ${{ steps.plan-render.outputs.render_at }}
+      base_sha: ${{ steps.base.outputs.sha }}
       has_changes: ${{ steps.check-changes.outputs.has_changes }}
     env:
       REGION_SOURCES_JSON: ${{ secrets.REGION_SOURCES_JSON }}
       REGION: ${{ github.event.inputs.region }}
-      TARGET_BRANCH: main
     steps:
-      - name: Checkout repository
+      - name: Checkout last published snapshot
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           fetch-depth: 1
+
+      - name: Record base commit for downstream jobs
+        id: base
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -108,7 +124,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          changed_files=$(git status --porcelain data/ | grep '\.json$' | cut -c4- || true)
+          changed_files=$(git status --porcelain --untracked-files=all -- data/ | grep '\.json$' | cut -c4- || true)
           
           if [ -z "$changed_files" ]; then
             echo "[INFO] No data changes detected."
@@ -118,46 +134,41 @@ jobs:
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Plan regional image renders
+        id: plan-render
+        env:
+          FORCE_RENDER: ${{ inputs.force_render }}
+        run: node scripts/plan_render.mjs
+
       - name: Upload JSON data as artifact
-        if: steps.check-changes.outputs.has_changes == 'true'
+        if: steps.check-changes.outputs.has_changes == 'true' || steps.plan-render.outputs.regions != '[]'
         uses: actions/upload-artifact@v4
         with:
           name: json-data
           path: data/*.json
           retention-days: 1
+          if-no-files-found: error
 
-      - name: Set matrix for rendering
-        id: set-matrix
-        env:
-          REGION_SOURCES_JSON: ${{ secrets.REGION_SOURCES_JSON }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ -n "${REGION:-}" ]; then
-            # Manual trigger with specific region
-            echo "regions=[\"${REGION}\"]" >> $GITHUB_OUTPUT
-          else
-            # Get all regions from secret
-            regions=$(node scripts/list_regions.mjs)
-            echo "regions=$regions" >> $GITHUB_OUTPUT
-          fi
-
-  # Job 2: Render images for each region in parallel
+  # Job 2: Render only regions that have new visual inputs or missing outputs.
   render-images:
     name: Render ${{ matrix.region }}
     runs-on: ubuntu-latest
     needs: fetch-and-parse
-    if: needs.fetch-and-parse.outputs.has_changes == 'true'
+    if: needs.fetch-and-parse.outputs.regions != '[]'
     strategy:
       fail-fast: false
       matrix:
-        region: ${{ fromJson(needs.fetch-and-parse.outputs.regions) }}
+        include: ${{ fromJSON(needs.fetch-and-parse.outputs.regions) }}
     env:
-      TARGET_BRANCH: main
+      REGION: ${{ matrix.region }}
+      RENDER_KEY: ${{ matrix.key }}
+      RENDER_AT: ${{ needs.fetch-and-parse.outputs.render_at }}
+      RENDER_OUTPUT: rendered
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ needs.fetch-and-parse.outputs.base_sha }}
           fetch-depth: 1
 
       - name: Setup Node.js
@@ -193,39 +204,46 @@ jobs:
           path: data/
 
       - name: Render images for ${{ matrix.region }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "[INFO] Rendering images for region='${{ matrix.region }}'"
-          node scripts/batch_render.mjs --region "${{ matrix.region }}"
+        run: node scripts/batch_render.mjs --region "$REGION" --output-dir "$RENDER_OUTPUT"
 
       - name: Compress images with pngquant
         shell: bash
         run: |
           set -euo pipefail
-          echo "[INFO] Compressing PNG images for ${{ matrix.region }}..."
-          find images/${{ matrix.region }} -name "*.png" -print0 2>/dev/null | xargs -0 -P 4 -I {} npx pngquant-bin --force --ext .png --quality 65-80 --skip-if-larger "{}" || true
-          echo "[INFO] Compression complete."
+          find "$RENDER_OUTPUT/$REGION" -name '*.png' -print0 | xargs -0 -P 4 -I {} npx pngquant-bin --force --ext .png --quality 65-80 --skip-if-larger "{}" || true
+
+      - name: Verify all expected PNGs and stamp render state
+        run: node scripts/plan_render.mjs --stamp
 
       - name: Upload images as artifact
         uses: actions/upload-artifact@v4
         with:
           name: images-${{ matrix.region }}
-          path: images/${{ matrix.region }}/
+          path: rendered/
           retention-days: 1
+          if-no-files-found: error
 
-  # Job 3: Commit all changes (JSON + images) in a single commit
+  # Job 3: Publish fresh JSON even when no region renders or a render fails.
+  # A region artifact exists only after its entire image set was verified.
   commit-all:
     name: Commit all changes
     runs-on: ubuntu-latest
     needs: [fetch-and-parse, render-images]
-    if: needs.fetch-and-parse.outputs.has_changes == 'true' && github.ref_name == 'main'
+    if: >-
+      !cancelled() &&
+      github.ref_name == 'main' &&
+      needs.fetch-and-parse.result == 'success' &&
+      (needs.fetch-and-parse.outputs.has_changes == 'true' ||
+       needs.fetch-and-parse.outputs.regions != '[]')
+    permissions:
+      contents: write
     env:
       TARGET_BRANCH: main
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ needs.fetch-and-parse.outputs.base_sha }}
           fetch-depth: 1
 
       - name: Download JSON data artifact
@@ -234,80 +252,37 @@ jobs:
           name: json-data
           path: data/
 
-      - name: Download all image artifacts
+      - name: Download completed region artifacts
+        id: download-images
+        if: needs.render-images.result != 'skipped'
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: images-*
-          path: images/
+          path: rendered-artifacts/
+          merge-multiple: true
 
-      - name: Verify and fix image structure
+      - name: Apply verified image artifacts
+        if: steps.download-images.outcome == 'success'
         shell: bash
         run: |
-          set -euo pipefail
-          echo "[INFO] Restructuring image folders..."
-          
-          # Artifacts are downloaded to images/images-{region}/
-          # We need to move the CONTENTS of these folders to images/{region}/
-          
-          for artifact_dir in images/images-*; do
-            if [ -d "$artifact_dir" ]; then
-              # Extract region name: images/images-kyiv -> kyiv
-              region=$(basename "$artifact_dir" | sed 's/^images-//')
-              
-              target_dir="images/$region"
-              echo "[INFO] Processing $region..."
-              echo "[INFO] Source: $artifact_dir"
-              echo "[INFO] Target: $target_dir"
-              
-              # Create target directory
-              mkdir -p "$target_dir"
-              
-              # Move all files from artifact dir to target dir
-              # We use find to avoid errors if dir is empty (though it shouldn't be)
-              # and to handle hidden files if any
-              
-              # Check if there are files to move
-              if [ "$(ls -A $artifact_dir)" ]; then
-                mv "$artifact_dir"/* "$target_dir"/
-                echo "[INFO] Moved files to $target_dir"
-              else
-                echo "[WARN] Artifact directory $artifact_dir is empty"
-              fi
-              
-              # Remove the now empty artifact directory
-              rm -rf "$artifact_dir"
-            fi
-          done
-          
-          echo "[INFO] Final image structure:"
-          ls -la images/ || true
-          
-          echo "[INFO] Verifying region folders:"
-          for region_dir in images/*/; do
-            if [ -d "$region_dir" ]; then
-              echo "--- $region_dir ---"
-              ls -la "$region_dir" | head -5 || true
-            fi
-          done
+          if [[ -d rendered-artifacts ]]; then
+            cp -R rendered-artifacts/. images/
+          fi
 
       - name: Commit and push all changes
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           echo "[INFO] Preparing to commit all changes (JSON + images) to ${TARGET_BRANCH}"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
           echo "[INFO] Changed files:"
           git status --porcelain || true
 
-          # Add all JSON and image files
-          git add data/*.json 2>/dev/null || true
-          git add images/** 2>/dev/null || true
+          git add -- data/ images/
 
           if git diff --cached --quiet; then
             echo "[INFO] No changes detected — skipping commit"
@@ -326,9 +301,8 @@ jobs:
               echo "[OK] Pushed all updates to $TARGET_BRANCH"
               exit 0
             fi
-            echo "[WARN] Push failed (attempt $attempt). Fetching and rebasing..."
-            git fetch origin "$TARGET_BRANCH" --depth=1
-            git rebase "origin/$TARGET_BRANCH" || true
+            # Never rebase an older data/image snapshot over a newer publication.
+            echo "[WARN] Push failed (attempt $attempt); retrying without rewriting history."
             sleep $((attempt*2))
           done
 

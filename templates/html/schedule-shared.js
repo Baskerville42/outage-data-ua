@@ -287,24 +287,43 @@
   }
 
   function injectLastUpdatedIfPresent(data) {
-    const el = document.getElementById('lastUpdated');
+    let el = document.getElementById('lastUpdated');
+    if (!el && window.__PNG_RENDER__ && document.querySelector('.summary-card')) {
+      el = document.createElement('p');
+      el.id = 'lastUpdated';
+      el.className = 'muted';
+      document.querySelector('.summary-card').appendChild(el);
+    }
     if (!el) return;
     // Requirement: show date/time from fact.update if present
     const preferFact = (data?.fact?.update || '').trim();
     const label = preferFact || formatLastUpdated(data);
     const labels = [];
     if (label) labels.push('Оновлення розкладу в джерелі: ' + label);
-    if (data?.lastUpdated) {
-      const received = new Date(data.lastUpdated);
-      if (Number.isFinite(received.getTime())) {
-        const formatted = new Intl.DateTimeFormat('uk-UA', {
-          timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric',
-          hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
-        }).format(received);
-        labels.push('Дані отримано: ' + formatted);
-      }
+    const renderedAt = window.__PNG_RENDER__?.renderedAt;
+    const timestamp = new Date(renderedAt || data?.lastUpdated || NaN);
+    if (Number.isFinite(timestamp.getTime())) {
+      const formatted = new Intl.DateTimeFormat('uk-UA', {
+        timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+      }).format(timestamp);
+      labels.push((renderedAt ? 'Зображення оновлено: ' : 'Дані отримано: ') + formatted);
     }
     el.textContent = labels.join(' · ');
+  }
+
+  function injectPngStatus() {
+    const info = window.__PNG_RENDER__;
+    if (!info || (!info.dateMismatch && !info.fetchFailed)) return;
+    const container = document.querySelector('.container');
+    if (!container) return;
+    const warnings = [];
+    if (info.dateMismatch) warnings.push('Графік на поточну дату не підтверджено.');
+    if (info.fetchFailed) warnings.push('Не вдалося перевірити оновлення в джерелі.');
+    const el = document.createElement('p');
+    el.className = 'muted png-status';
+    el.textContent = warnings.join(' ');
+    container.appendChild(el);
   }
 
   function injectMetaIfPresent(data) {
@@ -881,6 +900,7 @@
 
     // lastUpdated/meta only if such elements exist (full template)
     injectLastUpdatedIfPresent(data);
+    injectPngStatus();
 
     // For groups mode: replace word "сьогодні" with full date (e.g., "8 листопада") and remove short (DD.MM)
     if (mode === 'groups') {
