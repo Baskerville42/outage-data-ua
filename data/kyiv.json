@@ -1,6 +1,6 @@
 {
   "regionId": "kyiv",
-  "lastUpdated": "2026-11-27T11:01:34.039Z",
+  "lastUpdated": "2026-11-27T11:11:16.726Z",
   "fact": {
     "data": {
       "1795730400": {
@@ -13993,12 +13993,12 @@
     "text": "За наказом НЕК Укренерго 27.11 діють стабілізаційні відключення електроенергії.\nБудь ласка, розумно споживайте електроенергію — це допоможе зменшити навантаження на мережу та уникнути екстрених відключень."
   },
   "lastUpdateStatus": {
-    "status": "error",
-    "ok": false,
-    "code": 422,
-    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv.html",
-    "at": "2026-11-27T11:06:43.914Z",
-    "attempt": 57674
+    "status": "parsed",
+    "ok": true,
+    "code": 200,
+    "message": null,
+    "at": "2026-11-27T11:11:16.726Z",
+    "attempt": 57675
   },
   "meta": {
     "schemaVersion": "1.0.0",
