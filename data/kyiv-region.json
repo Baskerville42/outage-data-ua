@@ -2701,12 +2701,12 @@
     "text": "За наказом НЕК Укренерго 27.11 діють стабілізаційні відключення електроенергії.\nБудь ласка, розумно споживайте електроенергію — це допоможе зменшити навантаження на мережу та уникнути екстрених відключень."
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-11-27T11:01:34.001Z",
-    "attempt": 57672
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv-region.html",
+    "at": "2026-11-27T11:06:43.882Z",
+    "attempt": 57673
   },
   "meta": {
     "schemaVersion": "1.0.0",

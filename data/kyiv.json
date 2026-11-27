@@ -13993,12 +13993,12 @@
     "text": "За наказом НЕК Укренерго 27.11 діють стабілізаційні відключення електроенергії.\nБудь ласка, розумно споживайте електроенергію — це допоможе зменшити навантаження на мережу та уникнути екстрених відключень."
   },
   "lastUpdateStatus": {
-    "status": "parsed",
-    "ok": true,
-    "code": 200,
-    "message": null,
-    "at": "2026-11-27T11:01:34.038Z",
-    "attempt": 57673
+    "status": "error",
+    "ok": false,
+    "code": 422,
+    "message": "Marker `DisconSchedule.fact =` not found in /home/runner/work/outage-data-ua/outage-data-ua/outputs/kyiv.html",
+    "at": "2026-11-27T11:06:43.914Z",
+    "attempt": 57674
   },
   "meta": {
     "schemaVersion": "1.0.0",
