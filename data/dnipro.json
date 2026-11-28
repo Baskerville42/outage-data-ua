@@ -1,6 +1,6 @@
 {
   "regionId": "dnipro",
-  "lastUpdated": "2026-11-28T08:01:35.768Z",
+  "lastUpdated": "2026-11-28T08:06:08.074Z",
   "fact": {
     "data": {
       "1795816800": {
@@ -7306,20 +7306,20 @@
     "updateFact": "27.11.2026 21:56"
   },
   "attention": {
-    "text": "За наказом НЕК Укренерго сьогодні діють стабілізаційні відключення електроенергії."
+    "text": "За наказом НЕК Укренерго сьогодні діють стабілізаційні відключення електроенергії.\nІндивідуальні графіки за адресою доступні на сайті."
   },
   "lastUpdateStatus": {
     "status": "parsed",
     "ok": true,
     "code": 200,
     "message": null,
-    "at": "2026-11-28T08:01:35.767Z",
-    "attempt": 57921
+    "at": "2026-11-28T08:06:08.074Z",
+    "attempt": 57922
   },
   "meta": {
     "schemaVersion": "1.0.0",
     "contentHash": "ce2e23a478c05c701609f3ebd7478a59fa798716477b6678fb1c96bb61016213",
-    "attentionHash": "483d6593baa7ab9794df46c29d338457aed86f326c6e899effcd903f26013317"
+    "attentionHash": "4af3eb0e4712b3fdfd130b7811be6441ac973aa9471aab2cb10eaf8a3fd58fd1"
   },
   "regionAffiliation": "Дніпро та обл."
 }
